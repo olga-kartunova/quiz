@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Найди свою Формулу успеха — Ольга Картунова</title>
+
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="Найди свою Формулу успеха ✨">
+<meta property="og:description" content="5 вопросов — и Ольга Картунова скажет точно, с чего начать твой путь к новому уровню жизни">
+<meta property="og:locale"      content="ru_RU">
+<meta name="description" content="5 вопросов — и Ольга Картунова скажет точно, с чего начать твой путь к новому уровню жизни">
+<meta name="theme-color" content="#0a0a0f">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px 60px;
+  }
+
+  .container { width: 100%; max-width: 560px; }
+
+  /* ШАПКА */
+  .header { text-align: center; margin-bottom: 40px; }
+  .header-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 12px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(26px, 6vw, 34px); font-weight: 900;
+    line-height: 1.2; margin-bottom: 12px;
+  }
+  .header-title span { color: #c9a84c; font-style: italic; }
+  .header-sub { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ПРОГРЕСС */
+  .progress-bar {
+    background: rgba(255,255,255,0.08); border-radius: 10px;
+    height: 4px; margin-bottom: 36px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(to right, #c9a84c, #e8c87a);
+    border-radius: 10px; transition: width 0.5s ease;
+  }
+  .progress-text {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    letter-spacing: 1px; margin-bottom: 8px; text-align: right;
+  }
+
+  /* ЭКРАН ЗНАКОМСТВА */
+  #screen-intro {
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .intro-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(20px, 5vw, 24px); font-weight: 700;
+    line-height: 1.35; margin-bottom: 10px; color: #fff;
+  }
+  .intro-sub {
+    font-size: 14px; color: rgba(255,255,255,0.45);
+    line-height: 1.6; margin-bottom: 28px;
+  }
+
+  .field-label {
+    font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 8px; display: block;
+  }
+  .field-input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 15px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 18px;
+    outline: none;
+    transition: border-color 0.25s;
+  }
+  .field-input::placeholder { color: rgba(255,255,255,0.25); }
+  .field-input:focus { border-color: #c9a84c; }
+
+  .field-hint {
+    font-size: 12px; color: rgba(255,255,255,0.25);
+    margin-top: -14px; margin-bottom: 18px; padding-left: 4px;
+  }
+
+  .error-msg {
+    font-size: 13px; color: #e07070;
+    margin-bottom: 14px; display: none;
+  }
+
+  /* ВОПРОС */
+  .question-block { display: none; animation: fadeUp 0.45s ease forwards; }
+  .question-block.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .question-num {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 10px;
+  }
+  .question-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(20px, 5vw, 24px); font-weight: 700;
+    line-height: 1.35; margin-bottom: 28px; color: #fff;
+  }
+
+  /* ВАРИАНТЫ */
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 18px 22px; cursor: pointer;
+    transition: all 0.25s ease; display: flex; align-items: center; gap: 14px;
+    -webkit-tap-highlight-color: transparent; user-select: none;
+  }
+  .option:hover { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.4); transform: translateX(4px); }
+  .option.selected { background: rgba(201,168,76,0.15); border-color: #c9a84c; }
+
+  .option-dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.2); flex-shrink: 0;
+    transition: all 0.25s; display: flex; align-items: center; justify-content: center;
+  }
+  .option.selected .option-dot { background: #c9a84c; border-color: #c9a84c; }
+  .option.selected .option-dot::after { content: '✓'; font-size: 12px; color: #000; font-weight: 700; }
+  .option-text { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.45; }
+
+  /* КНОПКИ */
+  .btn-next, .btn-start {
+    margin-top: 28px; width: 100%;
+    background: linear-gradient(135deg, #c9a84c, #e8c87a);
+    color: #000; font-family: 'Inter', sans-serif; font-size: 15px;
+    font-weight: 600; letter-spacing: 1px; padding: 18px; border-radius: 14px;
+    border: none; cursor: pointer; transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-next { display: none; }
+  .btn-next.visible { display: block; }
+  .btn-next:hover, .btn-start:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
+  .btn-next:active, .btn-start:active { transform: translateY(0); }
+  .btn-start:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* РЕЗУЛЬТАТ */
+  #result { display: none; animation: fadeUp 0.6s ease forwards; text-align: center; }
+  .result-icon { font-size: 52px; margin-bottom: 20px; line-height: 1; }
+  .result-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; margin-bottom: 14px; }
+  .result-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(22px, 6vw, 28px); font-weight: 900;
+    line-height: 1.3; margin-bottom: 20px;
+  }
+  .result-title span { color: #c9a84c; font-style: italic; }
+  .result-text {
+    font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.75;
+    margin-bottom: 32px; text-align: left;
+    background: rgba(255,255,255,0.04); border-left: 3px solid #c9a84c;
+    padding: 20px 22px; border-radius: 0 12px 12px 0;
+  }
+  .btn-tg {
+    display: block; background: linear-gradient(135deg, #c9a84c, #e8c87a);
+    color: #000; font-family: 'Inter', sans-serif; font-size: 16px;
+    font-weight: 700; padding: 20px; border-radius: 14px;
+    text-decoration: none; margin-bottom: 14px; transition: all 0.3s;
+    letter-spacing: 0.5px; -webkit-tap-highlight-color: transparent;
+    text-align: center;
+  }
+  .btn-tg:hover  { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.35); }
+  .btn-tg:active { transform: translateY(0); }
+  .btn-assistant {
+    display: block;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: #c9a84c; font-family: 'Inter', sans-serif; font-size: 15px;
+    font-weight: 600; padding: 18px; border-radius: 14px;
+    text-decoration: none; margin-bottom: 14px; transition: all 0.3s;
+    letter-spacing: 0.5px; text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-assistant:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+  .btn-assistant:active { transform: translateY(0); }
+  .result-hint { font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; }
+
+  .gold-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(to right, #c9a84c, transparent);
+    margin: 0 auto 32px;
+  }
+
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-label">Ольга Картунова</div>
+    <div class="header-title">Найди свою <span>Формулу&nbsp;успеха</span></div>
+    <div class="header-sub">5 вопросов — и я скажу тебе точно,<br>с чего начать твой путь к новому уровню</div>
+  </div>
+
+  <div class="gold-divider"></div>
+
+  <div class="progress-text" id="progressText">Вопрос 1 из 5</div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+  </div>
+
+  <!-- ЭКРАН ЗНАКОМСТВА -->
+  <div id="screen-intro">
+    <div class="question-num">Прежде чем начать</div>
+    <div class="intro-title">Как тебя зовут?</div>
+    <div class="intro-sub">Чтобы я могла обратиться к тебе лично и прислать результат</div>
+
+    <label class="field-label" for="userName">Твоё имя</label>
+    <input class="field-input" type="text" id="userName" placeholder="Например: Мария" autocomplete="given-name">
+
+    <label class="field-label" for="userTelegram">Твой Telegram</label>
+    <input class="field-input" type="text" id="userTelegram" placeholder="@username или номер телефона" autocomplete="off">
+    <div class="field-hint">Ольга напишет тебе лично после квиза</div>
+
+    <div class="error-msg" id="introError">Пожалуйста, заполни оба поля</div>
+
+    <button class="btn-start" onclick="startQuiz()">Начать квиз →</button>
+  </div>
+
+  <!-- ВОПРОС 1 -->
+  <div class="question-block" id="q1">
+    <div class="question-num">Вопрос 01</div>
+    <div class="question-text">Что сейчас забирает у тебя больше всего сил?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this, 1, 'energy')">
+        <div class="option-dot"></div>
+        <div class="option-text">Постоянная усталость — нет энергии ни на что</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 1, 'money')">
+        <div class="option-dot"></div>
+        <div class="option-text">Финансовая нестабильность и тревога о деньгах</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 1, 'self')">
+        <div class="option-dot"></div>
+        <div class="option-text">Ощущение что живу не своей жизнью</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 1, 'all')">
+        <div class="option-dot"></div>
+        <div class="option-text">Всё сразу — и это пугает</div>
+      </div>
+    </div>
+    <button class="btn-next" id="next1" onclick="nextQuestion(1)">Далее →</button>
+  </div>
+
+  <!-- ВОПРОС 2 -->
+  <div class="question-block" id="q2">
+    <div class="question-num">Вопрос 02</div>
+    <div class="question-text">Что ты уже пробовала делать, чтобы изменить ситуацию?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this, 2, 'courses')">
+        <div class="option-dot"></div>
+        <div class="option-text">Проходила курсы и марафоны — но эффект быстро уходил</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 2, 'alone')">
+        <div class="option-dot"></div>
+        <div class="option-text">Пыталась сама — без системы сложно держаться</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 2, 'nothing')">
+        <div class="option-dot"></div>
+        <div class="option-text">Пока только думаю — не знаю с чего начать</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 2, 'going')">
+        <div class="option-dot"></div>
+        <div class="option-text">Уже в процессе — ищу правильный подход</div>
+      </div>
+    </div>
+    <button class="btn-next" id="next2" onclick="nextQuestion(2)">Далее →</button>
+  </div>
+
+  <!-- ВОПРОС 3 -->
+  <div class="question-block" id="q3">
+    <div class="question-num">Вопрос 03</div>
+    <div class="question-text">Какой результат ты хочешь через 3 месяца?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this, 3, 'health')">
+        <div class="option-dot"></div>
+        <div class="option-text">Вернуть энергию и почувствовать себя живой</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 3, 'income')">
+        <div class="option-dot"></div>
+        <div class="option-text">Выстроить стабильный доход своим делом</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 3, 'confidence')">
+        <div class="option-dot"></div>
+        <div class="option-text">Обрести уверенность и найти себя</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 3, 'level')">
+        <div class="option-dot"></div>
+        <div class="option-text">Выйти на новый уровень жизни — всё и сразу</div>
+      </div>
+    </div>
+    <button class="btn-next" id="next3" onclick="nextQuestion(3)">Далее →</button>
+  </div>
+
+  <!-- ВОПРОС 4 -->
+  <div class="question-block" id="q4">
+    <div class="question-num">Вопрос 04</div>
+    <div class="question-text">Что для тебя важнее всего в наставнике?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this, 4, 'system')">
+        <div class="option-dot"></div>
+        <div class="option-text">Чёткая система — я хочу знать что делать каждый день</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 4, 'support')">
+        <div class="option-dot"></div>
+        <div class="option-text">Поддержка и понимание — чтобы не одна</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 4, 'result')">
+        <div class="option-dot"></div>
+        <div class="option-text">Реальные результаты — мне важны факты и цифры</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 4, 'community')">
+        <div class="option-dot"></div>
+        <div class="option-text">Сильное окружение — среда которая тянет вверх</div>
+      </div>
+    </div>
+    <button class="btn-next" id="next4" onclick="nextQuestion(4)">Далее →</button>
+  </div>
+
+  <!-- ВОПРОС 5 -->
+  <div class="question-block" id="q5">
+    <div class="question-num">Вопрос 05</div>
+    <div class="question-text">Как тебе удобнее сделать первый шаг?</div>
+    <div class="options">
+      <div class="option" onclick="selectOption(this, 5, 'consult')">
+        <div class="option-dot"></div>
+        <div class="option-text">Хочу личную консультацию — поговорить и разобраться</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 5, 'info')">
+        <div class="option-dot"></div>
+        <div class="option-text">Сначала хочу узнать подробнее о системе</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 5, 'community2')">
+        <div class="option-dot"></div>
+        <div class="option-text">Интересно попасть в сообщество «Формула успеха»</div>
+      </div>
+      <div class="option" onclick="selectOption(this, 5, 'ready')">
+        <div class="option-dot"></div>
+        <div class="option-text">Я готова — хочу начать как можно скорее</div>
+      </div>
+    </div>
+    <button class="btn-next" id="next5" onclick="showResult()">Узнать мой результат →</button>
+  </div>
+
+  <!-- РЕЗУЛЬТАТ -->
+  <div id="result">
+    <div class="result-icon">✨</div>
+    <div class="result-label">Твой результат готов</div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-text" id="resultText"></div>
+    <a href="https://t.me/kartunovao" class="btn-tg" target="_blank" rel="noopener">
+      Написать Ольге лично →
+    </a>
+    <a href="https://t.me/IdealnyBiznes_bot" class="btn-assistant" target="_blank" rel="noopener">
+      🤖 Узнать больше — спросить AI-ассистента
+    </a>
+    <div class="result-hint">Ольга отвечает лично · Без давления</div>
+  </div>
+
+</div>
+
+<script>
+  const TG_TOKEN   = '7708984229:AAGACM74bEyHW3Q5Qhu_G32BpLg7l9bVGmg';
+  const TG_CHAT_ID = '840424396';
+
+  const answers = {};
+  let userName = '';
+  let userTelegram = '';
+
+  const results = {
+    energy: {
+      title: 'Твоё тело просит <span>перезагрузки</span>',
+      text: 'Ты тратишь энергию быстрее, чем восполняешь. Это не лень — это сигнал. «Формула успеха» начинается именно с этого: сначала мы возвращаем ресурс, и только потом строим доход. Потому что без энергии никакая система не работает. Ольга точно знает как это исправить — она сама через это прошла.'
+    },
+    money: {
+      title: 'Ты готова к <span>стабильному доходу</span>',
+      text: 'Финансовая тревога — это не про деньги. Это про отсутствие системы. В «Формуле успеха» есть конкретный путь к доходу через дело по душе — без случайных заработков и без ощущения что продаёшь душу. Ольга покажет тебе как это работает на практике.'
+    },
+    self: {
+      title: 'Время жить <span>своей жизнью</span>',
+      text: 'Когда есть ощущение что живёшь «не так» — значит внутри уже есть ответ. Его просто нужно услышать. «Формула успеха» помогает найти точку опоры внутри себя и выстроить жизнь вокруг неё. Не подстраиваться под обстоятельства — а создавать их.'
+    },
+    all: {
+      title: 'Тебе нужна <span>система</span>, а не ещё один курс',
+      text: 'Когда всё навалилось сразу — попытки решать по одному не работают. «Формула успеха» — это система, где здоровье, мышление и доход меняются одновременно. Именно поэтому результат держится. Ольга поможет разобраться с чего начать именно тебе.'
+    },
+    level: {
+      title: 'Ты уже знаешь <span>чего хочешь</span>',
+      text: 'Новый уровень жизни — это не мечта, это проект. И как любой проект, он требует системы, окружения и правильных шагов в правильном порядке. В «Формуле успеха» это уже выстроено. Тебе остаётся только войти и начать двигаться.'
+    }
+  };
+
+  function sendToTelegram(text) {
+    fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TG_CHAT_ID, text: text })
+    }).catch(() => {});
+  }
+
+  function startQuiz() {
+    const nameVal = document.getElementById('userName').value.trim();
+    const tgVal   = document.getElementById('userTelegram').value.trim();
+    const errEl   = document.getElementById('introError');
+
+    if (!nameVal || !tgVal) {
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+
+    userName     = nameVal;
+    userTelegram = tgVal;
+
+    sendToTelegram(
+      '🟡 НАЧАЛА КВИЗ\n' +
+      'Имя: ' + userName + '\n' +
+      'Telegram: ' + userTelegram + '\n' +
+      'Время: ' + new Date().toLocaleString('ru-RU')
+    );
+
+    document.getElementById('screen-intro').style.display = 'none';
+    document.getElementById('q1').classList.add('active');
+    document.getElementById('progressFill').style.width = '20%';
+    document.getElementById('progressText').textContent = 'Вопрос 1 из 5';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function selectOption(el, qNum, value) {
+    const block = document.getElementById('q' + qNum);
+    block.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[qNum] = value;
+    const btn = document.getElementById('next' + qNum);
+    btn.classList.add('visible');
+  }
+
+  function nextQuestion(current) {
+    document.getElementById('q' + current).classList.remove('active');
+    const next = current + 1;
+    document.getElementById('q' + next).classList.add('active');
+    const pct = (next / 5) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = 'Вопрос ' + next + ' из 5';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showResult() {
+    document.getElementById('q5').classList.remove('active');
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressText').textContent = 'Готово!';
+
+    const key = answers[1] || 'all';
+    const res = results[key] || results['all'];
+
+    document.getElementById('resultTitle').innerHTML = res.title;
+    document.getElementById('resultText').textContent = res.text;
+    document.getElementById('result').style.display = 'block';
+
+    const resultNames = {
+      energy: 'Перезагрузка энергии',
+      money:  'Стабильный доход',
+      self:   'Своя жизнь',
+      all:    'Нужна система',
+      level:  'Новый уровень'
+    };
+
+    sendToTelegram(
+      '✅ ПРОШЛА КВИЗ ДО КОНЦА\n' +
+      'Имя: ' + userName + '\n' +
+      'Telegram: ' + userTelegram + '\n' +
+      'Результат: ' + (resultNames[key] || key) + '\n' +
+      'Время: ' + new Date().toLocaleString('ru-RU')
+    );
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

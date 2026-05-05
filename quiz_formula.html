@@ -243,6 +243,26 @@
     margin-top: 14px; letter-spacing: 0.5px;
   }
 
+  /* PLATFORM SELECTOR */
+  .platform-label {
+    font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 10px; display: block;
+  }
+  .platform-selector { display: flex; gap: 10px; margin-bottom: 16px; }
+  .platform-btn {
+    flex: 1; padding: 12px 8px; border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.55); font-size: 14px; font-weight: 500;
+    font-family: 'Inter', sans-serif; cursor: pointer;
+    transition: all 0.2s; text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .platform-btn.active {
+    background: rgba(201,168,76,0.15);
+    border-color: #c9a84c; color: #c9a84c; font-weight: 700;
+  }
+
   /* GIFT BLOCK */
   .gift-block {
     background: rgba(201,168,76,0.07);
@@ -315,9 +335,14 @@
     <label class="field-label" for="userName">Твоё имя</label>
     <input class="field-input" type="text" id="userName" placeholder="Например: Мария" autocomplete="given-name">
 
-    <label class="field-label" for="userVK">Твой VK</label>
-    <input class="field-input" type="text" id="userVK" placeholder="@username или ссылка на страницу VK" autocomplete="off">
-    <div class="field-hint">Ольга напишет тебе в VK после квиза</div>
+    <span class="platform-label">Как с тобой связаться?</span>
+    <div class="platform-selector">
+      <button type="button" class="platform-btn active" onclick="selectPlatform(this,'VK')">VK</button>
+      <button type="button" class="platform-btn" onclick="selectPlatform(this,'Telegram')">Telegram</button>
+      <button type="button" class="platform-btn" onclick="selectPlatform(this,'MAX')">MAX</button>
+    </div>
+    <input class="field-input" type="text" id="userContact" placeholder="@username или ссылка на VK" autocomplete="off">
+    <div class="field-hint" id="contactHint">Ольга напишет тебе в VK после квиза</div>
 
     <div class="error-msg" id="introError">Пожалуйста, заполни оба поля</div>
 
@@ -479,7 +504,27 @@
 
   const answers = {};
   let userName = '';
-  let userVK = '';
+  let userContact = '';
+  let selectedPlatform = 'VK';
+
+  const platformPlaceholders = {
+    'VK':       '@username или ссылка на VK',
+    'Telegram': '@username в Telegram',
+    'MAX':      '@username в MAX'
+  };
+  const platformHints = {
+    'VK':       'Ольга напишет тебе в VK после квиза',
+    'Telegram': 'Ольга напишет тебе в Telegram после квиза',
+    'MAX':      'Ольга напишет тебе в MAX после квиза'
+  };
+
+  function selectPlatform(btn, platform) {
+    document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedPlatform = platform;
+    document.getElementById('userContact').placeholder = platformPlaceholders[platform];
+    document.getElementById('contactHint').textContent = platformHints[platform];
+  }
 
   const gifts = {
     health: {
@@ -540,23 +585,23 @@
   }
 
   function startQuiz() {
-    const nameVal = document.getElementById('userName').value.trim();
-    const vkVal   = document.getElementById('userVK').value.trim();
-    const errEl   = document.getElementById('introError');
+    const nameVal    = document.getElementById('userName').value.trim();
+    const contactVal = document.getElementById('userContact').value.trim();
+    const errEl      = document.getElementById('introError');
 
-    if (!nameVal || !vkVal) {
+    if (!nameVal || !contactVal) {
       errEl.style.display = 'block';
       return;
     }
     errEl.style.display = 'none';
 
-    userName = nameVal;
-    userVK   = vkVal;
+    userName    = nameVal;
+    userContact = contactVal;
 
     sendToTelegram(
       '🟡 НАЧАЛА КВИЗ\n' +
       'Имя: ' + userName + '\n' +
-      'VK: ' + userVK + '\n' +
+      selectedPlatform + ': ' + userContact + '\n' +
       'Время: ' + new Date().toLocaleString('ru-RU')
     );
 
@@ -623,7 +668,7 @@
     sendToTelegram(
       '✅ ПРОШЛА КВИЗ ДО КОНЦА\n' +
       'Имя: ' + userName + '\n' +
-      'VK: ' + userVK + '\n' +
+      selectedPlatform + ': ' + userContact + '\n' +
       'Результат: ' + (resultNames[key] || key) + '\n' +
       'Подарок: ' + giftNames[giftKeyFinal] + '\n' +
       'Время: ' + new Date().toLocaleString('ru-RU')

@@ -207,6 +207,67 @@
   }
 
   html { scroll-behavior: smooth; }
+
+  /* WELCOME SCREEN */
+  #screen-welcome { animation: fadeUp 0.6s ease forwards; text-align: center; }
+  .welcome-badge {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 16px;
+  }
+  .welcome-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(36px, 9vw, 48px); font-weight: 900;
+    line-height: 1.05; color: #fff; margin-bottom: 4px;
+  }
+  .welcome-name span { color: #c9a84c; font-style: italic; }
+  .welcome-tagline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(15px, 4vw, 18px); font-style: italic;
+    color: rgba(255,255,255,0.65); line-height: 1.55;
+    margin: 22px 0 26px; border-left: 3px solid #c9a84c;
+    padding-left: 16px; text-align: left;
+  }
+  .welcome-desc {
+    font-size: 14px; color: rgba(255,255,255,0.5);
+    line-height: 1.75; margin-bottom: 26px; text-align: left;
+  }
+  .proof-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+  .proof-item {
+    font-size: 14px; color: rgba(255,255,255,0.75);
+    display: flex; align-items: flex-start; gap: 12px;
+    background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 12px; padding: 14px 16px; line-height: 1.5; text-align: left;
+  }
+  .welcome-subtext {
+    font-size: 12px; color: rgba(255,255,255,0.2);
+    margin-top: 14px; letter-spacing: 0.5px;
+  }
+
+  /* GIFT BLOCK */
+  .gift-block {
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 16px; padding: 22px; margin-bottom: 28px; text-align: left;
+  }
+  .gift-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 10px;
+  }
+  .gift-emoji { font-size: 36px; margin-bottom: 10px; line-height: 1; }
+  .gift-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px; font-weight: 700; color: #fff;
+    margin-bottom: 8px; line-height: 1.35;
+  }
+  .gift-desc { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 16px; line-height: 1.6; }
+  .btn-gift {
+    display: block; background: linear-gradient(135deg, #c9a84c, #e8c87a);
+    color: #000; font-family: 'Inter', sans-serif; font-size: 14px;
+    font-weight: 700; padding: 14px 20px; border-radius: 12px;
+    text-decoration: none; text-align: center; transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-gift:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.3); }
 </style>
 </head>
 <body>
@@ -225,11 +286,31 @@
     <div class="progress-fill" id="progressFill" style="width: 0%"></div>
   </div>
 
-  <!-- ЭКРАН ЗНАКОМСТВА -->
-  <div id="screen-intro">
-    <div class="question-num">Прежде чем начать</div>
+  <!-- КТО ТАКАЯ ОЛЬГА -->
+  <div id="screen-welcome">
+    <div class="welcome-badge">Наставник · Коуч · Автор метода</div>
+    <div class="welcome-name">Ольга<br><span>Картунова</span></div>
+    <div class="gold-divider" style="margin: 22px auto;"></div>
+    <div class="welcome-tagline">
+      «Хватит выбирать между здоровьем,<br>собой и деньгами. Бери всё.»
+    </div>
+    <div class="welcome-desc">
+      Я помогаю женщинам выстроить здоровье, уверенность и стабильный доход — одновременно, а не по очереди. Система «Формула успеха» меняет всё сразу, потому что всё в жизни связано.
+    </div>
+    <div class="proof-list">
+      <div class="proof-item">✨ Более 5 лет в NL International — лидер сообщества «Формула успеха»</div>
+      <div class="proof-item">📚 Автор книги «21 ступень к успеху» — пошаговый путь к свободе</div>
+      <div class="proof-item">🎁 После квиза — персональный подарок от Ольги под твой запрос</div>
+    </div>
+    <button class="btn-start" onclick="showIntro()">Пройти квиз бесплатно →</button>
+    <div class="welcome-subtext">5 вопросов · 3 минуты · Без регистрации</div>
+  </div>
+
+  <!-- ФОРМА -->
+  <div id="screen-intro" style="display:none;">
+    <div class="question-num">Шаг 1 — Знакомство</div>
     <div class="intro-title">Как тебя зовут?</div>
-    <div class="intro-sub">Чтобы я могла обратиться к тебе лично и прислать результат</div>
+    <div class="intro-sub">Пройди 5 вопросов и получи персональный разбор + 🎁 подарок от Ольги под твой запрос</div>
 
     <label class="field-label" for="userName">Твоё имя</label>
     <input class="field-input" type="text" id="userName" placeholder="Например: Мария" autocomplete="given-name">
@@ -370,6 +451,13 @@
 
   <!-- РЕЗУЛЬТАТ -->
   <div id="result">
+    <div id="gift-block" class="gift-block">
+      <div class="gift-label">🎁 Твой персональный подарок</div>
+      <div class="gift-emoji" id="giftEmoji"></div>
+      <div class="gift-title" id="giftTitle"></div>
+      <div class="gift-desc" id="giftDesc"></div>
+      <a id="giftLink" href="#" class="btn-gift" target="_blank" rel="noopener">Получить подарок →</a>
+    </div>
     <div class="result-icon">✨</div>
     <div class="result-label">Твой результат готов</div>
     <div class="result-title" id="resultTitle"></div>
@@ -392,6 +480,33 @@
   const answers = {};
   let userName = '';
   let userVK = '';
+
+  const gifts = {
+    health: {
+      emoji: '📗',
+      title: '«7 дней к лёгкости»',
+      desc: 'Меню на 7 дней для лёгкого старта — просто, вкусно и работает. Твой первый шаг к здоровью без стресса.',
+      url: 'https://file-storage.bothelp.io/kartunova/74/7484/74844430767dc29f263ba6193ba55882/7-DNEJ-K-LEGKOSTI-4.pdf'
+    },
+    income: {
+      emoji: '📚',
+      title: '«21 ступень к успеху»',
+      desc: 'Пошаговый путь к стабильному доходу через NL International. Именно с этой книги начинается путь в бизнес.',
+      url: 'https://file-storage.bothelp.io/kartunova/e5/e567/e567d55dd12ca56f5ab49824668006ff/21%20%D1%81%D1%82%D1%83%D0%BF%D0%B5%D0%BD%D1%8C%20%D0%BA%20%20%D1%83%D1%81%D0%BF%D0%B5%D1%85%D1%83.pdf'
+    },
+    other: {
+      emoji: '📚',
+      title: '«21 ступень к успеху»',
+      desc: 'Пошаговая система Ольги Картуновой — как изменить здоровье, мышление и доход одновременно.',
+      url: 'https://file-storage.bothelp.io/kartunova/e5/e567/e567d55dd12ca56f5ab49824668006ff/21%20%D1%81%D1%82%D1%83%D0%BF%D0%B5%D0%BD%D1%8C%20%D0%BA%20%20%D1%83%D1%81%D0%BF%D0%B5%D1%85%D1%83.pdf'
+    }
+  };
+
+  function showIntro() {
+    document.getElementById('screen-welcome').style.display = 'none';
+    document.getElementById('screen-intro').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   const results = {
     energy: {
@@ -481,6 +596,16 @@
 
     document.getElementById('resultTitle').innerHTML = res.title;
     document.getElementById('resultText').textContent = res.text;
+
+    // Подбираем подарок по ответу на Q3 (что хочешь через 3 месяца)
+    const q3 = answers[3] || '';
+    const giftKey = q3 === 'health' ? 'health' : (q3 === 'income' ? 'income' : 'other');
+    const gift = gifts[giftKey];
+    document.getElementById('giftEmoji').textContent = gift.emoji;
+    document.getElementById('giftTitle').textContent = gift.title;
+    document.getElementById('giftDesc').textContent = gift.desc;
+    document.getElementById('giftLink').href = gift.url;
+
     document.getElementById('result').style.display = 'block';
 
     const resultNames = {
@@ -491,11 +616,16 @@
       level:  'Новый уровень'
     };
 
+    const giftNames = { health: '📗 7 дней к лёгкости', income: '📚 21 ступень к успеху', other: '📚 21 ступень к успеху' };
+    const q3ans = answers[3] || '';
+    const giftKeyFinal = q3ans === 'health' ? 'health' : (q3ans === 'income' ? 'income' : 'other');
+
     sendToTelegram(
       '✅ ПРОШЛА КВИЗ ДО КОНЦА\n' +
       'Имя: ' + userName + '\n' +
       'VK: ' + userVK + '\n' +
       'Результат: ' + (resultNames[key] || key) + '\n' +
+      'Подарок: ' + giftNames[giftKeyFinal] + '\n' +
       'Время: ' + new Date().toLocaleString('ru-RU')
     );
 

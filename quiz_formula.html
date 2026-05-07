@@ -374,8 +374,11 @@
     <div class="result-label">Твой результат готов</div>
     <div class="result-title" id="resultTitle"></div>
     <div class="result-text" id="resultText"></div>
-    <a href="https://t.me/kartunovao" class="btn-tg" target="_blank" rel="noopener">
-      Написать Ольге лично →
+    <a id="giftBtn" href="#" class="btn-tg" target="_blank" rel="noopener">
+      🎁 Получить подарок →
+    </a>
+    <a href="https://vk.ru/kartunova222" class="btn-tg" target="_blank" rel="noopener" style="margin-top:12px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4);">
+      📅 Записаться на встречу с Ольгой →
     </a>
     <a href="https://bothelp.io/f/62f99c72a56" class="btn-assistant" target="_blank" rel="noopener">
       🤖 Узнать больше — спросить AI-ассистента
@@ -482,6 +485,16 @@
     document.getElementById('resultTitle').innerHTML = res.title;
     document.getElementById('resultText').textContent = res.text;
     document.getElementById('result').style.display = 'block';
+
+    const isBusiness = (answers[1] === 'money') || (answers[3] === 'income');
+    const giftBtn = document.getElementById('giftBtn');
+    if (isBusiness) {
+      giftBtn.href = 'https://file-storage.bothelp.io/kartunova/e5/e567/e567d55dd12ca56f5ab49824668006ff/21%20%D1%81%D1%82%D1%83%D0%BF%D0%B5%D0%BD%D1%8C%20%D0%BA%20%20%D1%83%D1%81%D0%BF%D0%B5%D1%85%D1%83.pdf';
+      giftBtn.textContent = '🎁 Получить книгу «21 ступень к успеху» →';
+    } else {
+      giftBtn.href = 'https://file-storage.bothelp.io/kartunova/74/7484/74844430767dc29f263ba6193ba55882/7-DNEJ-K-LEGKOSTI-4.pdf';
+      giftBtn.textContent = '🎁 Получить «7 дней к лёгкости» →';
+    }
 
     const resultNames = {
       energy: 'Перезагрузка энергии',

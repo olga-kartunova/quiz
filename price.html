@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Квиз под ключ — Ольга Картунова</title>
+<meta name="description" content="Делаю квизы-воронки для сетевого бизнеса в VK. От 5000 рублей. Готово за 2–7 дней.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c12;
+    --surface: #14141e;
+    --surface2: #1e1e2a;
+    --gold: #c9a96e;
+    --gold-light: #e8d4a8;
+    --gold-dim: rgba(201,169,110,0.12);
+    --gold-border: rgba(201,169,110,0.25);
+    --text: #f2ede4;
+    --text-dim: #8e8799;
+    --accent: #7c5cbf;
+    --radius: 20px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 70% 0%, rgba(201,169,110,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 10% 90%, rgba(124,92,191,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  /* ШАПКА */
+  .hero {
+    text-align: center;
+    padding: 48px 24px 40px;
+    background: var(--surface);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    padding: 2.5px;
+    display: block;
+  }
+  .avatar-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .badges {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin-bottom: 24px;
+  }
+  .badge {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  .hero-demo {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--surface2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
+    padding: 10px 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .hero-demo:hover {
+    border-color: var(--gold-border);
+    color: var(--gold-light);
+  }
+  .hero-demo span { color: var(--gold); }
+
+  /* КАРТОЧКИ ТАРИФОВ */
+  .plans { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+
+  .plan {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
+    transition: all 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .plan:hover { border-color: var(--gold-border); transform: translateY(-2px); }
+  .plan.featured {
+    border-color: var(--gold-border);
+    background: linear-gradient(135deg, var(--surface) 0%, rgba(201,169,110,0.05) 100%);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold);
+    font-size: 11px;
+    padding: 3px 12px;
+    border-radius: 100px;
+  }
+
+  .plan-header {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 6px;
+  }
+  .plan-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .plan-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-left: auto;
+    padding-right: 60px;
+  }
+  .plan-time {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+  }
+
+  .plan-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin-bottom: 16px;
+  }
+
+  .plan-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 9px;
+    margin-bottom: 24px;
+  }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .plan-features li::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 10px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .plan-features li strong { color: var(--text); font-weight: 600; }
+
+  /* AI-бейдж */
+  .ai-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(124,92,191,0.15);
+    border: 1px solid rgba(124,92,191,0.3);
+    color: #b09ee0;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 100px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* КНОПКИ */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 14px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+    letter-spacing: 0.2px;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, #c9a96e, #a67c42);
+    color: #0c0c12;
+  }
+  .btn-gold:hover { background: linear-gradient(135deg, #dbbf86, #b88d52); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+  }
+  .btn-outline:hover { background: var(--gold-dim); }
+
+  /* БЛОК ПРИМЕРА */
+  .demo-block {
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .demo-block .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .demo-block p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* ФУТЕР */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    background: var(--surface);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .footer-sub {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .footer-links {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  .footer-link {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
+    transition: all 0.3s;
+  }
+  .footer-link:hover { color: var(--gold-light); border-color: var(--gold-border); }
+
+  /* АНИМАЦИИ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero     { animation: fadeUp 0.6s ease both; }
+  .plans    { animation: fadeUp 0.6s 0.15s ease both; }
+  .demo-block { animation: fadeUp 0.6s 0.25s ease both; }
+  .footer   { animation: fadeUp 0.6s 0.35s ease both; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ШАПКА -->
+  <div class="hero">
+    <div class="avatar">
+      <div class="avatar-inner">🌟</div>
+    </div>
+    <div class="hero-label">Ольга Картунова</div>
+    <h1 class="hero-title">Квиз-воронка для VK<br><em>под ключ</em></h1>
+    <p class="hero-sub">Делаю тест из 5 вопросов, который сам приводит<br>людей в твою личку — уже тёплых и готовых говорить</p>
+    <div class="badges">
+      <span class="badge">Сетевой бизнес</span>
+      <span class="badge">VK воронки</span>
+      <span class="badge">AI-ассистент</span>
+      <span class="badge">Готово за 2–10 дней</span>
+    </div>
+    <a href="https://olga-kartunova.github.io/quiz/quiz_formula.html" target="_blank" class="hero-demo">
+      <span>▶</span> Посмотреть живой пример
+    </a>
+  </div>
+
+  <!-- ТАРИФЫ -->
+  <div class="plans">
+
+    <!-- СТАРТ -->
+    <div class="plan">
+      <div class="plan-header">
+        <div class="plan-name">Старт</div>
+        <div class="plan-price">5 000 ₽</div>
+      </div>
+      <div class="plan-time">Готово за 2–3 дня</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Квиз из <strong>5 вопросов</strong> под твою нишу</li>
+        <li>Один результат для всех</li>
+        <li>Кнопка ведёт прямо в твой <strong>VK</strong></li>
+        <li>Размещение на сайте — получаешь ссылку</li>
+        <li>Подходит для быстрого старта</li>
+      </ul>
+      <a href="https://vk.me/olgakartunovao?text=Хочу%20квиз%20Старт%205000" target="_blank" class="btn btn-outline">
+        Хочу этот тариф →
+      </a>
+    </div>
+
+    <!-- ВОРОНКА (ХИТ) -->
+    <div class="plan featured">
+      <div class="plan-badge">Хит</div>
+      <div class="plan-header">
+        <div class="plan-name">Воронка</div>
+        <div class="plan-price">10 000 ₽</div>
+      </div>
+      <div class="plan-time">Готово за 5–7 дней</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li><strong>4 разных результата</strong> — каждый под свою боль</li>
+        <li>Разбираем твою аудиторию вместе</li>
+        <li>Тексты под каждый сегмент ЦА</li>
+        <li>Разные кнопки по результату</li>
+        <li>Размещение + полное тестирование</li>
+        <li>Человек чувствует: «она меня поняла» — и пишет сам</li>
+      </ul>
+      <a href="https://vk.me/olgakartunovao?text=Хочу%20квиз%20Воронка%2010000" target="_blank" class="btn btn-gold">
+        Хочу этот тариф →
+      </a>
+    </div>
+
+    <!-- ПОД КЛЮЧ + -->
+    <div class="plan">
+      <div class="plan-header">
+        <div class="plan-name">Под ключ <span class="ai-tag">✦ AI</span></div>
+        <div class="plan-price">20 000 ₽</div>
+      </div>
+      <div class="plan-time">Готово за 7–10 дней</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Всё из тарифа <strong>«Воронка»</strong></li>
+        <li>Продающий пост для VK с анонсом квиза</li>
+        <li><strong>AI-ассистент</strong> — после квиза отвечает на вопросы вместо тебя 24/7</li>
+        <li>Настройка и запуск ассистента</li>
+        <li>Правки и поддержка <strong>7 дней</strong> после сдачи</li>
+        <li>Полностью автоматизированная воронка</li>
+      </ul>
+      <a href="https://vk.me/olgakartunovao?text=Хочу%20квиз%20Под%20ключ%20плюс%2020000" target="_blank" class="btn btn-outline">
+        Хочу этот тариф →
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ЖИВОЙ ПРИМЕР -->
+  <div class="demo-block">
+    <div class="section-label">Живой пример</div>
+    <p>Вот мой собственный квиз — сделала сама.<br>Пройди и посмотри как это работает изнутри.</p>
+    <a href="https://olga-kartunova.github.io/quiz/quiz_formula.html" target="_blank" class="btn btn-outline">
+      Пройти квиз →
+    </a>
+  </div>
+
+  <!-- ФУТЕР -->
+  <div class="footer">
+    <div class="footer-name">Ольга Картунова</div>
+    <div class="footer-sub">Партнёр NL International · Создаю квизы и AI-воронки для VK</div>
+    <div class="footer-links">
+      <a href="https://vk.com/kartunova222" target="_blank" class="footer-link">VK страница</a>
+      <a href="https://vk.me/olgakartunovao" target="_blank" class="footer-link">Написать в личку</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

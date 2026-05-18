@@ -61,10 +61,70 @@
     letter-spacing: 1px; margin-bottom: 8px; text-align: right;
   }
 
-  /* ЭКРАН ЗНАКОМСТВА */
-  #screen-intro {
-    animation: fadeUp 0.5s ease forwards;
+  /* ЭКРАН КТО Я — полноэкранный */
+  #screen-who {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: url('photo_olga.jpg') center 20% / cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 100;
+    animation: fadeIn 0.8s ease forwards;
   }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .who-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom,
+      rgba(10,10,15,0.15) 0%,
+      rgba(10,10,15,0.45) 45%,
+      rgba(10,10,15,0.93) 100%);
+  }
+
+  .who-content {
+    position: relative;
+    z-index: 1;
+    padding: 40px 28px 52px;
+    text-align: center;
+  }
+
+  .who-role {
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 14px;
+  }
+
+  .who-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(32px, 8vw, 48px); font-weight: 900;
+    color: #c9a84c; line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .who-community {
+    font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom: 28px;
+  }
+
+  .who-tagline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(18px, 4.5vw, 22px); font-weight: 700;
+    color: #fff; line-height: 1.4; margin-bottom: 14px;
+  }
+
+  .who-desc {
+    font-size: 15px; color: rgba(255,255,255,0.65);
+    line-height: 1.6; margin-bottom: 32px;
+  }
+
+  /* ЭКРАН СБОРА ДАННЫХ */
+  #screen-collect { display: none; animation: fadeUp 0.5s ease forwards; }
 
   .intro-title {
     font-family: 'Playfair Display', Georgia, serif;
@@ -220,27 +280,22 @@
 
   <div class="gold-divider"></div>
 
-  <div class="progress-text" id="progressText">Вопрос 1 из 5</div>
-  <div class="progress-bar">
+  <div class="progress-text" id="progressText" style="display:none">Вопрос 1 из 5</div>
+  <div class="progress-bar" id="progressBar" style="display:none">
     <div class="progress-fill" id="progressFill" style="width: 0%"></div>
   </div>
 
-  <!-- ЭКРАН ЗНАКОМСТВА -->
-  <div id="screen-intro">
-    <div class="question-num">Прежде чем начать</div>
-    <div class="intro-title">Как тебя зовут?</div>
-    <div class="intro-sub">Чтобы я могла обратиться к тебе лично и прислать результат</div>
-
-    <label class="field-label" for="userName">Твоё имя</label>
-    <input class="field-input" type="text" id="userName" placeholder="Например: Мария" autocomplete="given-name">
-
-    <label class="field-label" for="userTelegram">Твой Telegram</label>
-    <input class="field-input" type="text" id="userTelegram" placeholder="@username или номер телефона" autocomplete="off">
-    <div class="field-hint">Ольга напишет тебе лично после квиза</div>
-
-    <div class="error-msg" id="introError">Пожалуйста, заполни оба поля</div>
-
-    <button class="btn-start" onclick="startQuiz()">Начать квиз →</button>
+  <!-- СТРАНИЦА 0: КТО Я -->
+  <div id="screen-who">
+    <div class="who-overlay"></div>
+    <div class="who-content">
+      <div class="who-role">Наставник · Коуч · Автор метода</div>
+      <div class="who-name">Ольга Картунова</div>
+      <div class="who-community">«Формула успеха» · Лидер сообщества</div>
+      <div class="who-tagline">Хватит выбирать между здоровьем,<br>собой и деньгами. Бери всё.</div>
+      <div class="who-desc">Система, которая меняет тело, мышление и доход — одновременно.</div>
+      <button class="btn-start" onclick="goToQuiz()">Пройти квиз →</button>
+    </div>
   </div>
 
   <!-- ВОПРОС 1 -->
@@ -365,23 +420,35 @@
         <div class="option-text">Я готова — хочу начать как можно скорее</div>
       </div>
     </div>
-    <button class="btn-next" id="next5" onclick="showResult()">Узнать мой результат →</button>
+    <button class="btn-next" id="next5" onclick="showCollect()">Узнать мой результат →</button>
   </div>
 
-  <!-- РЕЗУЛЬТАТ -->
+  <!-- СТРАНИЦА 6: СБОР ДАННЫХ -->
+  <div id="screen-collect">
+    <div class="question-num">Почти готово!</div>
+    <div class="intro-title">Твой результат почти готов! Куда прислать?</div>
+
+    <label class="field-label" for="userName">Твоё имя</label>
+    <input class="field-input" type="text" id="userName" placeholder="Например: Мария" autocomplete="given-name">
+
+    <label class="field-label" for="userTelegram">Твой Telegram</label>
+    <input class="field-input" type="text" id="userTelegram" placeholder="@username или номер телефона" autocomplete="off">
+    <div class="field-hint">Ольга напишет тебе лично после квиза</div>
+
+    <div class="error-msg" id="collectError">Пожалуйста, заполни оба поля</div>
+
+    <button class="btn-start" onclick="submitAndShowResult()">Получить результат →</button>
+  </div>
+
+  <!-- СТРАНИЦА 7: РЕЗУЛЬТАТ -->
   <div id="result">
     <div class="result-icon">✨</div>
     <div class="result-label">Твой результат готов</div>
     <div class="result-title" id="resultTitle"></div>
     <div class="result-text" id="resultText"></div>
-    <a id="giftBtn" href="#" class="btn-tg" target="_blank" rel="noopener">
-      🎁 Получить подарок →
-    </a>
-    <a href="https://vk.ru/kartunova222" class="btn-tg" target="_blank" rel="noopener" style="margin-top:12px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4);">
-      📅 Записаться на встречу с Ольгой →
-    </a>
+    <a id="mainActionBtn" href="#" class="btn-tg" target="_blank" rel="noopener"></a>
     <a href="https://vk.me/olgakartunovao" class="btn-assistant" target="_blank" rel="noopener">
-      🤖 Узнать больше — спросить AI-ассистента
+      🤖 Спросить AI-ассистента →
     </a>
     <div class="result-hint">Ольга отвечает лично · Без давления</div>
   </div>
@@ -396,26 +463,33 @@
   let userName = '';
   let userTelegram = '';
 
-  const results = {
-    energy: {
-      title: 'Твоё тело просит <span>перезагрузки</span>',
-      text: 'Ты тратишь энергию быстрее, чем восполняешь. Это не лень — это сигнал. «Формула успеха» начинается именно с этого: сначала мы возвращаем ресурс, и только потом строим доход. Потому что без энергии никакая система не работает. Ольга точно знает как это исправить — она сама через это прошла.'
+  const q1Titles = {
+    energy:  'Твоё тело просит <span>перезагрузки</span>',
+    money:   'Ты готова к <span>стабильному доходу</span>',
+    self:    'Время жить <span>своей жизнью</span>',
+    all:     'Тебе нужна <span>система</span>, а не ещё один курс'
+  };
+
+  const q5Results = {
+    consult: {
+      text:    'Ты готова действовать — это лучший старт! Ольга проведёт тебя за руку. Запишись на личную встречу 👇',
+      btnText: 'Записаться к Ольге →',
+      btnHref: 'https://vk.ru/kartunova222'
     },
-    money: {
-      title: 'Ты готова к <span>стабильному доходу</span>',
-      text: 'Финансовая тревога — это не про деньги. Это про отсутствие системы. В «Формуле успеха» есть конкретный путь к доходу через дело по душе — без случайных заработков и без ощущения что продаёшь душу. Ольга покажет тебе как это работает на практике.'
+    info: {
+      text:    'Ты вдумчивая — это сила! Начни с информации и сама всё поймёшь 👇',
+      btnText: 'Узнать подробнее →',
+      btnHref: 'https://vk.me/olgakartunovao'
     },
-    self: {
-      title: 'Время жить <span>своей жизнью</span>',
-      text: 'Когда есть ощущение что живёшь «не так» — значит внутри уже есть ответ. Его просто нужно услышать. «Формула успеха» помогает найти точку опоры внутри себя и выстроить жизнь вокруг неё. Не подстраиваться под обстоятельства — а создавать их.'
+    community2: {
+      text:    'Среда решает всё — ты права! Заходи к нам 👇',
+      btnText: 'В сообщество →',
+      btnHref: 'https://vk.ru/kartunova222'
     },
-    all: {
-      title: 'Тебе нужна <span>система</span>, а не ещё один курс',
-      text: 'Когда всё навалилось сразу — попытки решать по одному не работают. «Формула успеха» — это система, где здоровье, мышление и доход меняются одновременно. Именно поэтому результат держится. Ольга поможет разобраться с чего начать именно тебе.'
-    },
-    level: {
-      title: 'Ты уже знаешь <span>чего хочешь</span>',
-      text: 'Новый уровень жизни — это не мечта, это проект. И как любой проект, он требует системы, окружения и правильных шагов в правильном порядке. В «Формуле успеха» это уже выстроено. Тебе остаётся только войти и начать двигаться.'
+    ready: {
+      text:    'Огонь! Ольга ждёт тебя — пиши прямо сейчас 👇',
+      btnText: 'Написать Ольге →',
+      btnHref: 'https://vk.me/olgakartunovao'
     }
   };
 
@@ -427,28 +501,10 @@
     }).catch(() => {});
   }
 
-  function startQuiz() {
-    const nameVal = document.getElementById('userName').value.trim();
-    const tgVal   = document.getElementById('userTelegram').value.trim();
-    const errEl   = document.getElementById('introError');
-
-    if (!nameVal || !tgVal) {
-      errEl.style.display = 'block';
-      return;
-    }
-    errEl.style.display = 'none';
-
-    userName     = nameVal;
-    userTelegram = tgVal;
-
-    sendToTelegram(
-      '🟡 НАЧАЛА КВИЗ\n' +
-      'Имя: ' + userName + '\n' +
-      'Telegram: ' + userTelegram + '\n' +
-      'Время: ' + new Date().toLocaleString('ru-RU')
-    );
-
-    document.getElementById('screen-intro').style.display = 'none';
+  function goToQuiz() {
+    document.getElementById('screen-who').style.display = 'none';
+    document.getElementById('progressText').style.display = 'block';
+    document.getElementById('progressBar').style.display = 'block';
     document.getElementById('q1').classList.add('active');
     document.getElementById('progressFill').style.width = '20%';
     document.getElementById('progressText').textContent = 'Вопрос 1 из 5';
@@ -474,44 +530,63 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function showResult() {
+  function showCollect() {
     document.getElementById('q5').classList.remove('active');
     document.getElementById('progressFill').style.width = '100%';
-    document.getElementById('progressText').textContent = 'Готово!';
+    document.getElementById('progressText').textContent = 'Почти готово!';
+    document.getElementById('screen-collect').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-    const key = answers[1] || 'all';
-    const res = results[key] || results['all'];
+  function submitAndShowResult() {
+    const nameVal = document.getElementById('userName').value.trim();
+    const tgVal   = document.getElementById('userTelegram').value.trim();
+    const errEl   = document.getElementById('collectError');
 
-    document.getElementById('resultTitle').innerHTML = res.title;
-    document.getElementById('resultText').textContent = res.text;
-    document.getElementById('result').style.display = 'block';
-
-    const isBusiness = (answers[1] === 'money') || (answers[3] === 'income');
-    const giftBtn = document.getElementById('giftBtn');
-    if (isBusiness) {
-      giftBtn.href = 'https://file-storage.bothelp.io/kartunova/e5/e567/e567d55dd12ca56f5ab49824668006ff/21%20%D1%81%D1%82%D1%83%D0%BF%D0%B5%D0%BD%D1%8C%20%D0%BA%20%20%D1%83%D1%81%D0%BF%D0%B5%D1%85%D1%83.pdf';
-      giftBtn.textContent = '🎁 Получить книгу «21 ступень к успеху» →';
-    } else {
-      giftBtn.href = 'https://file-storage.bothelp.io/kartunova/74/7484/74844430767dc29f263ba6193ba55882/7-DNEJ-K-LEGKOSTI-4.pdf';
-      giftBtn.textContent = '🎁 Получить «7 дней к лёгкости» →';
+    if (!nameVal || !tgVal) {
+      errEl.style.display = 'block';
+      return;
     }
+    errEl.style.display = 'none';
 
-    const resultNames = {
-      energy: 'Перезагрузка энергии',
-      money:  'Стабильный доход',
-      self:   'Своя жизнь',
-      all:    'Нужна система',
-      level:  'Новый уровень'
+    userName     = nameVal;
+    userTelegram = tgVal;
+
+    const q5Key = answers[5] || 'consult';
+    const q5Labels = {
+      consult:    'Хочу личную консультацию',
+      info:       'Хочу узнать подробнее',
+      community2: 'Попасть в сообщество',
+      ready:      'Я готова'
     };
 
     sendToTelegram(
       '✅ ПРОШЛА КВИЗ ДО КОНЦА\n' +
       'Имя: ' + userName + '\n' +
       'Telegram: ' + userTelegram + '\n' +
-      'Результат: ' + (resultNames[key] || key) + '\n' +
+      'Первый шаг (вопрос 5): ' + (q5Labels[q5Key] || q5Key) + '\n' +
       'Время: ' + new Date().toLocaleString('ru-RU')
     );
 
+    document.getElementById('screen-collect').style.display = 'none';
+    showResult();
+  }
+
+  function showResult() {
+    const q1Key = answers[1] || 'all';
+    const q5Key = answers[5] || 'consult';
+
+    const titleHtml = q1Titles[q1Key] || q1Titles['all'];
+    const res = q5Results[q5Key] || q5Results['consult'];
+
+    document.getElementById('resultTitle').innerHTML = titleHtml;
+    document.getElementById('resultText').textContent = res.text;
+
+    const btn = document.getElementById('mainActionBtn');
+    btn.textContent = res.btnText;
+    btn.href = res.btnHref;
+
+    document.getElementById('result').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>

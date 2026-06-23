@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Узнай своё число судьбы и ведущую чакру</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pink: #f472b6;
+    --hot-pink: #ec4899;
+    --violet: #c084fc;
+    --purple: #a855f7;
+    --rose: #fb7185;
+    --deep: #120320;
+    --card: rgba(255, 200, 235, 0.05);
+    --border: rgba(240, 130, 200, 0.28);
+    --text: #fff5fb;
+    --text-sub: #f0b8d8;
+    --text-muted: #c890b8;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--deep);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, #3d0a4e 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 80%, #2d0535 0%, transparent 60%),
+      radial-gradient(ellipse 100% 80% at 50% 50%, #1a0428 0%, #120320 100%);
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.25;
+    z-index: -1;
+    animation: float 12s ease-in-out infinite;
+  }
+  .orb-1 { width: 300px; height: 300px; background: #ec4899; top: -80px; right: -60px; animation-delay: 0s; }
+  .orb-2 { width: 200px; height: 200px; background: #a855f7; bottom: 10%; left: -60px; animation-delay: 3s; }
+  .orb-3 { width: 150px; height: 150px; background: #f472b6; top: 50%; right: 5%; animation-delay: 6s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+  }
+
+  /* Stars */
+  .stars-canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  .container {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 44px 40px;
+    backdrop-filter: blur(20px);
+    box-shadow:
+      0 0 0 1px rgba(240,130,200,0.05),
+      0 8px 80px rgba(200,50,150,0.18),
+      inset 0 1px 0 rgba(255,200,230,0.1);
+  }
+
+  /* Header */
+  .logo-wrap {
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .logo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    font-size: 28px;
+    box-shadow: 0 0 30px rgba(236,72,153,0.4);
+    margin-bottom: 10px;
+  }
+
+  .expert-badge {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, #f472b6, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 14.5px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Progress */
+  .progress-bar {
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    height: 5px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ec4899, #a855f7, #f472b6);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  /* Steps */
+  .step { display: none; }
+  .step.active { display: block; animation: fadeSlide 0.35s ease; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-counter {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .question {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+
+  .question-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .option {
+    background: rgba(255,200,230,0.04);
+    border: 1px solid rgba(240,130,200,0.2);
+    border-radius: 16px;
+    padding: 13px 16px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    font-size: 14.5px;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .option:hover {
+    background: rgba(236,72,153,0.12);
+    border-color: rgba(240,130,200,0.5);
+    color: var(--text);
+    transform: translateX(5px);
+  }
+
+  .option.selected {
+    background: linear-gradient(135deg, rgba(236,72,153,0.18), rgba(168,85,247,0.15));
+    border-color: #ec4899;
+    color: var(--text);
+    box-shadow: 0 0 20px rgba(236,72,153,0.15);
+  }
+
+  .option-emoji { font-size: 19px; min-width: 24px; }
+
+  /* Input */
+  .date-input-wrap { margin-bottom: 6px; }
+
+  input[type="text"], input[type="tel"] {
+    width: 100%;
+    background: rgba(255,200,230,0.06);
+    border: 1px solid rgba(240,130,200,0.3);
+    border-radius: 16px;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: var(--text);
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    transition: border 0.2s, box-shadow 0.2s;
+    letter-spacing: 1px;
+  }
+
+  input[type="text"]:focus, input[type="tel"]:focus {
+    border-color: var(--hot-pink);
+    box-shadow: 0 0 0 3px rgba(236,72,153,0.15);
+  }
+
+  input::placeholder { color: rgba(240,180,220,0.4); }
+
+  /* Buttons */
+  .btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.22s ease;
+    margin-top: 22px;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+    color: white;
+    box-shadow: 0 4px 24px rgba(236,72,153,0.35);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(236,72,153,0.5);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Form */
+  .form-group { margin-bottom: 14px; }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 7px;
+    letter-spacing: 0.3px;
+  }
+
+  .error-msg {
+    color: #fb7185;
+    font-size: 13px;
+    margin-top: 7px;
+    display: none;
+  }
+
+  /* RESULT */
+  .result-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .number-circle {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 46px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    color: white;
+    margin: 0 auto 18px;
+    box-shadow:
+      0 0 0 6px rgba(236,72,153,0.15),
+      0 0 50px rgba(236,72,153,0.4),
+      0 0 100px rgba(168,85,247,0.2);
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 6px rgba(236,72,153,0.15), 0 0 50px rgba(236,72,153,0.4), 0 0 100px rgba(168,85,247,0.2); }
+    50% { box-shadow: 0 0 0 12px rgba(236,72,153,0.08), 0 0 70px rgba(236,72,153,0.5), 0 0 120px rgba(168,85,247,0.3); }
+  }
+
+  .result-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .chakra-badge {
+    display: inline-block;
+    padding: 7px 18px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Result blocks */
+  .result-block {
+    background: rgba(255,200,235,0.04);
+    border-radius: 18px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--hot-pink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-block::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(236,72,153,0.08), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .result-block.violet { border-left-color: var(--purple); }
+  .result-block.violet::before { background: radial-gradient(circle, rgba(168,85,247,0.08), transparent 70%); }
+
+  .result-block.rose { border-left-color: var(--rose); }
+  .result-block.bonus { border-left-color: #fbbf24; background: rgba(251,191,36,0.04); }
+  .result-block.bonus::before { background: radial-gradient(circle, rgba(251,191,36,0.07), transparent 70%); }
+
+  .result-block h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 9px;
+    font-weight: 600;
+  }
+
+  .result-block p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-sub);
+  }
+
+  .result-block strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .bonus-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+  }
+
+  .bonus-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #fbbf24;
+    min-width: 32px;
+    text-align: center;
+  }
+
+  .bonus-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .bonus-label strong {
+    color: var(--text-sub);
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  /* CTA */
+  .cta-block {
+    background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(168,85,247,0.12));
+    border: 1px solid rgba(240,130,200,0.3);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-block::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 80px;
+    background: radial-gradient(ellipse, rgba(236,72,153,0.2), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .cta-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .cta-block p {
+    font-size: 14px;
+    color: var(--text-sub);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .btn-tg {
+    display: inline-block;
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    color: white;
+    text-decoration: none;
+    padding: 15px 32px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 24px rgba(236,72,153,0.4);
+    transition: all 0.22s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-tg:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(236,72,153,0.55);
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,130,200,0.25), transparent);
+    margin: 24px 0;
+  }
+
+  /* Petals */
+  .petal {
+    position: fixed;
+    pointer-events: none;
+    font-size: 18px;
+    animation: petal-fall linear infinite;
+    z-index: -1;
+    opacity: 0.4;
+  }
+
+  @keyframes petal-fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 32px 22px; }
+    h1 { font-size: 26px; }
+    .question { font-size: 19px; }
+    .number-circle { width: 90px; height: 90px; font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<canvas class="stars-canvas" id="stars"></canvas>
+
+<div class="container">
+  <div class="card">
+
+    <div class="logo-wrap">
+      <div class="logo-icon">🔮</div>
+    </div>
+    <div class="expert-badge">Нумеролог · Чакролог · Ульяна</div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress" style="width:0%"></div>
+    </div>
+
+    <!-- ШАГ 0: Приветствие -->
+    <div class="step active" id="step-0">
+      <h1>Узнай своё число судьбы<br>и <em>ведущую чакру</em></h1>
+      <p class="subtitle">За 2 минуты — персональный разбор: какое число управляет вашей жизнью и какая чакра раскрывает ваш истинный потенциал</p>
+      <button class="btn btn-primary" onclick="goStep(1)">Начать →</button>
+    </div>
+
+    <!-- ШАГ 1: Дата рождения -->
+    <div class="step" id="step-1">
+      <div class="step-counter">Шаг 1 из 5</div>
+      <div class="question">Введите дату рождения</div>
+      <div class="question-hint">Из неё мы вычислим ваше число судьбы</div>
+      <div class="date-input-wrap">
+        <input type="text" id="birthdate" placeholder="ДД.ММ.ГГГГ" maxlength="10" oninput="formatDate(this)">
+        <div class="error-msg" id="date-error">Введите дату в формате ДД.ММ.ГГГГ</div>
+      </div>
+      <button class="btn btn-primary" onclick="submitDate()">Далее →</button>
+    </div>
+
+    <!-- ШАГ 2 -->
+    <div class="step" id="step-2">
+      <div class="step-counter">Шаг 2 из 5</div>
+      <div class="question">Что беспокоит вас больше всего прямо сейчас?</div>
+      <div class="question-hint">Выберите один вариант</div>
+      <div class="options">
+        <div class="option" onclick="selectOption(this, 2, 1)"><span class="option-emoji">🏠</span>Нестабильность, страх, нет ощущения опоры</div>
+        <div class="option" onclick="selectOption(this, 2, 2)"><span class="option-emoji">💫</span>Отношения, одиночество, нет радости</div>
+        <div class="option" onclick="selectOption(this, 2, 3)"><span class="option-emoji">💰</span>Деньги, неуверенность, не могу реализоваться</div>
+        <div class="option" onclick="selectOption(this, 2, 4)"><span class="option-emoji">💚</span>Не принимаю себя, сложно любить и прощать</div>
+        <div class="option" onclick="selectOption(this, 2, 5)"><span class="option-emoji">🗣️</span>Не могу выразить себя, меня не слышат</div>
+        <div class="option" onclick="selectOption(this, 2, 6)"><span class="option-emoji">👁️</span>Нет ясности, запутана, не знаю куда идти</div>
+        <div class="option" onclick="selectOption(this, 2, 7)"><span class="option-emoji">✨</span>Ищу смысл, чувствую пустоту, нет предназначения</div>
+      </div>
+    </div>
+
+    <!-- ШАГ 3 -->
+    <div class="step" id="step-3">
+      <div class="step-counter">Шаг 3 из 5</div>
+      <div class="question">Как вы принимаете важные решения?</div>
+      <div class="question-hint">Выберите один вариант</div>
+      <div class="options">
+        <div class="option" onclick="selectOption(this, 3, 1)"><span class="option-emoji">🫀</span>Слушаю тело — если тревожно, значит нет</div>
+        <div class="option" onclick="selectOption(this, 3, 3)"><span class="option-emoji">🧠</span>Анализирую, считаю, взвешиваю всё</div>
+        <div class="option" onclick="selectOption(this, 3, 4)"><span class="option-emoji">❤️</span>Чувствую сердцем — или откликается или нет</div>
+        <div class="option" onclick="selectOption(this, 3, 6)"><span class="option-emoji">🌟</span>Доверяю интуиции — просто знаю</div>
+      </div>
+    </div>
+
+    <!-- ШАГ 4 -->
+    <div class="step" id="step-4">
+      <div class="step-counter">Шаг 4 из 5</div>
+      <div class="question">Что для вас важнее всего сейчас?</div>
+      <div class="question-hint">Выберите один вариант</div>
+      <div class="options">
+        <div class="option" onclick="selectOption(this, 4, 1)"><span class="option-emoji">🏡</span>Безопасность, стабильность, здоровье</div>
+        <div class="option" onclick="selectOption(this, 4, 2)"><span class="option-emoji">🌹</span>Красота, удовольствие, творчество</div>
+        <div class="option" onclick="selectOption(this, 4, 3)"><span class="option-emoji">🏆</span>Успех, признание, достижения</div>
+        <div class="option" onclick="selectOption(this, 4, 4)"><span class="option-emoji">🤍</span>Любовь, гармония в отношениях</div>
+        <div class="option" onclick="selectOption(this, 4, 5)"><span class="option-emoji">🎤</span>Свобода выражать себя, творить</div>
+        <div class="option" onclick="selectOption(this, 4, 7)"><span class="option-emoji">🙏</span>Духовный рост, связь с высшим</div>
+      </div>
+    </div>
+
+    <!-- ШАГ 5 -->
+    <div class="step" id="step-5">
+      <div class="step-counter">Шаг 5 из 5</div>
+      <div class="question">Какая ситуация вам знакома?</div>
+      <div class="question-hint">Выберите один вариант</div>
+      <div class="options">
+        <div class="option" onclick="selectOption(this, 5, 1)"><span class="option-emoji">😰</span>Часто тревожусь, сложно расслабиться</div>
+        <div class="option" onclick="selectOption(this, 5, 2)"><span class="option-emoji">😔</span>Сложно строить близкие отношения</div>
+        <div class="option" onclick="selectOption(this, 5, 3)"><span class="option-emoji">😟</span>Не чувствую себя достаточно уверенной</div>
+        <div class="option" onclick="selectOption(this, 5, 4)"><span class="option-emoji">💔</span>Сложно принимать и любить себя</div>
+        <div class="option" onclick="selectOption(this, 5, 5)"><span class="option-emoji">🤐</span>Не могу сказать то что думаю</div>
+        <div class="option" onclick="selectOption(this, 5, 6)"><span class="option-emoji">😵</span>Не доверяю своей интуиции</div>
+        <div class="option" onclick="selectOption(this, 5, 7)"><span class="option-emoji">🌀</span>Ищу своё предназначение уже давно</div>
+      </div>
+    </div>
+
+    <!-- ШАГ 6: Контакт -->
+    <div class="step" id="step-6">
+      <div class="question">Почти готово!</div>
+      <p class="question-hint">Ульяна лично ответит в течение 24 часов</p>
+      <div class="form-group">
+        <label class="form-label">Ваше имя</label>
+        <input type="text" id="user-name" placeholder="Как вас зовут?">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ваш Telegram</label>
+        <input type="tel" id="user-telegram" placeholder="@username или номер телефона">
+      </div>
+      <button class="btn btn-primary" onclick="showResult()">Получить результат →</button>
+    </div>
+
+    <!-- ШАГ 7: Результат -->
+    <div class="step" id="step-7">
+      <div class="result-header">
+        <div class="number-circle" id="result-number">?</div>
+        <div class="result-name" id="result-number-name">Число судьбы</div>
+        <div class="chakra-badge" id="result-chakra-badge">Чакра</div>
+      </div>
+
+      <div class="result-block">
+        <h3>✦ Ваше число судьбы</h3>
+        <p id="result-number-text"></p>
+      </div>
+
+      <div class="result-block violet">
+        <h3>✦ Ваша ведущая чакра</h3>
+        <p id="result-chakra-text"></p>
+      </div>
+
+      <div class="result-block rose">
+        <h3>✦ Ваш путь</h3>
+        <p id="result-combined-text"></p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="result-block bonus">
+        <h3>✦ Бонус · Ваш личный код (Сюцай)</h3>
+        <p style="margin-bottom:10px; font-size:13.5px; color:var(--text-muted);">Древняя ведическая система открывает ещё два числа вашей судьбы:</p>
+        <div class="bonus-row">
+          <div class="bonus-num" id="bonus-chs">—</div>
+          <div class="bonus-label">
+            <strong id="bonus-chs-name">Число Сознания</strong>
+            <span id="bonus-chs-desc">Управляет вашей жизнью с рождения</span>
+          </div>
+        </div>
+        <div class="bonus-row" style="margin-top:8px;">
+          <div class="bonus-num" id="bonus-year">—</div>
+          <div class="bonus-label">
+            <strong>Ваш личный год <span id="bonus-year-num"></span></strong>
+            <span id="bonus-year-desc">Энергия и задачи этого года</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Хотите полный разбор?</h3>
+        <p>Ульяна проведёт личную консультацию — число судьбы + чакральный анализ + рекомендации именно для вас</p>
+        <a href="https://t.me/ulyana_numerolog" class="btn-tg" id="tg-link">Написать Ульяне ✦</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Stars
+  (function() {
+    const c = document.getElementById('stars');
+    const ctx = c.getContext('2d');
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    const stars = [];
+    for (let i = 0; i < 120; i++) {
+      stars.push({
+        x: Math.random() * c.width,
+        y: Math.random() * c.height,
+        r: Math.random() * 1.5 + 0.3,
+        a: Math.random(),
+        s: Math.random() * 0.008 + 0.003,
+        pink: Math.random() > 0.5
+      });
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, c.width, c.height);
+      stars.forEach(s => {
+        s.a += s.s;
+        const alpha = (Math.sin(s.a) + 1) / 2 * 0.7 + 0.1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = s.pink
+          ? `rgba(244,114,182,${alpha})`
+          : `rgba(192,132,252,${alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+    window.addEventListener('resize', () => {
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+    });
+  })();
+
+  // Quiz logic
+  let currentStep = 0;
+  const totalSteps = 5;
+  let answers = { chakra: [0,0,0,0,0,0,0,0] };
+  let destinyNumber = 0;
+  let birthDay = 0, birthMonth = 0, birthYear = 0;
+
+  function updateProgress(step) {
+    const pct = step === 0 ? 0 : Math.round((step / totalSteps) * 100);
+    document.getElementById('progress').style.width = pct + '%';
+  }
+
+  function goStep(n) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('step-' + currentStep).classList.add('active');
+    updateProgress(n > 5 ? 5 : n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function formatDate(input) {
+    let val = input.value.replace(/\D/g, '');
+    if (val.length >= 3) val = val.slice(0,2) + '.' + val.slice(2);
+    if (val.length >= 6) val = val.slice(0,5) + '.' + val.slice(5);
+    input.value = val.slice(0,10);
+  }
+
+  function reduceToSingle(n, allowMaster) {
+    while (n > 9) {
+      if (allowMaster && (n === 11 || n === 22 || n === 33)) break;
+      n = String(n).split('').map(Number).reduce((a,b)=>a+b,0);
+    }
+    return n;
+  }
+
+  function submitDate() {
+    const d = document.getElementById('birthdate').value;
+    const err = document.getElementById('date-error');
+    if (d.length !== 10 || d[2] !== '.' || d[5] !== '.') {
+      err.style.display = 'block'; return;
+    }
+    err.style.display = 'none';
+
+    const parts = d.split('.');
+    birthDay = parseInt(parts[0]);
+    birthMonth = parseInt(parts[1]);
+    birthYear = parseInt(parts[2]);
+
+    // Число судьбы (миссия) = все цифры даты
+    const digits = d.replace(/\./g,'').split('').map(Number);
+    let sum = digits.reduce((a,b)=>a+b,0);
+    sum = reduceToSingle(sum, true);
+    destinyNumber = sum;
+
+    goStep(2);
+  }
+
+  function selectOption(el, step, chakra) {
+    el.closest('.options').querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers['q'+step] = chakra;
+    answers.chakra[chakra]++;
+    setTimeout(()=>goStep(step+1), 380);
+  }
+
+  function showResult() {
+    const name = document.getElementById('user-name').value.trim();
+    const tg = document.getElementById('user-telegram').value.trim();
+    if (!name) { alert('Пожалуйста, введите ваше имя'); return; }
+
+    // Ведущая чакра
+    const chakraScores = answers.chakra;
+    let maxChakra = 1;
+    for (let i=1;i<=7;i++) { if (chakraScores[i]>chakraScores[maxChakra]) maxChakra=i; }
+
+    const chakras = {
+      1: { name:'Муладхара', emoji:'🔴', color:'#f87171', desc:'Корневая чакра — безопасность, стабильность, связь с землёй. Она просит вашего внимания: нужно укрепить фундамент.' },
+      2: { name:'Свадхистана', emoji:'🟠', color:'#fb923c', desc:'Чакра творчества и удовольствия — эмоции, отношения, радость жизни. Здесь хранится ваша сила притяжения.' },
+      3: { name:'Манипура', emoji:'🟡', color:'#fbbf24', desc:'Чакра силы и воли — уверенность, деньги, реализация. Ваша личная сила ждёт раскрытия.' },
+      4: { name:'Анахата', emoji:'💚', color:'#4ade80', desc:'Чакра сердца — любовь, принятие, гармония. Когда она открыта, притягивается всё лучшее.' },
+      5: { name:'Вишудха', emoji:'💙', color:'#60a5fa', desc:'Чакра горла — самовыражение, правда, голос. Ваши слова имеют силу — важно научиться ею пользоваться.' },
+      6: { name:'Аджна', emoji:'💜', color:'#a78bfa', desc:'Третий глаз — интуиция, ясность, видение. Вы обладаете тонким восприятием, которое нужно раскрыть.' },
+      7: { name:'Сахасрара', emoji:'🤍', color:'#e879f9', desc:'Коронная чакра — связь с высшим, предназначение, смысл. Вы на пути к своей истинной миссии.' }
+    };
+
+    const numbers = {
+      1: { name:'Число 1 — Лидер', desc:'Вы рождены вести людей за собой. Ваша сила — в инициативе и независимости. Судьба ведёт вас к самостоятельным решениям.' },
+      2: { name:'Число 2 — Дипломат', desc:'Вы создаёте гармонию вокруг себя. Ваш дар — чувствовать людей и объединять. Судьба ведёт вас через партнёрство.' },
+      3: { name:'Число 3 — Творец', desc:'Вы несёте в мир красоту и радость. Ваш дар — творчество и общение. Судьба открывает вам путь самовыражения.' },
+      4: { name:'Число 4 — Трансформатор', desc:'Вы видите мир под другим углом. Ваш дар — интуиция и преобразование. Судьба ведёт вас через постоянное обновление.' },
+      5: { name:'Число 5 — Свободный дух', desc:'Вы созданы для перемен и открытий. Ваш дар — адаптивность и коммуникация. Судьба дарит вам богатый жизненный опыт.' },
+      6: { name:'Число 6 — Мастер', desc:'Вы несёте любовь и мудрость в мир. Ваш дар — поддерживать и вдохновлять. Судьба ведёт вас через творчество и красоту.' },
+      7: { name:'Число 7 — Мудрец', desc:'Вы искатель глубинных истин. Ваш дар — анализ и духовное знание. Судьба ведёт вас к мудрости.' },
+      8: { name:'Число 8 — Монетизатор', desc:'Вы рождены для изобилия и результата. Ваш дар — дисциплина и деловое мышление. Судьба ведёт вас к материальному успеху.' },
+      9: { name:'Число 9 — Воин', desc:'Вы несёте в мир высшую энергию действия. Ваш дар — служение и движение. Судьба ведёт вас через победы.' },
+      11: { name:'Число 11 — Просветлённый', desc:'Мастер-число. Вы несёте свет и вдохновение. Ваш дар — интуиция и духовное видение на высочайшем уровне.' },
+      22: { name:'Число 22 — Мастер-строитель', desc:'Мастер-число. Вы способны воплощать великие замыслы. Ваш дар — создавать то, что служит человечеству.' },
+      33: { name:'Число 33 — Учитель', desc:'Мастер-число. Вы несёте безусловную любовь и мудрость. Ваш дар — исцелять через любовь и пример.' }
+    };
+
+    // ЧС (Сюцай) = день рождения до однозначного
+    const chsRaw = birthDay;
+    const chs = reduceToSingle(chsRaw, false);
+    const chsNames = {
+      1:'Лидер (Солнце)', 2:'Помощник (Луна)', 3:'Учитель (Юпитер)',
+      4:'Трансформатор (Раху)', 5:'Коммуникатор (Меркурий)', 6:'Мастер (Венера)',
+      7:'Перфекционист (Кету)', 8:'Монетизатор (Сатурн)', 9:'Воин (Марс)'
+    };
+    const chsDescs = {
+      1:'Вы рождены быть первым и вести за собой',
+      2:'Ваша сила — в понимании людей и дипломатии',
+      3:'Вы учитель по природе — знания текут через вас',
+      4:'Вы видите то, что другим недоступно',
+      5:'Вы проводник для людей — вас слушают',
+      6:'Самая сильная 1-я чакра — вы мастер красоты и смысла',
+      7:'Вы несёте высокое знание — ангел-хранитель',
+      8:'Ваш путь — через дисциплину к результату',
+      9:'Вы пришли победить — и дать это другим'
+    };
+
+    // Личный год = ДД + ММ + текущий год
+    const curYear = new Date().getFullYear();
+    const pyDigits = String(birthDay).split('').map(Number)
+      .concat(String(birthMonth).split('').map(Number))
+      .concat(String(curYear).split('').map(Number));
+    const personalYear = reduceToSingle(pyDigits.reduce((a,b)=>a+b,0), false);
+
+    const pyDescs = {
+      1:'Год нового начала — время запускать, решать, действовать',
+      2:'Год партнёрства — время объединяться и искать союзников',
+      3:'Год творчества и общения — ваши слова открывают двери',
+      4:'Год трансформации — что не работает, уйдёт, придёт новое',
+      5:'Год перемен и свободы — следуйте за интуицией',
+      6:'Год любви и гармонии — фокус на отношениях и себе',
+      7:'Год мудрости и глубины — время учиться и осмысливать',
+      8:'Год результата — всё что вложили, начнёт возвращаться',
+      9:'Год завершения — закрывайте старое, готовьтесь к новому'
+    };
+
+    const n = numbers[destinyNumber] || numbers[9];
+    const ch = chakras[maxChakra];
+
+    document.getElementById('result-number').textContent = destinyNumber;
+    document.getElementById('result-number-name').textContent = n.name;
+
+    const badge = document.getElementById('result-chakra-badge');
+    badge.textContent = ch.emoji + ' ' + ch.name;
+    badge.style.background = ch.color + '22';
+    badge.style.color = ch.color;
+    badge.style.border = '1px solid ' + ch.color + '55';
+
+    document.getElementById('result-number-text').textContent = n.desc;
+    document.getElementById('result-chakra-text').textContent = ch.desc;
+    document.getElementById('result-combined-text').innerHTML =
+      'Ваше число <strong>' + destinyNumber + '</strong> и чакра <strong>' + ch.name +
+      '</strong> открывают уникальный путь. На консультации Ульяна покажет, как использовать эту связку для конкретных изменений прямо сейчас.';
+
+    // Бонус: ЧС
+    document.getElementById('bonus-chs').textContent = chs;
+    document.getElementById('bonus-chs-name').textContent = 'Число Сознания — ' + (chsNames[chs] || 'Ваш код');
+    document.getElementById('bonus-chs-desc').textContent = chsDescs[chs] || '';
+
+    // Бонус: личный год
+    document.getElementById('bonus-year').textContent = personalYear;
+    document.getElementById('bonus-year-num').textContent = curYear;
+    document.getElementById('bonus-year-desc').textContent = pyDescs[personalYear] || '';
+
+    if (tg) {
+      const cleanTg = tg.replace('@','').replace('+','').trim();
+      document.getElementById('tg-link').href = 'https://t.me/' + (cleanTg || 'ulyana_numerolog');
+    }
+
+    goStep(7);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нумерологический разбор · Антон · 13.02.1987</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --gold-pale: #f5e4a8;
+    --deep: #080c18;
+    --card: rgba(20, 32, 60, 0.55);
+    --border: rgba(212, 168, 67, 0.18);
+    --text: #f0ede8;
+    --text-sub: #b8c4d8;
+    --text-muted: #7890aa;
+    --violet: #a78bfa;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--deep);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 50% at 10% 0%, #0a1a40 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 100%, #12082a 0%, transparent 55%),
+      linear-gradient(180deg, #080c18 0%, #090e1e 100%);
+  }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; }
+  .orb-1 { width: 500px; height: 500px; background: #0e2060; top: -150px; right: -150px; opacity: 0.2; }
+  .orb-2 { width: 350px; height: 350px; background: #3b0764; bottom: 0; left: -100px; opacity: 0.15; }
+  .orb-3 { width: 250px; height: 250px; background: #92400e; top: 45%; left: 50%; transform: translateX(-50%); opacity: 0.07; }
+
+  canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  /* ─── Layout ─── */
+  .page { max-width: 700px; margin: 0 auto; padding: 52px 22px 72px; }
+
+  /* ─── Hero ─── */
+  .hero {
+    text-align: center;
+    padding-bottom: 44px;
+    margin-bottom: 44px;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); opacity: 0.75; margin-bottom: 22px;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 58px; font-weight: 300; letter-spacing: 3px;
+    color: var(--text); margin-bottom: 6px; line-height: 1;
+  }
+  .hero-date { font-size: 14px; color: var(--text-muted); letter-spacing: 2px; }
+
+  /* ─── Numbers strip ─── */
+  .nums-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 52px;
+  }
+  .num-tile {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 10px 16px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    position: relative; overflow: hidden;
+  }
+  .num-tile::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .num-tile.violet-tile::before { background: linear-gradient(90deg, transparent, var(--violet), transparent); }
+  .num-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 600; line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 7px;
+  }
+  .num-tile.violet-tile .num-big {
+    background: linear-gradient(135deg, #ddd6fe, var(--violet));
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .num-caption { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); line-height: 1.4; }
+
+  /* ─── Section ─── */
+  .section { margin-bottom: 44px; }
+  .sec-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(212,168,67,0.03));
+    border: 1px solid rgba(212,168,67,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .sec-icon.violet-icon {
+    background: linear-gradient(135deg, rgba(167,139,250,0.12), rgba(167,139,250,0.03));
+    border-color: rgba(167,139,250,0.2);
+  }
+  .sec-icon.red-icon {
+    background: linear-gradient(135deg, rgba(248,113,113,0.1), rgba(248,113,113,0.02));
+    border-color: rgba(248,113,113,0.18);
+  }
+  .sec-icon.green-icon {
+    background: linear-gradient(135deg, rgba(74,222,128,0.1), rgba(74,222,128,0.02));
+    border-color: rgba(74,222,128,0.18);
+  }
+  .sec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.2;
+  }
+  .sec-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+  /* ─── Cards ─── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px 26px;
+    backdrop-filter: blur(12px);
+    margin-bottom: 12px;
+  }
+  .card p { font-size: 15px; line-height: 1.8; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text); font-weight: 600; }
+  .card em { font-style: italic; color: var(--gold-pale); }
+
+  .card-left-gold { border-left: 3px solid var(--gold); }
+  .card-left-violet { border-left: 3px solid var(--violet); }
+  .card-left-red { border-left: 3px solid #f87171; }
+  .card-left-green { border-left: 3px solid #4ade80; }
+
+  .card-highlight {
+    background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(20,32,60,0.5));
+    border-color: rgba(212,168,67,0.28);
+  }
+  .card-highlight-violet {
+    background: linear-gradient(135deg, rgba(107,33,168,0.12), rgba(20,32,60,0.5));
+    border-color: rgba(167,139,250,0.22);
+  }
+
+  /* ─── List items ─── */
+  .dot-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+  .dot-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; line-height: 1.65; color: var(--text-sub); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--gold); }
+  .dot.v { background: var(--violet); }
+  .dot.r { background: #f87171; }
+  .dot.g { background: #4ade80; }
+
+  /* ─── Tags ─── */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .tag {
+    padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    border: 1px solid;
+  }
+  .tag-g  { background: rgba(212,168,67,0.08);  border-color: rgba(212,168,67,0.25); color: var(--gold-light); }
+  .tag-b  { background: rgba(99,130,255,0.08);  border-color: rgba(99,130,255,0.2);  color: #a5b4fc; }
+  .tag-gr { background: rgba(74,222,128,0.07);  border-color: rgba(74,222,128,0.2);  color: #86efac; }
+  .tag-r  { background: rgba(248,113,113,0.07); border-color: rgba(248,113,113,0.2); color: #fca5a5; }
+
+  /* ─── Two columns ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .col-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; backdrop-filter: blur(12px); }
+  .col-head { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 14px; }
+  .col-card.do-col .col-head { color: #4ade80; }
+  .col-card.dont-col .col-head { color: #f87171; }
+
+  /* ─── Year hero ─── */
+  .year-box {
+    background: var(--card-highlight-violet);
+    border: 1px solid rgba(167,139,250,0.22);
+    border-radius: 20px;
+    padding: 28px 28px 28px 32px;
+    position: relative; overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .year-watermark {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 130px; font-weight: 300;
+    color: rgba(167,139,250,0.07); line-height: 1; user-select: none;
+  }
+  .year-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 400; color: #ddd6fe; margin-bottom: 10px;
+  }
+  .year-box p { font-size: 15px; line-height: 1.75; color: var(--text-sub); max-width: 480px; }
+
+  /* ─── Checklist ─── */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .check-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 15px; line-height: 1.65; color: var(--text-sub);
+  }
+  .check-mark {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; margin-top: 1px;
+  }
+
+  /* ─── Heart block ─── */
+  .heart-block {
+    background: linear-gradient(135deg, rgba(212,168,67,0.06), rgba(107,33,168,0.1));
+    border: 1px solid rgba(212,168,67,0.22);
+    border-radius: 22px;
+    padding: 32px;
+    position: relative; overflow: hidden;
+  }
+  .heart-block::before, .heart-block::after {
+    content: '✦';
+    position: absolute;
+    color: rgba(212,168,67,0.1); font-size: 90px; line-height: 1;
+  }
+  .heart-block::before { top: -25px; left: -10px; }
+  .heart-block::after  { bottom: -25px; right: -10px; }
+  .heart-eyebrow {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); opacity: 0.75; margin-bottom: 18px;
+  }
+  .heart-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; font-style: italic;
+    line-height: 1.75; color: var(--text);
+  }
+  .heart-text p + p { margin-top: 16px; }
+
+  /* ─── Rules block ─── */
+  .rules-block {
+    background: linear-gradient(135deg, rgba(212,168,67,0.1), rgba(20,32,60,0.5));
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 20px;
+    padding: 28px;
+    margin-top: 20px;
+  }
+  .rules-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; color: var(--gold-pale); margin-bottom: 18px;
+  }
+  .rule-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 12px 0; border-bottom: 1px solid rgba(212,168,67,0.1);
+  }
+  .rule-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .rule-leaf { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .rule-text { font-size: 15px; line-height: 1.6; color: var(--text-sub); }
+  .rule-text strong { color: var(--text); }
+
+  /* ─── Final quote ─── */
+  .final-quote {
+    text-align: center;
+    padding: 44px 20px 0;
+  }
+  .quote-marks {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px; line-height: 0.5;
+    color: rgba(212,168,67,0.2);
+    margin-bottom: 8px;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-style: italic; font-weight: 300;
+    line-height: 1.75; color: var(--text);
+    max-width: 540px; margin: 0 auto;
+  }
+  .quote-source {
+    margin-top: 22px;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ─── Divider ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,168,67,0.18), transparent);
+    margin: 44px 0;
+  }
+
+  @media (max-width: 540px) {
+    .nums-strip { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .hero-name { font-size: 40px; }
+    .page { padding: 36px 16px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<canvas id="stars"></canvas>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Нумерологический разбор · Сюцай · Ведическая нумерология</div>
+    <div class="hero-name">Антон</div>
+    <div class="hero-date">13 · 02 · 1987</div>
+  </div>
+
+  <!-- ЧИСЛА -->
+  <div class="nums-strip">
+    <div class="num-tile">
+      <div class="num-big">4</div>
+      <div class="num-caption">Число<br>Сознания</div>
+    </div>
+    <div class="num-tile">
+      <div class="num-big">4</div>
+      <div class="num-caption">Число<br>Судьбы</div>
+    </div>
+    <div class="num-tile violet-tile">
+      <div class="num-big">7</div>
+      <div class="num-caption">Личный<br>год 2026</div>
+    </div>
+    <div class="num-tile">
+      <div class="num-big">4</div>
+      <div class="num-caption">Личный<br>месяц июнь</div>
+    </div>
+  </div>
+
+
+  <!-- ЧС 4 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">⚡</div>
+      <div>
+        <div class="sec-title">Число сознания — 4</div>
+        <div class="sec-sub">Раху · Трансформатор · День рождения 13 → 1+3 = 4</div>
+      </div>
+    </div>
+
+    <div class="card card-left-gold">
+      <p>В Сюцай число сознания берётся из дня рождения. <strong>13 → 1+3 = 4. Планета — Раху.</strong></p>
+      <p>Это одно из самых непростых и одновременно <strong>сильных чисел.</strong> Человек с числом сознания 4 редко идёт прямой дорогой. Его жизнь часто развивается через неожиданные повороты, кризисы, взлёты и падения. Такие люди приходят не за спокойной жизнью, а за получением глубокого опыта.</p>
+    </div>
+
+    <div class="card">
+      <p>Очень часто у них бывают периоды, когда кажется, что всё идёт не так:</p>
+      <ul class="dot-list">
+        <li><span class="dot"></span><span>Проблемы с документами</span></li>
+        <li><span class="dot"></span><span>Конфликты с законом или государственными структурами</span></li>
+        <li><span class="dot"></span><span>Непонимание своего пути</span></li>
+        <li><span class="dot"></span><span>Резкие потери и неожиданные изменения</span></li>
+      </ul>
+      <p style="margin-top:16px;"><em>Но смысл этих событий не в наказании, а в обучении.</em></p>
+    </div>
+  </div>
+
+  <!-- ЧТО ВАЖНО ДЛЯ ЧЕТВЁРКИ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon red-icon">⚖️</div>
+      <div>
+        <div class="sec-title">Что важно для четвёрки</div>
+        <div class="sec-sub">Раху не терпит</div>
+      </div>
+    </div>
+
+    <div class="card card-highlight">
+      <p>Раху не терпит обмана, хитрых схем, обхода правил, жизни «по понятиям вместо закона».</p>
+      <p>Когда человек начинает нарушать внутренний или внешний закон — жизнь быстро показывает последствия. Когда же он действует <strong>честно и берёт ответственность за свои поступки</strong> — открываются удивительные возможности.</p>
+    </div>
+
+    <div class="two-col" style="margin-top:12px;">
+      <div class="col-card dont-col">
+        <div class="col-head">✦ Раху не терпит</div>
+        <ul class="dot-list">
+          <li><span class="dot r"></span><span>Обман и хитрые схемы</span></li>
+          <li><span class="dot r"></span><span>Обход правил</span></li>
+          <li><span class="dot r"></span><span>Жизнь «по понятиям»</span></li>
+          <li><span class="dot r"></span><span>Уход от ответственности</span></li>
+        </ul>
+      </div>
+      <div class="col-card do-col">
+        <div class="col-head">✦ Раху раскрывает</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Честность и прямота</span></li>
+          <li><span class="dot g"></span><span>Ответственность за поступки</span></li>
+          <li><span class="dot g"></span><span>Опора на закон</span></li>
+          <li><span class="dot g"></span><span>Служение другим</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧТО ПРИШЁЛ ТРАНСФОРМИРОВАТЬ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">🔥</div>
+      <div>
+        <div class="sec-title">Что он пришёл трансформировать</div>
+        <div class="sec-sub">Хаос в порядок · Реформатор, не разрушитель</div>
+      </div>
+    </div>
+
+    <div class="card card-left-gold">
+      <p>По энергии числа 4 его задача — <strong>трансформировать хаос в порядок.</strong> Он не разрушитель. Он реформатор. Такие люди способны:</p>
+      <ul class="dot-list">
+        <li><span class="dot"></span><span>Восстанавливать справедливость</span></li>
+        <li><span class="dot"></span><span>Защищать слабых</span></li>
+        <li><span class="dot"></span><span>Бороться с нарушениями</span></li>
+        <li><span class="dot"></span><span>Наводить порядок в сложных системах</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <p>Поэтому энергия его числа очень связана с темой <strong>закона, справедливости, правил и ответственности.</strong></p>
+      <p>Для него крайне важно жить в рамках закона и моральных принципов — именно через это раскрывается его сила. Если он идёт против закона — получает жёсткие уроки. <em>Если становится защитником закона — получает поддержку судьбы.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ДВОЙНАЯ ЧЕТВЁРКА -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✦</div>
+      <div>
+        <div class="sec-title">Двойная четвёрка</div>
+        <div class="sec-sub">ЧС 4 + Судьба 4 · Редкое и мощное сочетание</div>
+      </div>
+    </div>
+
+    <div class="card card-highlight">
+      <p style="font-size:16px;"><strong>13.02.1987 → 1+3+0+2+1+9+8+7 = 31 → 3+1 = 4</strong></p>
+      <p style="margin-top:12px;">Сознание 4 и Судьба 4. Это сочетание <strong>усиливает все качества числа.</strong> Человек, у которого оба числа совпадают, несёт двойную трансформационную энергию.</p>
+    </div>
+
+    <div class="card">
+      <p>Это человек: <strong>сильный, выносливый, способный подниматься после падений, умеющий проходить испытания.</strong></p>
+      <p style="margin-top:12px;">Но одновременно его жизнь редко бывает простой и ровной. Ему важно научиться:</p>
+      <div class="tags">
+        <span class="tag tag-g">Терпению</span>
+        <span class="tag tag-g">Дисциплине</span>
+        <span class="tag tag-g">Честности перед собой</span>
+        <span class="tag tag-g">Уважению к законам жизни</span>
+      </div>
+    </div>
+
+    <div class="card card-left-gold">
+      <p>При всей жёсткости четвёрки, рядом стоит число <strong>13</strong> — число трансформации. Это люди, которые за жизнь могут несколько раз буквально переродиться: менять профессию, круг общения, образ жизни, взгляды на мир.</p>
+      <p style="margin-top:12px;"><em>Поэтому нынешний период — не конечная точка. Это очень неудобный поворот дороги, после которого человек начинает строить себя заново.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- МИССИЯ ПОСЛЕ 33 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">🌿</div>
+      <div>
+        <div class="sec-title">Миссия после 33 лет</div>
+        <div class="sec-sub">Активировалась в 2020 году</div>
+      </div>
+    </div>
+
+    <div class="card card-highlight-violet">
+      <p>В Сюцай считается, что после 33 лет человек начинает проживать более зрелую программу души. Для него возраст 33 года наступил в <strong>2020 году.</strong></p>
+      <p style="margin-top:12px;">Именно после этого периода жизнь могла резко измениться: переоценка ценностей, кризис самоопределения, ощущение что прежняя жизнь закончилась, поиск нового предназначения. <em>Это не поломка — это включение новой программы.</em></p>
+    </div>
+
+    <div class="card card-left-violet">
+      <p>Его зрелая миссия связана с ролью <strong>Защитника порядка.</strong> Он способен:</p>
+      <ul class="dot-list">
+        <li><span class="dot v"></span><span>Помогать людям в сложных ситуациях</span></li>
+        <li><span class="dot v"></span><span>Восстанавливать справедливость</span></li>
+        <li><span class="dot v"></span><span>Быть посредником в конфликтах</span></li>
+        <li><span class="dot v"></span><span>Создавать систему там, где царит хаос</span></li>
+      </ul>
+      <p style="margin-top:14px;">Очень важно, чтобы его деятельность была <strong>законной, прозрачной и полезной обществу.</strong></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЛИЧНЫЙ ГОД 7 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon violet-icon">🌙</div>
+      <div>
+        <div class="sec-title">Личный год 7 · 2026</div>
+        <div class="sec-sub">4 + 2 + (2+0+2+6=10=1) = 7 · Год внутренней перестройки</div>
+      </div>
+    </div>
+
+    <div class="year-box">
+      <div class="year-watermark">7</div>
+      <h3>Год тишины и глубины</h3>
+      <p>Это один из самых непростых годов. Он не про деньги и не про быстрые победы. Он про <strong>переосмысление жизни, поиск себя, внутреннюю перестройку, обучение, духовный рост.</strong></p>
+    </div>
+
+    <div class="card">
+      <p>Очень часто в год 7 человеку кажется, что всё остановилось. <em>Но на самом деле судьба заставляет его остановиться, чтобы пересобрать свою жизнь.</em></p>
+      <p style="margin-top:12px;">Поэтому если сейчас многое не ладится — это <strong>период подготовки к новому этапу,</strong> а не тупик.</p>
+    </div>
+  </div>
+
+  <!-- ЛИЧНЫЙ МЕСЯЦ 4 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">📋</div>
+      <div>
+        <div class="sec-title">Личный месяц 4 · Июнь 2026</div>
+        <div class="sec-sub">7 + 6 = 13 → 4 · Месяц дисциплины и порядка</div>
+      </div>
+    </div>
+
+    <div class="card card-left-gold">
+      <p>Личный месяц совпадает с числом сознания и числом судьбы Антона. <strong>Тройное усиление четвёрки.</strong> Это месяц наведения порядка — во всех смыслах.</p>
+    </div>
+
+    <div class="card">
+      <p>Сейчас особенно важно:</p>
+      <ul class="dot-list" style="margin-top:12px;">
+        <li><span class="dot"></span><span>Оформлять документы и решать юридические вопросы</span></li>
+        <li><span class="dot"></span><span>Закрывать долги и незавершённые дела</span></li>
+        <li><span class="dot"></span><span>Восстанавливать репутацию</span></li>
+        <li><span class="dot"></span><span>Приводить дела в систему</span></li>
+      </ul>
+      <p style="margin-top:14px;"><em>Никаких сомнительных решений. Только честность, порядок и ответственность.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЧТО ДЕЛАТЬ ПРЯМО СЕЙЧАС -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon green-icon">✅</div>
+      <div>
+        <div class="sec-title">Что делать прямо сейчас</div>
+        <div class="sec-sub">Конкретные шаги</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <ul class="check-list">
+        <li><span class="check-mark">✓</span><span>Разобраться со всеми документами и обязательствами</span></li>
+        <li><span class="check-mark">✓</span><span>Закрыть старые долги и незавершённые дела</span></li>
+        <li><span class="check-mark">✓</span><span>Исключить любые сомнительные схемы и риски</span></li>
+        <li><span class="check-mark">✓</span><span>Искать дело, где он может быть полезен людям и чувствовать ответственность</span></li>
+        <li><span class="check-mark">✓</span><span>Не принимать решения из обиды, злости или желания что-то доказать</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ЧТО ЖДАТЬ ОТ ИЮЛЯ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">🚪</div>
+      <div>
+        <div class="sec-title">Что ждать от июля</div>
+        <div class="sec-sub">Личный месяц 5 · Новые двери</div>
+      </div>
+    </div>
+
+    <div class="card card-left-green">
+      <p>Июль не про борьбу. Июль про <strong>поиск новых возможностей через общение, обучение и новые связи.</strong></p>
+      <p style="margin-top:12px;">Если июнь говорит: <em>«Наведи порядок»</em> — то июль говорит: <em>«Посмотри, какие двери начинают открываться».</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ОТ СЕРДЦА -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">💛</div>
+      <div>
+        <div class="sec-title">От сердца</div>
+        <div class="sec-sub">Личное послание</div>
+      </div>
+    </div>
+
+    <div class="heart-block">
+      <div class="heart-eyebrow">Послание от нумеролога</div>
+      <div class="heart-text">
+        <p>Твоя дата говорит не о слабости, а о большой внутренней силе. Да, у тебя непростая энергия. Да, жизнь может проверять тебя чаще, чем других. Но именно такие люди становятся сильнее после каждого испытания.</p>
+        <p>Твой путь — не разрушать правила, а создавать их. Не обходить закон, а опираться на него. Не бороться со всем миром, а стать человеком, которому доверяют.</p>
+        <p>Иногда судьба забирает привычную почву под ногами только для того, чтобы человек наконец нашёл своё настоящее предназначение.</p>
+        <p>И, возможно, сейчас ему больше всего нужна не критика и не советы, а <strong>ощущение, что в него верят.</strong></p>
+      </div>
+    </div>
+
+    <div class="rules-block">
+      <div class="rules-title">Три главных правила для двойной четвёрки</div>
+      <div class="rule-item">
+        <span class="rule-leaf">🌱</span>
+        <span class="rule-text"><strong>Не спорить с законом.</strong> Когда четвёрка стоит на стороне закона — судьба помогает.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-leaf">🌱</span>
+        <span class="rule-text"><strong>Не искать быстрых путей и лёгких денег.</strong> Раху показывает последствия моментально.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-leaf">🌱</span>
+        <span class="rule-text"><strong>Всегда брать ответственность раньше,</strong> чем обстоятельства заставят это сделать. Тогда энергия четвёрки начинает помогать, а не испытывать.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ФИНАЛЬНАЯ ЦИТАТА -->
+  <div class="final-quote">
+    <div class="quote-marks">"</div>
+    <div class="quote-text">Твоя задача не бороться с системой, а стать человеком, который создаёт порядок. Не искать обходные пути, а строить свой путь так, чтобы потом им гордиться. Когда ты стоишь на стороне закона, ответственности и справедливости — жизнь начинает помогать тебе гораздо больше, чем ты думаешь.</div>
+    <div class="quote-source" style="margin-top:24px;">Сюцай · Ведическая нумерология · Байба Стурите</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const stars = Array.from({length: 180}, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 1.3 + 0.2,
+    a: Math.random() * Math.PI * 2,
+    s: Math.random() * 0.005 + 0.002,
+    gold: Math.random() > 0.65
+  }));
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    stars.forEach(s => {
+      s.a += s.s;
+      const alpha = (Math.sin(s.a) + 1) / 2 * 0.55 + 0.08;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.gold
+        ? `rgba(212,168,67,${alpha})`
+        : `rgba(148,168,255,${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

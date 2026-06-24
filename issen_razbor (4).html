@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нумерологический разбор · Иссэн · 25.06.2006</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --gold-pale: #f5e4a8;
+    --deep: #080c18;
+    --card: rgba(20, 32, 60, 0.55);
+    --border: rgba(212, 168, 67, 0.18);
+    --text: #f0ede8;
+    --text-sub: #b8c4d8;
+    --text-muted: #7890aa;
+    --teal: #5eead4;
+    --violet: #a78bfa;
+    --rose: #f9a8d4;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--text); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 50% at 5% 0%, #071a3e 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 95% 90%, #0d1f3c 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 50% 50%, #0a1628 0%, transparent 70%),
+      linear-gradient(180deg, #080c18 0%, #090e1e 100%);
+  }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; }
+  .orb-1 { width: 500px; height: 500px; background: #0e2a5a; top: -150px; right: -100px; opacity: 0.25; }
+  .orb-2 { width: 350px; height: 350px; background: #0d3a2e; bottom: 0; left: -80px; opacity: 0.18; }
+  .orb-3 { width: 200px; height: 200px; background: #d4a843; top: 40%; right: 5%; opacity: 0.05; }
+
+  canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 52px 22px 72px; }
+
+  /* ─── Hero ─── */
+  .hero { text-align: center; padding-bottom: 44px; margin-bottom: 44px; position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 22px; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: 58px; font-weight: 300; letter-spacing: 3px; color: var(--text); margin-bottom: 6px; line-height: 1; }
+  .hero-date { font-size: 14px; color: var(--text-muted); letter-spacing: 2px; }
+
+  /* ─── Numbers strip ─── */
+  .nums-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 52px; }
+  .num-tile {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 18px 8px 16px; text-align: center; backdrop-filter: blur(12px); position: relative; overflow: hidden;
+  }
+  .num-tile::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .num-tile.teal::before { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+  .num-tile.violet::before { background: linear-gradient(90deg, transparent, var(--violet), transparent); }
+  .num-tile.rose::before { background: linear-gradient(90deg, transparent, var(--rose), transparent); }
+
+  .num-big {
+    font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 7px;
+  }
+  .num-tile.teal .num-big { background: linear-gradient(135deg, #a7f3d0, var(--teal)); -webkit-background-clip: text; background-clip: text; }
+  .num-tile.violet .num-big { background: linear-gradient(135deg, #ddd6fe, var(--violet)); -webkit-background-clip: text; background-clip: text; }
+  .num-tile.rose .num-big { background: linear-gradient(135deg, #fce7f3, var(--rose)); -webkit-background-clip: text; background-clip: text; }
+  .num-caption { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-muted); line-height: 1.4; }
+
+  /* ─── Section ─── */
+  .section { margin-bottom: 44px; }
+  .sec-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(212,168,67,0.03));
+    border: 1px solid rgba(212,168,67,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .sec-icon.teal-i { background: linear-gradient(135deg, rgba(94,234,212,0.1), rgba(94,234,212,0.02)); border-color: rgba(94,234,212,0.2); }
+  .sec-icon.violet-i { background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(167,139,250,0.02)); border-color: rgba(167,139,250,0.2); }
+  .sec-icon.rose-i { background: linear-gradient(135deg, rgba(249,168,212,0.1), rgba(249,168,212,0.02)); border-color: rgba(249,168,212,0.2); }
+  .sec-icon.green-i { background: linear-gradient(135deg, rgba(74,222,128,0.1), rgba(74,222,128,0.02)); border-color: rgba(74,222,128,0.2); }
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.2; }
+  .sec-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+  /* ─── Cards ─── */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 26px; backdrop-filter: blur(12px); margin-bottom: 12px; }
+  .card p { font-size: 15px; line-height: 1.8; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text); font-weight: 600; }
+  .card em { font-style: italic; color: var(--gold-pale); }
+
+  .card-gold { border-left: 3px solid var(--gold); }
+  .card-teal { border-left: 3px solid var(--teal); }
+  .card-violet { border-left: 3px solid var(--violet); }
+  .card-rose { border-left: 3px solid var(--rose); }
+  .card-green { border-left: 3px solid #4ade80; }
+
+  .card-hl { background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(20,32,60,0.5)); border-color: rgba(212,168,67,0.28); }
+  .card-hl-teal { background: linear-gradient(135deg, rgba(94,234,212,0.07), rgba(20,32,60,0.5)); border-color: rgba(94,234,212,0.22); }
+  .card-hl-violet { background: linear-gradient(135deg, rgba(107,33,168,0.1), rgba(20,32,60,0.5)); border-color: rgba(167,139,250,0.22); }
+
+  /* ─── Dot list ─── */
+  .dot-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
+  .dot-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; line-height: 1.65; color: var(--text-sub); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--gold); }
+  .dot.t { background: var(--teal); }
+  .dot.v { background: var(--violet); }
+  .dot.r { background: var(--rose); }
+  .dot.g { background: #4ade80; }
+  .dot.red { background: #f87171; }
+
+  /* ─── Tags ─── */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .tag { padding: 5px 13px; border-radius: 20px; font-size: 13px; font-weight: 500; border: 1px solid; }
+  .tag-g  { background: rgba(212,168,67,0.08);  border-color: rgba(212,168,67,0.25); color: var(--gold-light); }
+  .tag-t  { background: rgba(94,234,212,0.07);  border-color: rgba(94,234,212,0.2);  color: var(--teal); }
+  .tag-v  { background: rgba(167,139,250,0.07); border-color: rgba(167,139,250,0.2); color: var(--violet); }
+  .tag-r  { background: rgba(249,168,212,0.07); border-color: rgba(249,168,212,0.2); color: var(--rose); }
+  .tag-gr { background: rgba(74,222,128,0.07);  border-color: rgba(74,222,128,0.2);  color: #86efac; }
+  .tag-rd { background: rgba(248,113,113,0.07); border-color: rgba(248,113,113,0.2); color: #fca5a5; }
+
+  /* ─── Two col ─── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .col-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; backdrop-filter: blur(12px); }
+  .col-head { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 14px; }
+  .col-card.plus .col-head { color: #4ade80; }
+  .col-card.minus .col-head { color: #f87171; }
+
+  /* ─── Year box ─── */
+  .year-box { background: var(--card-hl-violet); border: 1px solid rgba(167,139,250,0.22); border-radius: 20px; padding: 28px 28px 28px 32px; position: relative; overflow: hidden; margin-bottom: 12px; }
+  .year-wm { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 130px; font-weight: 300; color: rgba(167,139,250,0.07); line-height: 1; user-select: none; }
+  .year-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: #ddd6fe; margin-bottom: 10px; }
+  .year-box p { font-size: 15px; line-height: 1.75; color: var(--text-sub); max-width: 480px; }
+
+  /* ─── Name block ─── */
+  .name-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+  .name-tile { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px 16px; text-align: center; backdrop-filter: blur(12px); }
+  .name-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; line-height: 1; margin-bottom: 6px; }
+  .name-tile:nth-child(1) .name-num { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-tile:nth-child(2) .name-num { background: linear-gradient(135deg, #fce7f3, var(--rose)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-tile:nth-child(3) .name-num { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+  /* ─── Finance block ─── */
+  .finance-box {
+    background: linear-gradient(135deg, rgba(212,168,67,0.1), rgba(52,211,153,0.05));
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 22px; padding: 28px; position: relative; overflow: hidden;
+  }
+  .finance-code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; font-weight: 600; letter-spacing: 6px; text-align: center;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), #f0c96a);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1; margin: 16px 0 20px;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));
+  }
+  .finance-title { text-align: center; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.75; }
+  .finance-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+  .f-step { background: rgba(212,168,67,0.07); border: 1px solid rgba(212,168,67,0.15); border-radius: 12px; padding: 12px 8px; text-align: center; }
+  .f-step-num { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--gold-light); line-height: 1; margin-bottom: 4px; }
+  .f-step-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .finance-uses { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .finance-uses li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.6; color: var(--text-sub); }
+  .f-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 7px; }
+
+  /* ─── Heart block ─── */
+  .heart-block { background: linear-gradient(135deg, rgba(212,168,67,0.06), rgba(107,33,168,0.08)); border: 1px solid rgba(212,168,67,0.22); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; }
+  .heart-block::before, .heart-block::after { content: '✦'; position: absolute; color: rgba(212,168,67,0.1); font-size: 90px; line-height: 1; }
+  .heart-block::before { top: -25px; left: -10px; }
+  .heart-block::after { bottom: -25px; right: -10px; }
+  .heart-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 18px; }
+  .heart-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; line-height: 1.75; color: var(--text); }
+  .heart-text p + p { margin-top: 16px; }
+
+  /* ─── Check list ─── */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.65; color: var(--text-sub); }
+  .check-mark { width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); display: flex; align-items: center; justify-content: center; font-size: 12px; margin-top: 1px; }
+
+  /* ─── Final quote ─── */
+  .final-quote { text-align: center; padding: 44px 20px 0; }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; font-weight: 300; line-height: 1.75; color: var(--text); max-width: 540px; margin: 0 auto; }
+  .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 72px; line-height: 0.5; color: rgba(212,168,67,0.2); margin-bottom: 8px; }
+
+  /* ─── Divider ─── */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,67,0.18), transparent); margin: 44px 0; }
+
+  @media (max-width: 560px) {
+    .nums-strip { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .name-grid, .finance-steps { grid-template-columns: 1fr 1fr; }
+    .hero-name { font-size: 38px; }
+    .page { padding: 32px 16px 56px; }
+    .finance-code { font-size: 48px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<canvas id="stars"></canvas>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Нумерологический разбор · Сюцай · Ведическая нумерология</div>
+    <div class="hero-name">Иссэн</div>
+    <div class="hero-date">25 · 06 · 2006</div>
+  </div>
+
+  <!-- ЧИСЛА -->
+  <div class="nums-strip">
+    <div class="num-tile">
+      <div class="num-big">7</div>
+      <div class="num-caption">Число<br>Сознания</div>
+    </div>
+    <div class="num-tile teal">
+      <div class="num-big">3</div>
+      <div class="num-caption">Миссия<br>жизни</div>
+    </div>
+    <div class="num-tile violet">
+      <div class="num-big">5</div>
+      <div class="num-caption">Личный<br>год 2026</div>
+    </div>
+    <div class="num-tile rose">
+      <div class="num-big">2</div>
+      <div class="num-caption">Июнь<br>2026</div>
+    </div>
+    <div class="num-tile teal">
+      <div class="num-big">3</div>
+      <div class="num-caption">Июль<br>2026</div>
+    </div>
+  </div>
+
+
+  <!-- ЧС 7 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">🔭</div>
+      <div>
+        <div class="sec-title">Число сознания — 7</div>
+        <div class="sec-sub">Кету · Мыслитель · 25 → 2+5 = 7</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p>Человек-исследователь. Любит докапываться до сути, анализировать, наблюдать. <strong>Не принимает всё на веру</strong> — стремится проверить самостоятельно. Это редкое и ценное качество.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card plus">
+        <div class="col-head">✦ Сильные стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Глубокий ум</span></li>
+          <li><span class="dot g"></span><span>Хорошая интуиция</span></li>
+          <li><span class="dot g"></span><span>Способность к обучению</span></li>
+          <li><span class="dot g"></span><span>Интерес к психологии, философии, технике</span></li>
+        </ul>
+      </div>
+      <div class="col-card minus">
+        <div class="col-head">✦ Слабые стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot red"></span><span>Закрытость</span></li>
+          <li><span class="dot red"></span><span>Склонность уходить в себя</span></li>
+          <li><span class="dot red"></span><span>Недоверчивость</span></li>
+          <li><span class="dot red"></span><span>Может казаться холодным</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- МИССИЯ 3 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon teal-i">🎨</div>
+      <div>
+        <div class="sec-title">Миссия — 3</div>
+        <div class="sec-sub">Юпитер · Творец · 2+5+0+6+2+0+0+6 = 21 → 3</div>
+      </div>
+    </div>
+
+    <div class="card card-hl-teal">
+      <p>Задача души — <strong>нести людям радость, вдохновение, знания, общение и творчество.</strong> Ему важно говорить, выступать, обучать, вдохновлять и создавать что-то красивое.</p>
+    </div>
+
+    <div class="card card-teal">
+      <p><strong>Подходящие сферы:</strong></p>
+      <div class="tags" style="margin-top:10px;">
+        <span class="tag tag-t">Творчество</span>
+        <span class="tag tag-t">Блогинг</span>
+        <span class="tag tag-t">Продажи</span>
+        <span class="tag tag-t">Преподавание</span>
+        <span class="tag tag-t">Маркетинг</span>
+        <span class="tag tag-t">Работа с людьми</span>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p><strong>Парадокс сочетания 7 + 3:</strong> Внутри — мыслитель, наблюдатель, аналитик. Снаружи и по предназначению — человек общения, творчества и самовыражения.</p>
+      <p style="margin-top:12px;">Ему важно соблюдать баланс: <em>периоды уединения и глубины чередуются с активным выходом в мир и общением.</em> И то, и другое — часть его природы.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Тень тройки — знать и не допустить:</strong></p>
+      <ul class="dot-list">
+        <li><span class="dot red"></span><span>Разбрасывание на много дел сразу</span></li>
+        <li><span class="dot red"></span><span>Незавершённые дела</span></li>
+        <li><span class="dot red"></span><span>Поверхностность без дисциплины</span></li>
+        <li><span class="dot red"></span><span>Стремление к развлечениям вместо роста</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЛИЧНЫЙ ГОД 5 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon violet-i">⚡</div>
+      <div>
+        <div class="sec-title">Личный год 5 · 2026</div>
+        <div class="sec-sub">2+5+0+6+2+0+2+6 = 23 → 5 · Год перемен</div>
+      </div>
+    </div>
+
+    <div class="year-box" style="background: linear-gradient(135deg, rgba(107,33,168,0.12), rgba(20,32,60,0.5)); border-color: rgba(167,139,250,0.22);">
+      <div class="year-wm">5</div>
+      <h3 style="color:#ddd6fe;">Год движения и новых возможностей</h3>
+      <p>Это один из самых важных и переломных годов девятилетнего цикла. Пятёрка никогда не любит стоять на месте. <strong>Если предыдущие годы требовали терпения — сейчас жизнь начинает ускоряться.</strong></p>
+    </div>
+
+    <div class="card">
+      <p>События могут происходить неожиданно и порой даже резко. Иногда будет казаться, что ты не управляешь изменениями, а изменения управляют тобой. <em>Но именно в этом главный урок пятёрки — научиться быть гибким.</em></p>
+      <p style="margin-top:12px;">Этот год буквально выталкивает человека из привычных рамок. Для твоего сознания 7, которое любит искать глубину, пятёрка требует действий быстрее обычного.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card plus">
+        <div class="col-head">✦ В плюсе год даёт</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Новые знакомства и полезные связи</span></li>
+          <li><span class="dot g"></span><span>Поездки и путешествия</span></li>
+          <li><span class="dot g"></span><span>Смену работы или деятельности</span></li>
+          <li><span class="dot g"></span><span>Начало нового дела</span></li>
+          <li><span class="dot g"></span><span>Неожиданные счастливые возможности</span></li>
+        </ul>
+      </div>
+      <div class="col-card minus">
+        <div class="col-head">✦ В минусе — остерегаться</div>
+        <ul class="dot-list">
+          <li><span class="dot red"></span><span>Хаотичность и непостоянство</span></li>
+          <li><span class="dot red"></span><span>Желание бросить всё на полпути</span></li>
+          <li><span class="dot red"></span><span>Необдуманные решения</span></li>
+          <li><span class="dot red"></span><span>Цепляться за прошлое</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-gold" style="margin-top:12px;">
+      <p><em>Всё, что уже отжило своё, будет постепенно уходить. Если какая-то дверь закрывается — жизнь готовит другую возможность. Не бойся перемен.</em></p>
+    </div>
+  </div>
+
+  <!-- ЛИЧНЫЙ МЕСЯЦ ИЮНЬ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon rose-i">🌹</div>
+      <div>
+        <div class="sec-title">Личный месяц · Июнь 2026</div>
+        <div class="sec-sub">Личный год 5 + месяц 6 = 11 → 1+1 = 2 · Партнёрство и отношения</div>
+      </div>
+    </div>
+
+    <div class="card card-rose">
+      <p>Июнь проходит под энергией партнёрства и отношений. Это <strong>второй личный месяц</strong> — число 2, которое связано с дипломатией, мягкостью и умением быть рядом с другими людьми.</p>
+    </div>
+
+    <div class="card card-gold">
+      <p><strong>Темы месяца:</strong></p>
+      <ul class="dot-list" style="margin-top:10px;">
+        <li><span class="dot r"></span><span>Любовь</span></li>
+        <li><span class="dot r"></span><span>Семья</span></li>
+        <li><span class="dot r"></span><span>Сотрудничество</span></li>
+        <li><span class="dot r"></span><span>Дипломатия</span></li>
+        <li><span class="dot r"></span><span>Поиск компромиссов</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <p><strong>Важно избегать:</strong></p>
+      <ul class="dot-list" style="margin-top:10px;">
+        <li><span class="dot red"></span><span>Обидчивости</span></li>
+        <li><span class="dot red"></span><span>Эмоциональных качелей</span></li>
+        <li><span class="dot red"></span><span>Зависимости от чужого мнения</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ЛИЧНЫЙ МЕСЯЦ ИЮЛЬ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon teal-i">🗣️</div>
+      <div>
+        <div class="sec-title">Личный месяц · Июль 2026</div>
+        <div class="sec-sub">5 + 7 = 12 → 3 · Общение · Самовыражение · Творчество</div>
+      </div>
+    </div>
+
+    <div class="card card-hl-teal">
+      <p>После эмоционального июня начинается более <strong>лёгкий и активный период.</strong> Тройка отвечает за общение, самовыражение, творчество, новые знакомства, обучение и получение удовольствия от жизни.</p>
+    </div>
+
+    <div class="card card-teal">
+      <p>Если давно хотел рассказать о себе, запустить проект, начать вести блог, выступить перед людьми или показать свои способности — <strong>июль отлично для этого подходит.</strong></p>
+      <p style="margin-top:12px;">Для сознания 7 этот месяц особенно полезен — поможет выйти из состояния наблюдателя и больше проявляться в мире.</p>
+    </div>
+
+    <div class="card card-gold">
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; color: var(--text);">«Если весь 2026 год — это дорога с множеством развилок, то июль — это месяц, когда на этой дороге появляются люди, через которых судьба может открыть новые возможности.»</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Главный совет июля:</strong> говори, проявляйся, знакомься, обучайся и не бойся быть заметным. <em>Хватит только думать. Покажи людям, кто ты есть.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЧИСЛА ИМЕНИ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✍️</div>
+      <div>
+        <div class="sec-title">Числа имени</div>
+        <div class="sec-sub">Караманян Иссэн Эдгарович</div>
+      </div>
+    </div>
+
+    <div class="name-grid">
+      <div class="name-tile">
+        <div class="name-num">2</div>
+        <div class="name-label">Судьба<br>(все буквы)</div>
+      </div>
+      <div class="name-tile">
+        <div class="name-num" style="background: linear-gradient(135deg, #fce7f3, var(--rose)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">9</div>
+        <div class="name-label">Душа<br>(гласные)</div>
+      </div>
+      <div class="name-tile">
+        <div class="name-num">2</div>
+        <div class="name-label">Облик<br>(согласные)</div>
+      </div>
+    </div>
+
+    <!-- СУДЬБА 2 -->
+    <div class="card card-gold" style="margin-bottom:20px;">
+      <p style="font-size:17px; font-weight:600; color:var(--gold-light); margin-bottom:12px;">🌟 Число судьбы 2 — Романтик</p>
+      <p>Твоё имя несёт энергию человека, который умеет объединять людей, чувствовать настроение окружающих и находить подход даже к самым сложным людям.</p>
+      <p style="margin-top:10px;">Ты не из тех, кто идёт напролом. Твоя сила — в дипломатии, умении договариваться и создавать гармонию вокруг себя.</p>
+      <p style="margin-top:14px; font-weight:600; color:var(--text);">Как это проявляется в характере:</p>
+      <ul class="dot-list" style="margin-top:8px;">
+        <li><span class="dot"></span><span>Хорошо чувствуешь людей</span></li>
+        <li><span class="dot"></span><span>Тонко улавливаешь настроение окружающих</span></li>
+        <li><span class="dot"></span><span>Не любишь конфликты</span></li>
+        <li><span class="dot"></span><span>Ценишь искренность и доверие</span></li>
+        <li><span class="dot"></span><span>Умеешь быть надёжным другом и партнёром</span></li>
+      </ul>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px;">
+      <div class="col-card plus">
+        <div class="col-head">✦ Сильные стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Дипломатичность</span></li>
+          <li><span class="dot g"></span><span>Развитая интуиция</span></li>
+          <li><span class="dot g"></span><span>Способность сотрудничать</span></li>
+          <li><span class="dot g"></span><span>Терпение</span></li>
+          <li><span class="dot g"></span><span>Умение поддерживать других</span></li>
+        </ul>
+      </div>
+      <div class="col-card minus">
+        <div class="col-head">✦ Точки роста</div>
+        <ul class="dot-list">
+          <li><span class="dot red"></span><span>Излишняя чувствительность</span></li>
+          <li><span class="dot red"></span><span>Обидчивость</span></li>
+          <li><span class="dot red"></span><span>Зависимость от чужого мнения</span></li>
+          <li><span class="dot red"></span><span>Страх принимать жёсткие решения</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-hl" style="margin-bottom:8px;">
+      <p><strong>Главный урок:</strong> научиться ценить себя так же сильно, как ценишь других людей.</p>
+      <p style="margin-top:10px;"><strong>Практический совет:</strong> не бойся проявлять свои желания и отстаивать свою позицию. Гармония начинается не с уступок окружающим, а с уважения к самому себе.</p>
+    </div>
+
+    <div class="divider" style="margin:28px 0;"></div>
+
+    <!-- ДУША 9 -->
+    <div class="card card-rose" style="margin-bottom:20px;">
+      <p style="font-size:17px; font-weight:600; color:var(--rose); margin-bottom:12px;">❤️ Число души 9 — Всеобщий смотритель</p>
+      <p>Это твоя внутренняя сущность — то, чего хочет душа.</p>
+      <p style="margin-top:10px;">Твоя душа пришла с огромным запасом сострадания, доброты и желания помогать людям. Даже если внешне ты кажешься спокойным и сдержанным, внутри тебя живёт стремление сделать мир лучше.</p>
+      <p style="margin-top:14px; font-weight:600; color:var(--text);">Как это проявляется:</p>
+      <ul class="dot-list" style="margin-top:8px;">
+        <li><span class="dot r"></span><span>Неравнодушие к чужой боли</span></li>
+        <li><span class="dot r"></span><span>Желание защищать слабых</span></li>
+        <li><span class="dot r"></span><span>Стремление помогать людям</span></li>
+        <li><span class="dot r"></span><span>Сильное чувство справедливости</span></li>
+        <li><span class="dot r"></span><span>Глубокие переживания за близких</span></li>
+      </ul>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px;">
+      <div class="col-card plus">
+        <div class="col-head">✦ Сильные стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Доброта</span></li>
+          <li><span class="dot g"></span><span>Милосердие</span></li>
+          <li><span class="dot g"></span><span>Способность вдохновлять</span></li>
+          <li><span class="dot g"></span><span>Широкий взгляд на жизнь</span></li>
+          <li><span class="dot g"></span><span>Мудрость</span></li>
+        </ul>
+      </div>
+      <div class="col-card minus">
+        <div class="col-head">✦ Точки роста</div>
+        <ul class="dot-list">
+          <li><span class="dot red"></span><span>Не брать на себя проблемы всего мира</span></li>
+          <li><span class="dot red"></span><span>Не жертвовать собой постоянно</span></li>
+          <li><span class="dot red"></span><span>Не ждать благодарности за добро</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card card-hl" style="margin-bottom:8px;">
+      <p><strong>Главный урок:</strong> помогая другим, не забывать о себе.</p>
+      <p style="margin-top:10px;"><strong>Практический совет:</strong> чем больше ты действуешь от сердца и приносишь пользу людям, тем больше внутреннего удовлетворения испытывает твоя душа.</p>
+    </div>
+
+    <div class="divider" style="margin:28px 0;"></div>
+
+    <!-- ОБЛИК 2 -->
+    <div class="card" style="margin-bottom:20px;">
+      <p style="font-size:17px; font-weight:600; color:var(--gold-light); margin-bottom:12px;">✨ Число облика 2 — каким тебя видят люди</p>
+      <p>Окружающие воспринимают тебя как доброжелательного, спокойного и приятного человека. Даже если внутри бушуют эмоции, внешне ты часто выглядишь уравновешенным и миролюбивым.</p>
+      <p style="margin-top:10px;">Люди чувствуют рядом с тобой безопасность и доверие.</p>
+      <p style="margin-top:14px; font-weight:600; color:var(--text);">Тебя видят:</p>
+      <ul class="dot-list" style="margin-top:8px;">
+        <li><span class="dot"></span><span>Тактичным</span></li>
+        <li><span class="dot"></span><span>Воспитанным</span></li>
+        <li><span class="dot"></span><span>Понимающим</span></li>
+        <li><span class="dot"></span><span>Надёжным</span></li>
+        <li><span class="dot"></span><span>Умеющим слушать</span></li>
+      </ul>
+      <p style="margin-top:12px;"><em>Иногда окружающие могут ошибочно считать тебя слишком мягким человеком, но за этой мягкостью скрывается внутренняя сила и умение выдерживать многое.</em></p>
+    </div>
+
+    <!-- ВЫВОД ПО ИМЕНИ -->
+    <div class="card card-hl" style="border-left: 3px solid var(--rose);">
+      <p style="font-size:17px; font-weight:600; color:var(--rose); margin-bottom:12px;">🌹 Общий вывод по имени</p>
+      <p>Иссэн, твоё имя создаёт очень интересное сочетание: <strong>Судьба — 2, Душа — 9, Облик — 2.</strong></p>
+      <p style="margin-top:10px;">Это сочетание человека-миротворца с большим сердцем. Ты способен объединять людей, поддерживать их в трудную минуту и создавать вокруг себя атмосферу доверия.</p>
+      <p style="margin-top:10px;">Твоя душа хочет приносить пользу миру, а имя помогает делать это мягко, без давления и борьбы.</p>
+      <p style="margin-top:14px; font-style:italic; font-family:'Cormorant Garamond',serif; font-size:19px; color:var(--text);"><em>Твоя сила не в том, чтобы побеждать людей. Твоя сила в том, чтобы завоёвывать их сердца.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ФИНАНСОВЫЙ КОД -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">💰</div>
+      <div>
+        <div class="sec-title">Финансовый код</div>
+        <div class="sec-sub">Денежный код из даты рождения · 25.06.2006</div>
+      </div>
+    </div>
+
+    <div class="finance-box">
+      <div class="finance-title">Твой финансовый код</div>
+      <div class="finance-code">7683</div>
+
+      <div class="finance-steps">
+        <div class="f-step">
+          <div class="f-step-num">7</div>
+          <div class="f-step-label">День<br>25→2+5</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">6</div>
+          <div class="f-step-label">Месяц<br>06→0+6</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">8</div>
+          <div class="f-step-label">Год<br>2006→8</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">3</div>
+          <div class="f-step-label">Сумма<br>7+6+8→3</div>
+        </div>
+      </div>
+
+      <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px; text-transform:uppercase; letter-spacing:1px;">Как использовать код:</p>
+      <ul class="finance-uses">
+        <li><span class="f-dot"></span><span>В паролях и пин-кодах</span></li>
+        <li><span class="f-dot"></span><span>Как часть ника, логина или электронной почты</span></li>
+        <li><span class="f-dot"></span><span>Повторять вслух или про себя — код притягивает финансовый поток</span></li>
+        <li><span class="f-dot"></span><span>Записать и носить в кошельке как талисман</span></li>
+        <li><span class="f-dot"></span><span>Нарисовать на карте желаний</span></li>
+      </ul>
+      <p style="margin-top:16px; text-align:center; font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--gold-pale);">Чем чаще внутренне связываешься со своим кодом — тем лучше.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ОБЩИЙ ВЫВОД -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✨</div>
+      <div>
+        <div class="sec-title">Общий вывод</div>
+        <div class="sec-sub">Сознание 7 + Миссия 3 + Судьба 2 + Душа 9</div>
+      </div>
+    </div>
+
+    <div class="heart-block">
+      <div class="heart-eyebrow">Послание от нумеролога</div>
+      <div class="heart-text">
+        <p>Иссэн, у тебя очень интересное сочетание. Внутри — мыслитель и аналитик, снаружи — человек общения и творчества. Это не противоречие, это твоя уникальная сила.</p>
+        <p>Сознание 7 постоянно ищет глубину и смысл, а миссия 3 требует выхода в мир, творчества и самовыражения. Когда ты доверяешь своей интуиции и соединяешь её с холодным анализом — ты способен принимать очень сильные и точные решения.</p>
+        <p>Обычно такой человек раскрывается не сразу. В юности может казаться тихим и замкнутым, а с возрастом становится очень интересным собеседником, наставником или лидером в своей сфере.</p>
+        <p><strong>Твоя сила не в том, чтобы следовать за толпой. Твоя сила — сначала понять суть, а потом уверенно вести других за собой.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ФИНАЛЬНАЯ ЦИТАТА -->
+  <div class="final-quote">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">Твоя задача не казаться — а быть. Не бояться глубины внутри себя, а превращать её в свет для других людей.</div>
+    <div style="margin-top:24px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted);">Сюцай · Ведическая нумерология · Байба Стурите</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const stars = Array.from({length: 180}, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 1.3 + 0.2,
+    a: Math.random() * Math.PI * 2,
+    s: Math.random() * 0.005 + 0.002,
+    type: Math.floor(Math.random() * 3)
+  }));
+  const colors = [
+    (a) => `rgba(212,168,67,${a})`,
+    (a) => `rgba(94,234,212,${a})`,
+    (a) => `rgba(167,139,250,${a})`
+  ];
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    stars.forEach(s => {
+      s.a += s.s;
+      const alpha = (Math.sin(s.a) + 1) / 2 * 0.5 + 0.07;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = colors[s.type](alpha);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

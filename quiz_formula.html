@@ -456,8 +456,7 @@
 </div>
 
 <script>
-  const TG_TOKEN   = '7708984229:AAGACM74bEyHW3Q5Qhu_G32BpLg7l9bVGmg';
-  const TG_CHAT_ID = '840424396';
+  const PROXY_URL = 'https://script.google.com/macros/s/AKfycbxV0-y--pw79FBdruF-lF5rfPc9FvY-A8LyjOOeCEYvCTctgwGqWsoIrDhAjlAI-G5R/exec';
 
   const answers = {};
   let userName = '';
@@ -494,10 +493,10 @@
   };
 
   function sendToTelegram(text) {
-    fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+    fetch(PROXY_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TG_CHAT_ID, text: text })
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ text: text })
     }).catch(() => {});
   }
 

@@ -447,7 +447,7 @@
     <div class="result-title" id="resultTitle"></div>
     <div class="result-text" id="resultText"></div>
     <a id="mainActionBtn" href="#" class="btn-tg" target="_blank" rel="noopener"></a>
-    <a href="https://vk.me/olgakartunovao" class="btn-assistant" target="_blank" rel="noopener">
+    <a id="aiAssistantBtn" href="https://vk.me/olgakartunovao" class="btn-assistant" target="_blank" rel="noopener">
       🤖 Спросить AI-ассистента →
     </a>
     <div class="result-hint">Ольга отвечает лично · Без давления</div>
@@ -467,6 +467,13 @@
     money:   'Ты готова к <span>стабильному доходу</span>',
     self:    'Время жить <span>своей жизнью</span>',
     all:     'Тебе нужна <span>система</span>, а не ещё один курс'
+  };
+
+  const q1Labels = {
+    energy: 'хочу разобраться с энергией и самочувствием',
+    money:  'хочу стабильный доход',
+    self:   'хочу больше времени и свободы для себя',
+    all:    'нужна система, а не ещё один курс'
   };
 
   const q5Results = {
@@ -581,9 +588,27 @@
     document.getElementById('resultTitle').innerHTML = titleHtml;
     document.getElementById('resultText').textContent = res.text;
 
+    // Собираем готовое сообщение с контекстом из ответов
+    const contextMsg =
+      'Здравствуйте! Меня зовут ' + (userName || 'без имени') + '. Прошла квиз "Формула успеха".\n' +
+      'Главный запрос: ' + (q1Labels[q1Key] || 'не указан') + '.\n' +
+      'Готовность: ' + (q5Key === 'ready' ? 'готова начать прямо сейчас' :
+                         q5Key === 'consult' ? 'хочу личную консультацию' :
+                         q5Key === 'community2' ? 'хочу сначала посмотреть сообщество' :
+                         'хочу сначала узнать подробнее') + '.';
+
     const btn = document.getElementById('mainActionBtn');
     btn.textContent = res.btnText;
-    btn.href = res.btnHref;
+    // Если кнопка ведёт в личку (vk.me) — подставляем контекст, если в сообщество — оставляем как есть
+    if (res.btnHref.indexOf('vk.me') !== -1) {
+      btn.href = res.btnHref + '?text=' + encodeURIComponent(contextMsg);
+    } else {
+      btn.href = res.btnHref;
+    }
+
+    // То же самое для кнопки AI-ассистента
+    const aiBtn = document.getElementById('aiAssistantBtn');
+    aiBtn.href = 'https://vk.me/olgakartunovao?text=' + encodeURIComponent(contextMsg);
 
     document.getElementById('result').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });

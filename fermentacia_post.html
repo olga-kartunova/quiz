@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ферментация: тайна, которую знали наши предки</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cabbage: #7cb342;
+    --cabbage-light: #aed581;
+    --carrot: #f4511e;
+    --carrot-light: #ffab91;
+    --beet: #ad1457;
+    --beet-light: #f48fb1;
+    --cream: #fff8ec;
+    --cream-warm: #fdf1dc;
+    --text-dark: #3a2e1f;
+    --text-sub: #6b5d4a;
+    --text-muted: #a89878;
+    --gold: #d4a843;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 60% 40% at 0% 0%, rgba(174,213,129,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 100% 15%, rgba(255,171,145,0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, rgba(244,143,177,0.2) 0%, transparent 55%),
+      linear-gradient(180deg, #fff8ec 0%, #fdf1dc 100%);
+  }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 48px 20px 70px; }
+
+  /* ─── Hero ─── */
+  .hero { text-align: center; padding-bottom: 40px; margin-bottom: 40px; position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--cabbage), var(--carrot), var(--beet));
+  }
+  .hero-emojis { font-size: 44px; margin-bottom: 18px; letter-spacing: 8px; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--carrot); font-weight: 700; margin-bottom: 14px; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 700; color: var(--text-dark); line-height: 1.15; margin-bottom: 14px; }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--text-sub); max-width: 480px; margin: 0 auto; }
+
+  /* ─── Section ─── */
+  .section { margin-bottom: 40px; }
+  .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  }
+  .sec-icon.green { background: linear-gradient(135deg, #e8f5d0, #c5e896); }
+  .sec-icon.orange { background: linear-gradient(135deg, #ffe0cc, #ffb088); }
+  .sec-icon.pink { background: linear-gradient(135deg, #fbd8e8, #f4a8c8); }
+  .sec-icon.gold { background: linear-gradient(135deg, #f5e4a8, #e8c968); }
+
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 700; color: var(--text-dark); line-height: 1.2; }
+
+  /* ─── Cards ─── */
+  .card { background: white; border-radius: 22px; padding: 24px 26px; box-shadow: 0 4px 20px rgba(122,90,40,0.08); margin-bottom: 14px; }
+  .card p { font-size: 15.5px; line-height: 1.85; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text-dark); font-weight: 700; }
+  .card em { font-style: italic; color: var(--carrot); }
+
+  .card-green { border-left: 4px solid var(--cabbage); }
+  .card-orange { border-left: 4px solid var(--carrot); }
+  .card-pink { border-left: 4px solid var(--beet); }
+  .card-gold { border-left: 4px solid var(--gold); }
+
+  /* ─── Culture strip ─── */
+  .culture-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+  .culture-tile { background: white; border-radius: 18px; padding: 18px 10px; text-align: center; box-shadow: 0 4px 14px rgba(122,90,40,0.07); }
+  .culture-emoji { font-size: 30px; margin-bottom: 8px; }
+  .culture-name { font-size: 12px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+  .culture-country { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ─── Benefit grid ─── */
+  .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .benefit-tile { background: white; border-radius: 18px; padding: 20px; box-shadow: 0 4px 14px rgba(122,90,40,0.07); }
+  .benefit-emoji { font-size: 26px; margin-bottom: 10px; }
+  .benefit-title { font-size: 14.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+  .benefit-text { font-size: 13px; line-height: 1.6; color: var(--text-sub); }
+
+  /* ─── Recipe steps ─── */
+  .recipe-step { display: flex; gap: 16px; background: white; border-radius: 18px; padding: 20px 22px; box-shadow: 0 4px 14px rgba(122,90,40,0.07); margin-bottom: 10px; }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--cabbage), var(--cabbage-light));
+    color: white; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-content h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+  .step-content p { font-size: 14px; line-height: 1.7; color: var(--text-sub); }
+
+  /* ─── Veggie strip ─── */
+  .veggie-strip { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 14px; }
+  .veggie-pill { background: white; border-radius: 40px; padding: 10px 20px; font-size: 14px; font-weight: 500; color: var(--text-dark); box-shadow: 0 3px 10px rgba(122,90,40,0.07); display: flex; align-items: center; gap: 8px; }
+
+  /* ─── Warning box ─── */
+  .warning-box {
+    background: linear-gradient(135deg, #fff0f0, #ffe4e4);
+    border: 2px solid #f4a8a8; border-radius: 22px; padding: 28px; margin-bottom: 14px;
+  }
+  .warning-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: #c0392b; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .warning-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .warning-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; line-height: 1.7; color: #7a4040; }
+  .warning-dot { color: #c0392b; font-weight: 700; flex-shrink: 0; }
+
+  .howto-box {
+    background: linear-gradient(135deg, #f0f8e8, #e4f2d4);
+    border: 2px solid #b8d888; border-radius: 22px; padding: 28px; margin-bottom: 14px;
+  }
+  .howto-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: #558022; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .howto-box p { font-size: 14.5px; line-height: 1.8; color: #4a5a30; }
+  .howto-box p + p { margin-top: 12px; }
+  .howto-box strong { color: #3a4a20; }
+
+  /* ─── Golden rule ─── */
+  .golden-rule {
+    background: linear-gradient(135deg, #fdf3d8, #f5e4a8);
+    border-radius: 22px; padding: 30px; text-align: center; position: relative; overflow: hidden;
+  }
+  .golden-rule::before { content: '✨'; position: absolute; top: 14px; left: 20px; font-size: 24px; opacity: 0.5; }
+  .golden-rule::after { content: '✨'; position: absolute; bottom: 14px; right: 20px; font-size: 24px; opacity: 0.5; }
+  .golden-rule p { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; color: #6b5010; line-height: 1.7; max-width: 480px; margin: 0 auto; }
+  .golden-rule strong { font-weight: 700; color: #4a3808; }
+
+  /* ─── Divider ─── */
+  .divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 40px 0; }
+  .divider span { font-size: 18px; opacity: 0.5; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(180,140,80,0.3), transparent); }
+
+  /* ─── Final ─── */
+  .final-block { text-align: center; padding: 30px 20px 0; }
+  .final-emoji { font-size: 40px; margin-bottom: 16px; }
+  .final-text { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-style: italic; color: var(--text-dark); line-height: 1.7; max-width: 500px; margin: 0 auto; }
+  .final-sign { margin-top: 20px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+
+  @media (max-width: 560px) {
+    .culture-strip, .benefit-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 30px; }
+    .page { padding: 32px 14px 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-emojis">🥬 🥕 🫙</div>
+    <div class="hero-eyebrow">Рубрика · Полезная еда</div>
+    <div class="hero-title">Ферментация: тайна, которую знали наши предки</div>
+    <div class="hero-sub">Почему баночка квашеных овощей в холодильнике — это то, что делали задолго до появления слова «пробиотик»</div>
+  </div>
+
+  <!-- ИСТОРИЯ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon orange">📜</div>
+      <div class="sec-title">Почему древние были умнее, чем мы думаем</div>
+    </div>
+
+    <div class="card card-orange">
+      <p>Задолго до холодильников, задолго до слова «пробиотик» люди уже знали: сырые овощи, оставленные с солью в тепле на несколько дней, становятся не просто съедобными дольше — они становятся <strong>лечебными.</strong></p>
+      <p>Квашение — один из самых древних способов заготовки еды в истории человечества. Разные народы, разные овощи — но один и тот же принцип: <strong>дать полезным бактериям сделать свою работу.</strong></p>
+    </div>
+
+    <div class="culture-strip">
+      <div class="culture-tile">
+        <div class="culture-emoji">🥬</div>
+        <div class="culture-name">Кимчи</div>
+        <div class="culture-country">Корея</div>
+      </div>
+      <div class="culture-tile">
+        <div class="culture-emoji">🥒</div>
+        <div class="culture-name">Квашеная капуста</div>
+        <div class="culture-country">Славяне</div>
+      </div>
+      <div class="culture-tile">
+        <div class="culture-emoji">🫙</div>
+        <div class="culture-name">Sauerkraut</div>
+        <div class="culture-country">Германия</div>
+      </div>
+      <div class="culture-tile">
+        <div class="culture-emoji">🍜</div>
+        <div class="culture-name">Мисо</div>
+        <div class="culture-country">Япония</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p>Наши бабушки не знали слова «микробиом». Но они точно знали: капуста из бочки зимой — это то, что держит семью на ногах, когда свежих овощей взять негде.</p>
+    </div>
+  </div>
+
+  <div class="divider"><span>🌿</span></div>
+
+  <!-- ЧТО ПРОИСХОДИТ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon green">🔬</div>
+      <div class="sec-title">Что происходит на самом деле</div>
+    </div>
+
+    <div class="card card-green">
+      <p>Когда овощи заквашиваются, происходит молочнокислое брожение: бактерии превращают сахара в молочную кислоту. Именно эта кислота консервирует продукт естественным путём — без уксуса, без стерилизации, без химии.</p>
+    </div>
+
+    <div class="benefit-grid">
+      <div class="benefit-tile">
+        <div class="benefit-emoji">🦠</div>
+        <div class="benefit-title">Живые пробиотики</div>
+        <div class="benefit-text">Полезные бактерии заселяют кишечник и вытесняют вредную микрофлору</div>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-emoji">🌾</div>
+        <div class="benefit-title">Пребиотическая клетчатка</div>
+        <div class="benefit-text">Пища для тех же полезных бактерий — синбиотический эффект</div>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-emoji">💊</div>
+        <div class="benefit-title">Витамины B и K</div>
+        <div class="benefit-text">Образуются в процессе брожения — их больше, чем в сыром овоще</div>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-emoji">⚗️</div>
+        <div class="benefit-title">Органические кислоты</div>
+        <div class="benefit-text">Улучшают пищеварение и подавляют рост вредных бактерий</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p>Регулярное употребление квашеных овощей — это не дань моде, а способ ежедневно поддерживать здоровье кишечника, а значит — иммунитет, кожу, энергию и даже настроение. <em>Большая часть серотонина синтезируется именно в кишечнике.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"><span>🥕</span></div>
+
+  <!-- КАК ЗАКВАСИТЬ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon green">👩‍🍳</div>
+      <div class="sec-title">Как правильно заквасить овощи дома</div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>🧂 Соль</h4>
+        <p>Только обычная каменная соль, без йода и добавок. Йодированная, морская, гималайская соль дадут нежелательную реакцию — овощи потемнеют. Пропорция: 20–25 г на 1 кг овощей (≈2% от веса). Для рассола: 30 г на 1 литр воды.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>🫙 Посуда</h4>
+        <p>Только стекло, керамика или пищевой пластик. Никакого металла — кислота вступит в реакцию, заготовка потемнеет и испортит вкус.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>🌡️ Температура</h4>
+        <p>Первые 2–3 дня активного брожения — 22–24°C. Затем ещё 5–7 дней при 18–20°C. Слишком холодно — брожение остановится. Слишком жарко — овощи перекиснут и станут мягкими.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>✨ Чистота — это всё</h4>
+        <p>Плохо вымытые овощи или банка — и вместо полезных бактерий начнут развиваться вредные. Единственная по-настоящему серьёзная ошибка, которая портит всю партию.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>⚖️ Соль — не на глаз</h4>
+        <p>Меньше нормы — брожение идёт неправильно. Больше нормы — тормозится или останавливается вовсе. Важно взвешивать, а не сыпать «как бабушка».</p>
+      </div>
+    </div>
+
+    <div class="card card-green" style="margin-top:14px;">
+      <p><strong>Не только капуста!</strong> Прекрасно ферментируются:</p>
+      <div class="veggie-strip" style="margin-top:12px;">
+        <div class="veggie-pill">🥦 Брокколи</div>
+        <div class="veggie-pill">🥬 Цветная капуста</div>
+        <div class="veggie-pill">🫑 Болгарский перец</div>
+        <div class="veggie-pill">🥕 Морковь</div>
+        <div class="veggie-pill">🫘 Стручковая фасоль</div>
+        <div class="veggie-pill">🥒 Огурцы</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span>⚠️</span></div>
+
+  <!-- ПРОТИВОПОКАЗАНИЯ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon pink">⚠️</div>
+      <div class="sec-title">Кому нужно быть осторожным</div>
+    </div>
+
+    <div class="warning-box">
+      <div class="warning-title">🚫 Ограничить или исключить</div>
+      <ul class="warning-list">
+        <li><span class="warning-dot">●</span><span><strong>Обострение гастрита, язвенная болезнь</strong> — кислоты повышают кислотность желудочного сока, могут усилить боль и раздражение слизистой</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Гипертония</strong> — в 100 г квашеной капусты до 2 г соли, а суточная норма для гипертоника — около 2,5 г. Избыток соли задерживает жидкость и повышает давление</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Заболевания почек</strong> — избыток соли создаёт дополнительную нагрузку</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Склонность к отёкам</strong></span></li>
+        <li><span class="warning-dot">●</span><span><strong>Непереносимость гистамина</strong> — ферментированные продукты накапливают гистамин, у чувствительных людей могут вызвать головную боль, кожные высыпания, проблемы с давлением и сном</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Синдром раздражённого кишечника</strong>, склонность к вздутию — пробиотики усиливают брожение в кишечнике, что может вызвать дискомфорт</span></li>
+      </ul>
+    </div>
+
+    <div class="howto-box">
+      <div class="howto-title">✅ Как принимать правильно</div>
+      <p><strong>Если противопоказаний нет</strong> — начинайте с малого: 1–2 столовые ложки в день, постепенно увеличивая порцию, наблюдая за реакцией организма.</p>
+      <p><strong>Если есть чувствительность</strong> (гастрит вне обострения, склонность к вздутию) — вводите очень маленькими порциями, чайная ложка, желательно с основным приёмом пищи, не натощак.</p>
+      <p><strong>При гипертонии, болезнях почек</strong> — либо полностью исключить, либо употреблять в минимальных количествах, обязательно промывая от лишнего рассола перед едой.</p>
+      <p><strong>При обострении гастрита или язвенной болезни</strong> — временно полностью исключить, вернуться к продукту только после консультации с врачом.</p>
+    </div>
+
+    <div class="golden-rule">
+      <p>Этот продукт — не лекарство и не универсальная добавка для всех. Это метод поддержки здоровых людей, а при хронических заболеваниях — <strong>только после консультации с врачом.</strong></p>
+    </div>
+  </div>
+
+  <!-- ФИНАЛ -->
+  <div class="final-block">
+    <div class="final-emoji">🫙✨</div>
+    <div class="final-text">Если в холодильнике всегда стоит баночка домашней закваски — организм получает ежедневную дозу живых бактерий бесплатно, без добавок и капсул. Начните с малого — тело скажет спасибо.</div>
+    <div class="final-sign">Полезная еда · Рубрика Ольги Картуновой</div>
+  </div>
+
+</div>
+
+</body>
+</html>

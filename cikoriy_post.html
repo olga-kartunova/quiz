@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цикорий: 3500 лет истории в одной чашке</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --sky: #5b8ec4;
+    --sky-light: #a8c8ea;
+    --coffee: #8a5a3c;
+    --coffee-light: #c9a07c;
+    --cream: #fdf6ec;
+    --cream-warm: #f8ecd8;
+    --text-dark: #3a2e22;
+    --text-sub: #6b5a48;
+    --text-muted: #a89478;
+    --gold: #d4a843;
+    --rose: #d47a8a;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 60% 40% at 0% 0%, rgba(91,142,196,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 100% 15%, rgba(201,160,124,0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, rgba(212,168,67,0.15) 0%, transparent 55%),
+      linear-gradient(180deg, #fdf6ec 0%, #f8ecd8 100%);
+  }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 48px 20px 70px; }
+
+  /* ─── Hero ─── */
+  .hero { text-align: center; padding-bottom: 40px; margin-bottom: 40px; position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--sky), var(--coffee), var(--gold));
+  }
+  .hero-emojis { font-size: 44px; margin-bottom: 18px; letter-spacing: 8px; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--coffee); font-weight: 700; margin-bottom: 14px; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 700; color: var(--text-dark); line-height: 1.15; margin-bottom: 14px; }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: var(--text-sub); max-width: 480px; margin: 0 auto; }
+
+  /* ─── Section ─── */
+  .section { margin-bottom: 40px; }
+  .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  }
+  .sec-icon.blue { background: linear-gradient(135deg, #dceafb, #a8c8ea); }
+  .sec-icon.brown { background: linear-gradient(135deg, #ecd8c0, #d4a878); }
+  .sec-icon.rose { background: linear-gradient(135deg, #f5dbe0, #e8a8b4); }
+  .sec-icon.gold { background: linear-gradient(135deg, #f5e4a8, #e8c968); }
+
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 700; color: var(--text-dark); line-height: 1.2; }
+
+  /* ─── Cards ─── */
+  .card { background: white; border-radius: 22px; padding: 24px 26px; box-shadow: 0 4px 20px rgba(90,70,40,0.08); margin-bottom: 14px; }
+  .card p { font-size: 15.5px; line-height: 1.85; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text-dark); font-weight: 700; }
+  .card em { font-style: italic; color: var(--coffee); }
+
+  .card-blue { border-left: 4px solid var(--sky); }
+  .card-brown { border-left: 4px solid var(--coffee); }
+  .card-rose { border-left: 4px solid var(--rose); }
+  .card-gold { border-left: 4px solid var(--gold); }
+
+  /* ─── Timeline ─── */
+  .timeline { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+  .timeline-item { display: flex; gap: 16px; background: white; border-radius: 18px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(90,70,40,0.07); }
+  .timeline-year { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 15px; color: var(--coffee); flex-shrink: 0; width: 90px; }
+  .timeline-text { font-size: 14px; line-height: 1.65; color: var(--text-sub); }
+
+  /* ─── Benefit grid ─── */
+  .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .benefit-tile { background: white; border-radius: 18px; padding: 20px; box-shadow: 0 4px 14px rgba(90,70,40,0.07); }
+  .benefit-emoji { font-size: 26px; margin-bottom: 10px; }
+  .benefit-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+  .benefit-text { font-size: 12.5px; line-height: 1.6; color: var(--text-sub); }
+
+  /* ─── Myth vs fact ─── */
+  .myth-block {
+    background: linear-gradient(135deg, #eef5fb, #dceafb);
+    border: 2px solid var(--sky-light); border-radius: 22px; padding: 30px; margin-bottom: 14px; position: relative; overflow: hidden;
+  }
+  .myth-block::before { content: '🩸'; position: absolute; right: 20px; top: 20px; font-size: 60px; opacity: 0.1; }
+  .myth-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 700; color: #2a5a8a; margin-bottom: 16px; }
+  .myth-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .myth-side { background: rgba(255,255,255,0.6); border-radius: 16px; padding: 16px; text-align: center; }
+  .myth-side.no { border: 2px solid #e8a8a8; }
+  .myth-side.yes { border: 2px solid #a8d8b8; }
+  .myth-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 8px; }
+  .myth-side.no .myth-label { color: #c0392b; }
+  .myth-side.yes .myth-label { color: #278858; }
+  .myth-side-text { font-size: 13.5px; color: var(--text-sub); line-height: 1.5; }
+  .myth-block p.explain { font-size: 15px; line-height: 1.8; color: var(--text-sub); }
+  .myth-block p.explain strong { color: var(--text-dark); }
+
+  /* ─── Warning box ─── */
+  .warning-box {
+    background: linear-gradient(135deg, #fff0f0, #ffe4e4);
+    border: 2px solid #f4a8a8; border-radius: 22px; padding: 28px; margin-bottom: 14px;
+  }
+  .warning-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: #c0392b; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .warning-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .warning-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; line-height: 1.7; color: #7a4040; }
+  .warning-dot { color: #c0392b; font-weight: 700; flex-shrink: 0; }
+
+  /* ─── Recipe steps ─── */
+  .recipe-step { display: flex; gap: 16px; background: white; border-radius: 18px; padding: 20px 22px; box-shadow: 0 4px 14px rgba(90,70,40,0.07); margin-bottom: 10px; }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--coffee), var(--coffee-light));
+    color: white; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-content h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+  .step-content p { font-size: 14px; line-height: 1.7; color: var(--text-sub); }
+
+  /* ─── Golden rule ─── */
+  .golden-rule {
+    background: linear-gradient(135deg, #fdf3d8, #f5e4a8);
+    border-radius: 22px; padding: 30px; text-align: center; position: relative; overflow: hidden;
+  }
+  .golden-rule::before { content: '☕'; position: absolute; top: 14px; left: 20px; font-size: 24px; opacity: 0.5; }
+  .golden-rule::after { content: '🌸'; position: absolute; bottom: 14px; right: 20px; font-size: 24px; opacity: 0.5; }
+  .golden-rule p { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; color: #6b5010; line-height: 1.7; max-width: 480px; margin: 0 auto; }
+  .golden-rule strong { font-weight: 700; color: #4a3808; }
+
+  /* ─── Divider ─── */
+  .divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 40px 0; }
+  .divider span { font-size: 18px; opacity: 0.5; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(140,110,70,0.3), transparent); }
+
+  /* ─── Final ─── */
+  .final-block { text-align: center; padding: 30px 20px 0; }
+  .final-emoji { font-size: 40px; margin-bottom: 16px; }
+  .final-text { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-style: italic; color: var(--text-dark); line-height: 1.7; max-width: 500px; margin: 0 auto; }
+  .final-sign { margin-top: 20px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+
+  @media (max-width: 560px) {
+    .benefit-grid, .myth-vs { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 28px; }
+    .page { padding: 32px 14px 50px; }
+    .timeline-item { flex-direction: column; gap: 6px; }
+    .timeline-year { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-emojis">🌸 ☕ 🌿</div>
+    <div class="hero-eyebrow">Рубрика · Полезная еда</div>
+    <div class="hero-title">Цикорий: 3500 лет истории в одной чашке</div>
+    <div class="hero-sub">Разбираемся честно: правда ли от него тромбы, и как заваривать, чтобы была польза</div>
+  </div>
+
+  <!-- ИСТОРИЯ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon brown">📜</div>
+      <div class="sec-title">Древний Египет и путь через века</div>
+    </div>
+
+    <div class="card card-brown">
+      <p>Цикорий — одно из древнейших растений, которые использовал человек. Его целебные свойства описаны ещё в <strong>папирусе Эберса</strong> — древнеегипетском медицинском своде эпохи фараона Аменхотепа I, около 1536 года до нашей эры. Египтяне готовили из него средства от укусов змей и ядовитых насекомых.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">~1536 до н.э.</div>
+        <div class="timeline-text">🇪🇬 Папирус Эберса — первое упоминание в Древнем Египте</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Античность</div>
+        <div class="timeline-text">🏛️ Теофраст, Плиний Старший, Авиценна рекомендуют его для пищеварения и суставов</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Средние века</div>
+        <div class="timeline-text">⛪ Европейские монахи начинают культивировать цикорий</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1806 год</div>
+        <div class="timeline-text">👑 Континентальная блокада Наполеона — кофе дефицит, цикорий становится его спутником</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">XX век</div>
+        <div class="timeline-text">🌍 Традиция повторяется во время войн, когда кофе снова в дефиците</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p>В народной медицине разных стран цикорием лечили кожные заболевания — экземы, угри, фурункулы. Его использовали для работы печени, при бессоннице и неврозах, при болезнях почек и желчного пузыря.</p>
+    </div>
+  </div>
+
+  <div class="divider"><span>☕</span></div>
+
+  <!-- НАУКА -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon blue">🔬</div>
+      <div class="sec-title">Что говорит наука сегодня</div>
+    </div>
+
+    <div class="card card-blue">
+      <p>Корень цикория содержит до <strong>70% инулина</strong> — пребиотического волокна, которое питает полезные бактерии кишечника. Регулярный приём увеличивает количество полезной микрофлоры.</p>
+    </div>
+
+    <div class="benefit-grid">
+      <div class="benefit-tile">
+        <div class="benefit-emoji">🛡️</div>
+        <div class="benefit-title">Антиоксидант</div>
+        <div class="benefit-text">Противовоспалительное и антибактериальное действие</div>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-emoji">💧</div>
+        <div class="benefit-title">Желчегонное, мочегонное</div>
+        <div class="benefit-text">Мягкое седативное действие на нервную систему</div>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-emoji">🩸</div>
+        <div class="benefit-title">Снижает сахар</div>
+        <div class="benefit-text">При регулярном употреблении уровень сахара в крови снижается</div>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-emoji">🔥</div>
+        <div class="benefit-title">Обмен веществ</div>
+        <div class="benefit-text">Нормализация липидного обмена, помощь в сжигании висцерального жира</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p>Женщинам в постменопаузе цикорий может помочь <em>снизить риск остеопороза</em> — заболевания, связанного с ухудшением минерализации костной ткани.</p>
+    </div>
+  </div>
+
+  <div class="divider"><span>🩸</span></div>
+
+  <!-- МИФ О ТРОМБАХ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon rose">🔍</div>
+      <div class="sec-title">А что с тромбами? Разбираемся честно</div>
+    </div>
+
+    <div class="myth-block">
+      <div class="myth-title">Правда против мифа</div>
+      <div class="myth-vs">
+        <div class="myth-side no">
+          <div class="myth-label">❌ Миф</div>
+          <div class="myth-side-text">«Цикорий образует тромбы»</div>
+        </div>
+        <div class="myth-side yes">
+          <div class="myth-label">✅ Факт</div>
+          <div class="myth-side-text">Цикорий разжижает кровь и улучшает кровоток</div>
+        </div>
+      </div>
+      <p class="explain">Цикорий содержит <strong>кумарины</strong> — вещества, которые замедляют свёртываемость крови и расширяют сосуды. По факту он действует ровно противоположно тому, что говорят — не образует тромбы, а разжижает кровь.</p>
+      <p class="explain" style="margin-top:12px;">Тогда почему его не рекомендуют при варикозе и тромбофлебите? Не потому что он «создаёт тромбы», а потому что у людей с уже <strong>ослабленными стенками сосудов</strong> эффект расширения сосудов может усилить венозный застой в уже повреждённых венах. Это разные вещи: не провокация новых тромбов, а нагрузка на уже слабые сосуды.</p>
+    </div>
+
+    <div class="card card-rose">
+      <p>Отдельная и более весомая причина для осторожности — если человек принимает <strong>препараты, разжижающие кровь</strong> (антикоагулянты). Сочетание с цикорием может усилить эффект и повысить риск кровотечений — вот здесь действительно нужно посоветоваться с врачом.</p>
+    </div>
+  </div>
+
+  <!-- ПРОТИВОПОКАЗАНИЯ -->
+  <div class="section">
+    <div class="warning-box">
+      <div class="warning-title">⚠️ Кому лучше быть осторожным</div>
+      <ul class="warning-list">
+        <li><span class="warning-dot">●</span><span><strong>Варикозное расширение вен, тромбофлебит, геморрой</strong></span></li>
+        <li><span class="warning-dot">●</span><span><strong>Пониженное давление</strong> — цикорий дополнительно расширяет сосуды и может усилить симптомы</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Желчнокаменная болезнь</strong> — из-за желчегонного действия</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Приём препаратов, разжижающих кровь</strong> — только после консультации с врачом</span></li>
+        <li><span class="warning-dot">●</span><span><strong>Беременность и кормление</strong> — лучше обсудить с врачом индивидуально</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"><span>🫖</span></div>
+
+  <!-- КАК ЗАВАРИВАТЬ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon brown">👩‍🍳</div>
+      <div class="sec-title">Как правильно заваривать</div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>🌡️ Температура — не кипяток!</h4>
+        <p>Оптимально 85–95°C (вода закипела и постояла 1-2 минуты). Кипяток разрушает часть полезных веществ.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>⚖️ Пропорция</h4>
+        <p>1–2 чайные ложки растворимого цикория на 200 мл горячей воды.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>🥛 Молоко</h4>
+        <p>Подогретое, но не кипячёное (без плёнки на поверхности). Именно так пили цикорий изначально, задолго до моды на «кофе с молоком».</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>🍯 Мёд</h4>
+        <p>Добавлять только в слегка остывший напиток. В горячем виде мёд теряет часть полезных свойств.</p>
+      </div>
+    </div>
+
+    <div class="recipe-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>🕐 Когда пить</h4>
+        <p>В первой половине дня, не натощак — так меньше риск дискомфорта в желудке.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ИТОГ -->
+  <div class="golden-rule">
+    <p>Цикорий — не миф и не страшилка, а растение с трёхтысячелетней историей и вполне современным научным обоснованием пользы. <strong>Главное — знать свои особенности здоровья и не заливать кипятком.</strong></p>
+  </div>
+
+  <!-- ФИНАЛ -->
+  <div class="final-block">
+    <div class="final-emoji">☕🌸</div>
+    <div class="final-text">Чашка цикория с подогретым молоком и ложкой мёда, добавленной в остывший напиток — маленький ритуал, которому три с половиной тысячи лет.</div>
+    <div class="final-sign">Полезная еда · Рубрика Ольги Картуновой</div>
+  </div>
+
+</div>
+
+</body>
+</html>

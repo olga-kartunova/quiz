@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нумерологический разбор · Геннадий · 07.01.1963</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --gold-pale: #f5e4a8;
+    --deep: #080c14;
+    --card: rgba(18, 26, 38, 0.55);
+    --border: rgba(212, 168, 67, 0.18);
+    --text: #f0ede8;
+    --text-sub: #b0bcc8;
+    --text-muted: #728090;
+    --steel: #64748b;
+    --steel-light: #94a3b8;
+    --teal: #5eead4;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--text); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 50% at 5% 0%, #10203a 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 95% 90%, #0d1a2c 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 50% 50%, #0a1420 0%, transparent 70%),
+      linear-gradient(180deg, #080c14 0%, #0a0e16 100%);
+  }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(85px); z-index: -1; }
+  .orb-1 { width: 500px; height: 500px; background: #16324e; top: -150px; right: -100px; opacity: 0.22; }
+  .orb-2 { width: 350px; height: 350px; background: #1a2438; bottom: 0; left: -80px; opacity: 0.2; }
+  .orb-3 { width: 220px; height: 220px; background: #d4a843; top: 40%; right: 5%; opacity: 0.05; }
+
+  canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 52px 22px 72px; }
+
+  .hero { text-align: center; padding-bottom: 44px; margin-bottom: 44px; position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 18px; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; letter-spacing: 2px; color: var(--text); margin-bottom: 6px; line-height: 1; }
+  .hero-full { font-size: 14px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px; }
+  .hero-date { font-size: 14px; color: var(--text-muted); letter-spacing: 2px; }
+
+  .nums-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 52px; }
+  .num-tile {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 18px 8px 16px; text-align: center; backdrop-filter: blur(12px); position: relative; overflow: hidden;
+  }
+  .num-tile::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .num-tile.steel::before { background: linear-gradient(90deg, transparent, var(--steel-light), transparent); }
+  .num-tile.teal::before { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+
+  .num-big {
+    font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 7px;
+  }
+  .num-tile.steel .num-big { background: linear-gradient(135deg, #cbd5e1, var(--steel-light)); -webkit-background-clip: text; background-clip: text; }
+  .num-tile.teal .num-big { background: linear-gradient(135deg, #a7f3d0, var(--teal)); -webkit-background-clip: text; background-clip: text; }
+  .num-caption { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-muted); line-height: 1.4; }
+
+  .section { margin-bottom: 44px; }
+  .sec-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(212,168,67,0.03));
+    border: 1px solid rgba(212,168,67,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .sec-icon.steel-i { background: linear-gradient(135deg, rgba(100,116,139,0.18), rgba(100,116,139,0.03)); border-color: rgba(148,163,184,0.25); }
+  .sec-icon.teal-i { background: linear-gradient(135deg, rgba(94,234,212,0.1), rgba(94,234,212,0.02)); border-color: rgba(94,234,212,0.2); }
+
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.2; }
+  .sec-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 26px; backdrop-filter: blur(12px); margin-bottom: 12px; }
+  .card p { font-size: 15px; line-height: 1.8; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text); font-weight: 600; }
+  .card em { font-style: italic; color: var(--gold-pale); }
+
+  .card-gold { border-left: 3px solid var(--gold); }
+  .card-steel { border-left: 3px solid var(--steel-light); }
+  .card-teal { border-left: 3px solid var(--teal); }
+
+  .card-hl { background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(18,26,38,0.5)); border-color: rgba(212,168,67,0.28); }
+  .card-hl-steel { background: linear-gradient(135deg, rgba(100,116,139,0.12), rgba(18,26,38,0.5)); border-color: rgba(148,163,184,0.28); }
+
+  .dot-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
+  .dot-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; line-height: 1.65; color: var(--text-sub); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--gold); }
+  .dot.st { background: var(--steel-light); }
+  .dot.t { background: var(--teal); }
+  .dot.g { background: #4ade80; }
+  .dot.red { background: #f87171; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .col-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; backdrop-filter: blur(12px); }
+  .col-head { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 14px; }
+  .col-card.plus .col-head { color: #4ade80; }
+  .col-card.minus .col-head { color: #f87171; }
+
+  .power-block {
+    background: linear-gradient(135deg, rgba(100,116,139,0.15), rgba(212,168,67,0.06), rgba(18,26,38,0.7));
+    border: 1px solid rgba(148,163,184,0.3); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; margin-bottom: 12px;
+  }
+  .power-block::before {
+    content: '✦'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    font-size: 120px; color: rgba(148,163,184,0.08); line-height: 1; user-select: none;
+  }
+  .power-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--steel-light); opacity: 0.9; margin-bottom: 14px; }
+  .power-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: #cbd5e1; margin-bottom: 16px; line-height: 1.2; }
+  .power-block p { font-size: 15px; line-height: 1.85; color: var(--text-sub); max-width: 520px; }
+  .power-block p + p { margin-top: 12px; }
+  .power-block strong { color: var(--text); }
+
+  .year-box { background: linear-gradient(135deg, rgba(212,168,67,0.09), rgba(18,26,38,0.5)); border: 1px solid rgba(212,168,67,0.24); border-radius: 20px; padding: 28px 28px 28px 32px; position: relative; overflow: hidden; margin-bottom: 12px; }
+  .year-wm { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 130px; font-weight: 300; color: rgba(212,168,67,0.08); line-height: 1; user-select: none; }
+  .year-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--gold-pale); margin-bottom: 12px; }
+  .year-box p { font-size: 15px; line-height: 1.75; color: var(--text-sub); max-width: 480px; }
+
+  .name-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .name-tile { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px 16px; text-align: center; backdrop-filter: blur(12px); }
+  .name-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; line-height: 1; margin-bottom: 6px; }
+  .name-tile:nth-child(1) .name-num { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-tile:nth-child(2) .name-num { background: linear-gradient(135deg, #a7f3d0, var(--teal)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-tile:nth-child(3) .name-num { background: linear-gradient(135deg, #cbd5e1, var(--steel-light)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+  .finance-box {
+    background: linear-gradient(135deg, rgba(212,168,67,0.1), rgba(100,116,139,0.06));
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 22px; padding: 28px; position: relative; overflow: hidden;
+  }
+  .finance-code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; font-weight: 600; letter-spacing: 6px; text-align: center;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), #f0c96a);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1; margin: 16px 0 20px;
+    filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));
+  }
+  .finance-title { text-align: center; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.75; }
+  .finance-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+  .f-step { background: rgba(212,168,67,0.07); border: 1px solid rgba(212,168,67,0.15); border-radius: 12px; padding: 12px 8px; text-align: center; }
+  .f-step-num { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--gold-light); line-height: 1; margin-bottom: 4px; }
+  .f-step-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .heart-block { background: linear-gradient(135deg, rgba(212,168,67,0.06), rgba(100,116,139,0.1)); border: 1px solid rgba(212,168,67,0.22); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; }
+  .heart-block::before, .heart-block::after { content: '✦'; position: absolute; color: rgba(212,168,67,0.1); font-size: 90px; line-height: 1; }
+  .heart-block::before { top: -25px; left: -10px; }
+  .heart-block::after { bottom: -25px; right: -10px; }
+  .heart-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 18px; }
+  .heart-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; line-height: 1.75; color: var(--text); }
+  .heart-text p + p { margin-top: 16px; }
+
+  .final-quote { text-align: center; padding: 44px 20px 0; }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; font-weight: 300; line-height: 1.75; color: var(--text); max-width: 540px; margin: 0 auto; }
+  .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 72px; line-height: 0.5; color: rgba(212,168,67,0.2); margin-bottom: 8px; }
+  .quote-author { margin-top: 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,67,0.18), transparent); margin: 44px 0; }
+
+  @media (max-width: 560px) {
+    .nums-strip { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .name-grid, .finance-steps { grid-template-columns: 1fr 1fr; }
+    .hero-name { font-size: 36px; }
+    .page { padding: 32px 16px 56px; }
+    .finance-code { font-size: 48px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<canvas id="stars"></canvas>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Нумерологический разбор · Сюцай</div>
+    <div class="hero-name">Геннадий</div>
+    <div class="hero-full">Картунов Геннадий Владимирович</div>
+    <div class="hero-date">07 · 01 · 1963</div>
+  </div>
+
+  <div class="nums-strip">
+    <div class="num-tile">
+      <div class="num-big">7</div>
+      <div class="num-caption">Число<br>сознания</div>
+    </div>
+    <div class="num-tile steel">
+      <div class="num-big">9</div>
+      <div class="num-caption">Миссия<br>жизни</div>
+    </div>
+    <div class="num-tile steel">
+      <div class="num-big">9</div>
+      <div class="num-caption">Личный<br>год 2026</div>
+    </div>
+    <div class="num-tile teal">
+      <div class="num-big">7</div>
+      <div class="num-caption">Июль<br>2026</div>
+    </div>
+    <div class="num-tile teal">
+      <div class="num-big">8</div>
+      <div class="num-caption">Август<br>2026</div>
+    </div>
+  </div>
+
+
+  <!-- ЧС 7 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">🔭</div>
+      <div>
+        <div class="sec-title">Число сознания — 7 · Кету</div>
+        <div class="sec-sub">День рождения 7 · Самый принципиальный</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p>Твой день рождения — ровно 7, без составляющих, без полутонов. В системе Сюцай это отдельная, самая чистая подгруппа: <strong>«самые принципиальные»</strong>. Ты живёшь по своим внутренним законам и крайне редко отступаешь от них — ни ради выгоды, ни ради чужого одобрения.</p>
+      <p>Кету — планета глубины, поиска смысла, наблюдательности. Ты не из тех, кто действует импульсивно. Сначала смотришь, оцениваешь, взвешиваешь — и только потом делаешь шаг. Со стороны это иногда выглядит как медлительность, но на деле — это мудрость человека, который не хочет ошибаться из спешки.</p>
+    </div>
+
+    <div class="card card-gold">
+      <p><strong>Как это проявляется в характере:</strong></p>
+      <ul class="dot-list" style="margin-top:10px;">
+        <li><span class="dot"></span><span>Внутренний компас, который редко подводит</span></li>
+        <li><span class="dot"></span><span>Не терпишь фальши и пустых обещаний</span></li>
+        <li><span class="dot"></span><span>Умеешь долго молчать, но когда говоришь — это весомо</span></li>
+        <li><span class="dot"></span><span>Ценишь одиночество и тишину для восстановления сил</span></li>
+      </ul>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card plus">
+        <div class="col-head">✦ Сильные стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Принципиальность и надёжность</span></li>
+          <li><span class="dot g"></span><span>Глубокий аналитический ум</span></li>
+          <li><span class="dot g"></span><span>Верность своему слову</span></li>
+          <li><span class="dot g"></span><span>Способность видеть суть за внешним</span></li>
+        </ul>
+      </div>
+      <div class="col-card minus">
+        <div class="col-head">✦ Слабые стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot red"></span><span>Закрытость</span></li>
+          <li><span class="dot red"></span><span>Излишняя строгость к себе и другим</span></li>
+          <li><span class="dot red"></span><span>Трудно отступить от принятого решения</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- МИССИЯ 9 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon steel-i">🔥</div>
+      <div>
+        <div class="sec-title">Миссия — 9 · Марс</div>
+        <div class="sec-sub">0+7+0+1+1+9+6+3 = 27 → 9 · Жить ради большого дела</div>
+      </div>
+    </div>
+
+    <div class="card card-hl-steel">
+      <p>Девятка — Марс, планета масштаба, действия и служения чему-то большему, чем личные интересы. Твоя жизненная задача — не размениваться по мелочам, а вкладываться в то, что оставит настоящий след: в дело, в семью, в людей вокруг.</p>
+      <p>Люди с миссией 9 редко довольствуются малым. Внутри всегда живёт стремление сделать что-то значимое — не для галочки, а по-настоящему.</p>
+    </div>
+  </div>
+
+  <!-- ОСОБОЕ СОВПАДЕНИЕ -->
+  <div class="power-block">
+    <div class="power-label">Особое совпадение</div>
+    <div class="power-title">Ты внутри своей миссии</div>
+    <p>Твой личный год 2026 — тоже 9, то есть совпадает с числом твоей Миссии. Это редкое явление — год, когда человек буквально живёт внутри своей жизненной задачи, а не где-то рядом с ней.</p>
+    <p>Более того, есть ключевой принцип всей системы Сюцай: <em>«все пути в ЧС идут либо через 4, либо через 9»</em>. У тебя Миссия и Личный год держатся на девятке — а твоё <strong>Число судьбы по имени оказалось ровно 4</strong>. Ты проходишь сразу через оба главных потока системы одновременно.</p>
+  </div>
+
+  <!-- ЛИНИЯ ТРАНСФОРМАЦИИ -->
+  <div class="power-block">
+    <div class="power-label">Линия силы · Секретные материалы Сюцай</div>
+    <div class="power-title">7 + 8 + 9 · Три числа трансформации</div>
+    <p><em>«Трансформируются с самого начала жизни, в одиночестве находят себя через стремительность»</em>.</p>
+    <p>У тебя уже есть два из трёх чисел этой линии — ЧС (7) и Миссия (9). Процессы глубокой внутренней трансформации для тебя не разовое событие, а часть самой природы — ты умеешь меняться и перерождаться там, где другие застревают.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЛИЧНЫЙ ГОД 9 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon steel-i">⚡</div>
+      <div>
+        <div class="sec-title">Личный год 2026 — год большого действия</div>
+        <div class="sec-sub">Совпадает с Миссией · Марс</div>
+      </div>
+    </div>
+
+    <div class="year-box">
+      <div class="year-wm">9</div>
+      <h3>Год, когда стоит вкладываться в главное</h3>
+      <p>Раз личный год совпадает с миссией, 2026-й — это не проходной год. Это время, когда стоит вкладываться именно в то дело, которое ощущается как «моё настоящее», а не распыляться на второстепенное.</p>
+    </div>
+
+    <div class="card card-teal">
+      <p><strong>Личный месяц (июль):</strong> 9+7=16→7 · Кету · Глубина, анализ, тишина</p>
+      <p style="margin-top:10px;"><strong>Личный месяц (август):</strong> 9+8=17→8 · Сатурн · Результат, структура, официальные решения</p>
+    </div>
+
+    <div class="card card-gold">
+      <p>Июль — время подумать и разобраться в себе, август — время оформить решения в конкретные структурные шаги.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЧИСЛА ИМЕНИ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✍️</div>
+      <div>
+        <div class="sec-title">Числа имени</div>
+        <div class="sec-sub">Картунов Геннадий Владимирович</div>
+      </div>
+    </div>
+
+    <div class="name-grid">
+      <div class="name-tile">
+        <div class="name-num">4</div>
+        <div class="name-label">Судьба<br>(все буквы)</div>
+      </div>
+      <div class="name-tile">
+        <div class="name-num">5</div>
+        <div class="name-label">Душа<br>(гласные)</div>
+      </div>
+      <div class="name-tile">
+        <div class="name-num">8</div>
+        <div class="name-label">Облик<br>(согласные)</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p style="font-size:17px; font-weight:600; color:var(--gold-light); margin-bottom:12px;">🌟 Число судьбы — 4 · Строитель</p>
+      <p>Твоё имя несёт энергию порядка, организации и мастерства. Люди с числом судьбы 4 — трудолюбивы, надёжны, умеют выстраивать системы, которые работают долго. Ты создан не для быстрых временных побед, а для основательных, крепких результатов.</p>
+    </div>
+
+    <div class="card card-teal">
+      <p style="font-size:17px; font-weight:600; color:var(--teal); margin-bottom:12px;">❤️ Число души — 5 · Искатель приключений</p>
+      <p>Внутри, там где не видно снаружи, живёт тяга к свободе и новому опыту. Душа пятёрки хочет разнообразия, движения, самостоятельности в решениях. Это интересный контраст с внешней строгостью семёрки в сознании — снаружи дисциплина, а внутри жажда живого опыта.</p>
+    </div>
+
+    <div class="card card-steel">
+      <p style="font-size:17px; font-weight:600; color:var(--steel-light); margin-bottom:12px;">✨ Число облика — 8 · Начальник</p>
+      <p>Люди видят в тебе человека, у которого всё под контролем — сильного, собранного, способного вести за собой. Окружающие интуитивно доверяют тебе роль лидера, даже если ты сам не всегда стремишься её подчёркивать.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ФИНАНСОВЫЙ КОД -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">💰</div>
+      <div>
+        <div class="sec-title">Финансовый код</div>
+        <div class="sec-sub">Денежный код из даты рождения · 07.01.1963</div>
+      </div>
+    </div>
+
+    <div class="finance-box">
+      <div class="finance-title">Твой финансовый код</div>
+      <div class="finance-code">7119</div>
+
+      <div class="finance-steps">
+        <div class="f-step">
+          <div class="f-step-num">7</div>
+          <div class="f-step-label">День<br>07→0+7</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">1</div>
+          <div class="f-step-label">Месяц<br>01→0+1</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">1</div>
+          <div class="f-step-label">Год<br>1963→1</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">9</div>
+          <div class="f-step-label">Сумма<br>7+1+1→9</div>
+        </div>
+      </div>
+
+      <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--gold-pale);">Используй в паролях, номерах, повторяй как аффирмацию перед важными решениями.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ОБЩИЙ ВЫВОД -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✨</div>
+      <div>
+        <div class="sec-title">Общий вывод</div>
+        <div class="sec-sub">Сознание 7 · Миссия 9 · Судьба 4 · Душа 5 · Облик 8</div>
+      </div>
+    </div>
+
+    <div class="heart-block">
+      <div class="heart-eyebrow">Послание от нумеролога</div>
+      <div class="heart-text">
+        <p>Геннадий, твои числа рисуют портрет человека редкой цельности. Семёрка в сознании даёт глубину и принципиальность, девятка в миссии — стремление к большому и значимому делу.</p>
+        <p>То, что личный год 2026 совпадает с миссией, а имя несёт число строителя — говорит об одном: сейчас именно то время, когда стоит вкладываться в главное дело жизни, не размениваясь по мелочам.</p>
+        <p><strong>Ты создан строить основательно, вести за собой уверенно и трансформироваться там, где другие боятся меняться.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ФИНАЛЬНАЯ ЦИТАТА -->
+  <div class="final-quote">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">Твоя сила не в громких словах, а в том, что построено надолго и держит своё слово.</div>
+    <div class="quote-author">Сюцай · Нумерологический разбор</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const stars = Array.from({length: 180}, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 1.3 + 0.2,
+    a: Math.random() * Math.PI * 2,
+    s: Math.random() * 0.005 + 0.002,
+    type: Math.floor(Math.random() * 3)
+  }));
+  const colors = [
+    (a) => `rgba(212,168,67,${a})`,
+    (a) => `rgba(148,163,184,${a})`,
+    (a) => `rgba(94,234,212,${a})`
+  ];
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    stars.forEach(s => {
+      s.a += s.s;
+      const alpha = (Math.sin(s.a) + 1) / 2 * 0.5 + 0.07;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = colors[s.type](alpha);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

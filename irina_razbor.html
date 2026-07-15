@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нумерологический разбор · Ирина · 28.11.1964</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --gold-pale: #f5e4a8;
+    --deep: #0a0f16;
+    --card: rgba(18, 30, 45, 0.55);
+    --border: rgba(212, 168, 67, 0.18);
+    --text: #f0ede8;
+    --text-sub: #b8c4d0;
+    --text-muted: #7890a0;
+    --teal: #5eead4;
+    --rose: #f9a8d4;
+    --sky: #7dd3fc;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--text); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 50% at 5% 0%, #0a2a4a 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 95% 90%, #0a1a3c 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 50% 50%, #0a1420 0%, transparent 70%),
+      linear-gradient(180deg, #0a0f16 0%, #0c1119 100%);
+  }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(85px); z-index: -1; }
+  .orb-1 { width: 500px; height: 500px; background: #0e3a6a; top: -150px; right: -100px; opacity: 0.22; }
+  .orb-2 { width: 350px; height: 350px; background: #0a2a3a; bottom: 0; left: -80px; opacity: 0.18; }
+  .orb-3 { width: 220px; height: 220px; background: #d4a843; top: 40%; right: 5%; opacity: 0.05; }
+
+  canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 52px 22px 72px; }
+
+  .hero { text-align: center; padding-bottom: 44px; margin-bottom: 44px; position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 18px; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; letter-spacing: 2px; color: var(--text); margin-bottom: 6px; line-height: 1; }
+  .hero-full { font-size: 14px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px; }
+  .hero-date { font-size: 14px; color: var(--text-muted); letter-spacing: 2px; }
+
+  .nums-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 52px; }
+  .num-tile {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 18px 8px 16px; text-align: center; backdrop-filter: blur(12px); position: relative; overflow: hidden;
+  }
+  .num-tile::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .num-tile.sky::before { background: linear-gradient(90deg, transparent, var(--sky), transparent); }
+  .num-tile.teal::before { background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+
+  .num-big {
+    font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 7px;
+  }
+  .num-tile.sky .num-big { background: linear-gradient(135deg, #bae6fd, var(--sky)); -webkit-background-clip: text; background-clip: text; }
+  .num-tile.teal .num-big { background: linear-gradient(135deg, #a7f3d0, var(--teal)); -webkit-background-clip: text; background-clip: text; }
+  .num-caption { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-muted); line-height: 1.4; }
+
+  .section { margin-bottom: 44px; }
+  .sec-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(212,168,67,0.03));
+    border: 1px solid rgba(212,168,67,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .sec-icon.sky-i { background: linear-gradient(135deg, rgba(125,211,252,0.12), rgba(125,211,252,0.02)); border-color: rgba(125,211,252,0.22); }
+  .sec-icon.teal-i { background: linear-gradient(135deg, rgba(94,234,212,0.1), rgba(94,234,212,0.02)); border-color: rgba(94,234,212,0.2); }
+  .sec-icon.rose-i { background: linear-gradient(135deg, rgba(249,168,212,0.1), rgba(249,168,212,0.02)); border-color: rgba(249,168,212,0.2); }
+
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.2; }
+  .sec-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 26px; backdrop-filter: blur(12px); margin-bottom: 12px; }
+  .card p { font-size: 15px; line-height: 1.8; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text); font-weight: 600; }
+  .card em { font-style: italic; color: var(--gold-pale); }
+
+  .card-gold { border-left: 3px solid var(--gold); }
+  .card-sky { border-left: 3px solid var(--sky); }
+  .card-teal { border-left: 3px solid var(--teal); }
+  .card-rose { border-left: 3px solid var(--rose); }
+
+  .card-hl { background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(18,30,45,0.5)); border-color: rgba(212,168,67,0.28); }
+  .card-hl-sky { background: linear-gradient(135deg, rgba(125,211,252,0.09), rgba(18,30,45,0.5)); border-color: rgba(125,211,252,0.25); }
+
+  .dot-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
+  .dot-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; line-height: 1.65; color: var(--text-sub); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--gold); }
+  .dot.s { background: var(--sky); }
+  .dot.t { background: var(--teal); }
+  .dot.g { background: #4ade80; }
+  .dot.red { background: #f87171; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .col-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; backdrop-filter: blur(12px); }
+  .col-head { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin-bottom: 14px; }
+  .col-card.plus .col-head { color: #4ade80; }
+  .col-card.minus .col-head { color: #f87171; }
+
+  .power-block {
+    background: linear-gradient(135deg, rgba(125,211,252,0.12), rgba(212,168,67,0.06), rgba(18,30,45,0.7));
+    border: 1px solid rgba(125,211,252,0.3); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; margin-bottom: 12px;
+  }
+  .power-block::before {
+    content: '✦'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    font-size: 120px; color: rgba(125,211,252,0.07); line-height: 1; user-select: none;
+  }
+  .power-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sky); opacity: 0.85; margin-bottom: 14px; }
+  .power-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: #bae6fd; margin-bottom: 16px; line-height: 1.2; }
+  .power-block p { font-size: 15px; line-height: 1.85; color: var(--text-sub); max-width: 520px; }
+  .power-block p + p { margin-top: 12px; }
+  .power-block strong { color: var(--text); }
+
+  .year-box { background: linear-gradient(135deg, rgba(212,168,67,0.09), rgba(18,30,45,0.5)); border: 1px solid rgba(212,168,67,0.24); border-radius: 20px; padding: 28px 28px 28px 32px; position: relative; overflow: hidden; margin-bottom: 12px; }
+  .year-wm { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 130px; font-weight: 300; color: rgba(212,168,67,0.08); line-height: 1; user-select: none; }
+  .year-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--gold-pale); margin-bottom: 12px; }
+  .year-box p { font-size: 15px; line-height: 1.75; color: var(--text-sub); max-width: 480px; }
+
+  .name-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .name-tile { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px 16px; text-align: center; backdrop-filter: blur(12px); }
+  .name-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; line-height: 1; margin-bottom: 6px; }
+  .name-tile:nth-child(1) .name-num { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-tile:nth-child(2) .name-num { background: linear-gradient(135deg, #fbcfe8, var(--rose)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-tile:nth-child(3) .name-num { background: linear-gradient(135deg, #bae6fd, var(--sky)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .name-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+  .finance-box {
+    background: linear-gradient(135deg, rgba(212,168,67,0.1), rgba(125,211,252,0.05));
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 22px; padding: 28px; position: relative; overflow: hidden;
+  }
+  .finance-code {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; font-weight: 600; letter-spacing: 6px; text-align: center;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), #f0c96a);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1; margin: 16px 0 20px;
+    filter: drop-shadow(0 0 20px rgba(212,168,67,0.3));
+  }
+  .finance-title { text-align: center; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); opacity: 0.75; }
+  .finance-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+  .f-step { background: rgba(212,168,67,0.07); border: 1px solid rgba(212,168,67,0.15); border-radius: 12px; padding: 12px 8px; text-align: center; }
+  .f-step-num { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: var(--gold-light); line-height: 1; margin-bottom: 4px; }
+  .f-step-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+
+  .heart-block { background: linear-gradient(135deg, rgba(212,168,67,0.06), rgba(125,211,252,0.09)); border: 1px solid rgba(212,168,67,0.22); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; }
+  .heart-block::before, .heart-block::after { content: '✦'; position: absolute; color: rgba(212,168,67,0.1); font-size: 90px; line-height: 1; }
+  .heart-block::before { top: -25px; left: -10px; }
+  .heart-block::after { bottom: -25px; right: -10px; }
+  .heart-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.75; margin-bottom: 18px; }
+  .heart-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; line-height: 1.75; color: var(--text); }
+  .heart-text p + p { margin-top: 16px; }
+
+  .final-quote { text-align: center; padding: 44px 20px 0; }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; font-weight: 300; line-height: 1.75; color: var(--text); max-width: 540px; margin: 0 auto; }
+  .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 72px; line-height: 0.5; color: rgba(212,168,67,0.2); margin-bottom: 8px; }
+  .quote-author { margin-top: 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,67,0.18), transparent); margin: 44px 0; }
+
+  @media (max-width: 560px) {
+    .nums-strip { grid-template-columns: repeat(3, 1fr); }
+    .two-col, .name-grid, .finance-steps { grid-template-columns: 1fr 1fr; }
+    .hero-name { font-size: 36px; }
+    .page { padding: 32px 16px 56px; }
+    .finance-code { font-size: 48px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<canvas id="stars"></canvas>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Нумерологический разбор · Сюцай</div>
+    <div class="hero-name">Ирина</div>
+    <div class="hero-full">Ляйфер Ирина Вячеславовна</div>
+    <div class="hero-date">28 · 11 · 1964</div>
+  </div>
+
+  <div class="nums-strip">
+    <div class="num-tile">
+      <div class="num-big">1</div>
+      <div class="num-caption">Число<br>сознания</div>
+    </div>
+    <div class="num-tile sky">
+      <div class="num-big">5</div>
+      <div class="num-caption">Миссия<br>жизни</div>
+    </div>
+    <div class="num-tile sky">
+      <div class="num-big">4</div>
+      <div class="num-caption">Личный<br>год 2026</div>
+    </div>
+    <div class="num-tile teal">
+      <div class="num-big">2</div>
+      <div class="num-caption">Июль<br>2026</div>
+    </div>
+    <div class="num-tile teal">
+      <div class="num-big">3</div>
+      <div class="num-caption">Август<br>2026</div>
+    </div>
+  </div>
+
+
+  <!-- ЧС 1 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">☀️</div>
+      <div>
+        <div class="sec-title">Число сознания — 1 · Солнце</div>
+        <div class="sec-sub">День рождения 28 · Лидер по природе</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p>Твой день рождения — 28, сокращается до единицы. Единица — это Солнце: планета воли, лидерства, самостоятельности. Люди с числом сознания 1 не созданы плыть по течению чужих решений — они созданы вести, инициировать, начинать.</p>
+      <p>Ты не из тех, кто ждёт разрешения действовать. Внутри — стержень, который толкает вперёд, даже когда вокруг никто не поддерживает начинание. Это не всегда лёгкий путь — единицам часто приходится идти первыми, без готовой дороги. Но именно в этом их сила.</p>
+    </div>
+
+    <div class="card card-gold">
+      <p><strong>Как это проявляется в характере:</strong></p>
+      <ul class="dot-list" style="margin-top:10px;">
+        <li><span class="dot"></span><span>Природная инициативность — первая берёшь на себя ответственность</span></li>
+        <li><span class="dot"></span><span>Умение принимать решения без долгих колебаний</span></li>
+        <li><span class="dot"></span><span>Целеустремлённость, которая не гаснет от одной неудачи</span></li>
+        <li><span class="dot"></span><span>Иногда — сложность делиться контролем и доверять чужому темпу</span></li>
+      </ul>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card plus">
+        <div class="col-head">✦ Сильные стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot g"></span><span>Лидерские качества</span></li>
+          <li><span class="dot g"></span><span>Смелость начинать новое</span></li>
+          <li><span class="dot g"></span><span>Трудолюбие и целеустремлённость</span></li>
+          <li><span class="dot g"></span><span>Способность вдохновлять своим примером</span></li>
+        </ul>
+      </div>
+      <div class="col-card minus">
+        <div class="col-head">✦ Слабые стороны</div>
+        <ul class="dot-list">
+          <li><span class="dot red"></span><span>Вспыльчивость при сопротивлении</span></li>
+          <li><span class="dot red"></span><span>Берёт слишком много на себя</span></li>
+          <li><span class="dot red"></span><span>Трудно признать чужую правоту</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- МИССИЯ 5 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon sky-i">🌬️</div>
+      <div>
+        <div class="sec-title">Миссия — 5 · Меркурий</div>
+        <div class="sec-sub">2+8+1+1+1+9+6+4 = 32 → 5 · Свобода через движение</div>
+      </div>
+    </div>
+
+    <div class="card card-hl-sky">
+      <p>Пятёрка — Меркурий, планета разнообразия, общения и свободы. Твоя жизненная задача — не задерживаться надолго в одной точке, а находить лучший путь через постоянное движение, новые контакты, новые обстоятельства.</p>
+      <p>Люди с миссией 5 плохо приживаются в жёстких рамках и предсказуемом однообразии. Им нужно пробовать, менять, исследовать — именно так они находят себя и приносят пользу другим. Это не признак несерьёзности — это способ познавания мира через разнообразие опыта.</p>
+    </div>
+  </div>
+
+  <!-- ЛИНИЯ КОММУНИКАТОРОВ -->
+  <div class="power-block">
+    <div class="power-label">Линия силы · Секретные материалы Сюцай</div>
+    <div class="power-title">1 + 5 + 9 · «Линия коммуникаторов»</div>
+    <p>В закрытых материалах есть линия силы 1+5+9 — <em>«Мышление одной единицей — охватывают 100 людей сразу, легко начинают разговор, естественные продавцы».</em></p>
+    <p>У тебя уже есть <strong>два из трёх чисел этой линии</strong> — ЧС (1) и Миссия (5). Сама комбинация 1+5 уже даёт сильную природную способность разговаривать с разными людьми, легко заводить контакт и вести за собой в беседе.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЛИЧНЫЙ ГОД 4 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon sky-i">🏗️</div>
+      <div>
+        <div class="sec-title">Личный год 4 · 2026</div>
+        <div class="sec-sub">2+8+1+1+2+0+2+6 = 22 → 4 · Раху · Год строительства</div>
+      </div>
+    </div>
+
+    <div class="year-box">
+      <div class="year-wm">4</div>
+      <h3>Год фундамента</h3>
+      <p>Четвёрка — Раху, планета глубокой трансформации. Личный год 4 — это всегда год труда и испытаний, но именно такой год закладывает фундамент для следующих девяти лет жизни.</p>
+      <p>Это не самый лёгкий год для быстрых побед — зато самый надёжный для того, чтобы выстроить что-то основательное. Всё, что делается сейчас качественно и с полной отдачей, будет держаться долго.</p>
+    </div>
+
+    <div class="card card-teal">
+      <p><strong>Личный месяц (июль):</strong> 4+7=11→2 · Луна · Отношения, забота, партнёрство</p>
+      <p style="margin-top:10px;"><strong>Личный месяц (август):</strong> 4+8=12→3 · Юпитер · Общение, самовыражение, лёгкость</p>
+    </div>
+
+    <div class="card card-gold">
+      <p>После плотного, требовательного года через месяцы приходит смягчение — время для разговоров, партнёрства и самовыражения. Не нужно всё время держать нагрузку на пределе — периоды отдыха внутри тяжёлого года тоже часть плана.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЧИСЛА ИМЕНИ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✍️</div>
+      <div>
+        <div class="sec-title">Числа имени</div>
+        <div class="sec-sub">Ляйфер Ирина Вячеславовна</div>
+      </div>
+    </div>
+
+    <div class="name-grid">
+      <div class="name-tile">
+        <div class="name-num">7</div>
+        <div class="name-label">Судьба<br>(все буквы)</div>
+      </div>
+      <div class="name-tile">
+        <div class="name-num">2</div>
+        <div class="name-label">Душа<br>(гласные)</div>
+      </div>
+      <div class="name-tile">
+        <div class="name-num">5</div>
+        <div class="name-label">Облик<br>(согласные)</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p style="font-size:17px; font-weight:600; color:var(--gold-light); margin-bottom:12px;">🌟 Число судьбы — 7 · Мыслитель</p>
+      <p>Твоё имя несёт энергию исследователя и аналитика. Люди с числом судьбы 7 обладают глубокомыслием, критическим мышлением, наблюдательностью. Есть врождённая потребность докопаться до правды или стать настоящим специалистом в своём деле — не поверхностно, а по-настоящему глубоко.</p>
+      <p style="margin-top:12px;"><em>Иногда таким людям не хватает лёгкости в выражении эмоций — сила уходит в анализ, а не в чувства. Но именно эта глубина делает их надёжными и умными собеседниками.</em></p>
+    </div>
+
+    <div class="card card-rose">
+      <p style="font-size:17px; font-weight:600; color:var(--rose); margin-bottom:12px;">❤️ Число души — 2 · Романтик</p>
+      <p>Внутри, там где никто не видит, живёт отчаянная потребность в спокойствии и любви. Душа двойки избегает стресса и конфликтов, ищет гармонии и тепла в отношениях. Это внутренний контраст с внешней силой единицы в сознании — снаружи лидер, внутри — тонкая душа, которая просто хочет мира и близости.</p>
+    </div>
+
+    <div class="card card-sky">
+      <p style="font-size:17px; font-weight:600; color:var(--sky); margin-bottom:12px;">✨ Число облика — 5 · Искатель приключений</p>
+      <p>Окружающие видят в тебе человека, который жаждет свободы, движения, новых горизонтов. Люди чувствуют в тебе лёгкость и готовность к приключениям.</p>
+    </div>
+
+    <div class="card card-hl-sky">
+      <p><strong>Редкое совпадение:</strong> облик (5) полностью совпадает с твоей настоящей жизненной миссией (тоже 5). Обычно между обликом и миссией есть разрыв — а у тебя гармония: <em>какой тебя видят люди — такова и твоя настоящая задача.</em></p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ФИНАНСОВЫЙ КОД -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">💰</div>
+      <div>
+        <div class="sec-title">Финансовый код</div>
+        <div class="sec-sub">Денежный код из даты рождения · 28.11.1964</div>
+      </div>
+    </div>
+
+    <div class="finance-box">
+      <div class="finance-title">Твой финансовый код</div>
+      <div class="finance-code">1225</div>
+
+      <div class="finance-steps">
+        <div class="f-step">
+          <div class="f-step-num">1</div>
+          <div class="f-step-label">День<br>28→2+8</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">2</div>
+          <div class="f-step-label">Месяц<br>11→1+1</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">2</div>
+          <div class="f-step-label">Год<br>1964→2</div>
+        </div>
+        <div class="f-step">
+          <div class="f-step-num">5</div>
+          <div class="f-step-label">Сумма<br>1+2+2→5</div>
+        </div>
+      </div>
+
+      <p style="text-align:center; font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:var(--gold-pale);">Используй в паролях, номерах, повторяй как аффирмацию перед важными решениями.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ОБЩИЙ ВЫВОД -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">✨</div>
+      <div>
+        <div class="sec-title">Общий вывод</div>
+        <div class="sec-sub">Сознание 1 · Миссия 5 · Судьба 7 · Душа 2 · Облик 5</div>
+      </div>
+    </div>
+
+    <div class="heart-block">
+      <div class="heart-eyebrow">Послание от нумеролога</div>
+      <div class="heart-text">
+        <p>Ирина, твои числа рисуют портрет прирождённого лидера с душой романтика внутри. Единица в сознании даёт силу вести за собой, пятёрка в миссии — тягу к свободе и разнообразию, а редкое совпадение миссии и облика говорит о том, что ты живёшь на удивление честно: какой тебя видят люди — такова и твоя настоящая задача.</p>
+        <p>2026 год — год труда и фундамента. Не самый лёгкий, но самый надёжный для того, чтобы построить что-то на годы вперёд.</p>
+        <p><strong>Твоя сила — в сочетании смелости лидера и лёгкости искателя приключений. Редко кто умеет совмещать оба этих качества так естественно, как ты.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ФИНАЛЬНАЯ ЦИТАТА -->
+  <div class="final-quote">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">Веди других так же смело, как идёшь сама — и позволяй себе тепло, которого просит душа.</div>
+    <div class="quote-author">Сюцай · Нумерологический разбор</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const stars = Array.from({length: 180}, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 1.3 + 0.2,
+    a: Math.random() * Math.PI * 2,
+    s: Math.random() * 0.005 + 0.002,
+    type: Math.floor(Math.random() * 3)
+  }));
+  const colors = [
+    (a) => `rgba(212,168,67,${a})`,
+    (a) => `rgba(125,211,252,${a})`,
+    (a) => `rgba(94,234,212,${a})`
+  ];
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    stars.forEach(s => {
+      s.a += s.s;
+      const alpha = (Math.sin(s.a) + 1) / 2 * 0.5 + 0.07;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = colors[s.type](alpha);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

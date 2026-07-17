@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Яромир и Ролан — сказка про двух храбрых гномиков</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(180deg, #a8e6cf 0%, #dcedc1 100%);
+    color: #3a3a3a;
+  }
+
+  .storybook { max-width: 720px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* ─── Title page ─── */
+  .title-page {
+    text-align: center; padding: 50px 20px 40px; margin-bottom: 30px;
+    background: linear-gradient(160deg, #ffd93d 0%, #ff9a56 50%, #ff6b9d 100%);
+    border-radius: 32px; box-shadow: 0 12px 40px rgba(255,107,157,0.3);
+    position: relative; overflow: hidden;
+  }
+  .title-page::before {
+    content: '☁️'; position: absolute; top: 20px; left: 20px; font-size: 40px; opacity: 0.8;
+  }
+  .title-page::after {
+    content: '☁️'; position: absolute; top: 50px; right: 30px; font-size: 30px; opacity: 0.7;
+  }
+  .title-emoji-row { font-size: 56px; margin-bottom: 16px; letter-spacing: 10px; }
+  .title-main {
+    font-family: 'Baloo 2', cursive; font-size: 44px; font-weight: 800; color: #ffffff;
+    text-shadow: 3px 3px 0 rgba(139,69,19,0.3); margin-bottom: 12px; line-height: 1.1;
+  }
+  .title-sub {
+    font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 600; color: #fff8e7;
+    background: rgba(139,69,19,0.25); display: inline-block; padding: 8px 22px; border-radius: 20px;
+  }
+
+  /* ─── Story page ─── */
+  .story-page {
+    background: #fffdf5; border-radius: 28px; padding: 34px 28px; margin-bottom: 26px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); position: relative; overflow: hidden;
+    border: 4px solid var(--pg-color, #ffd93d);
+  }
+  .page-1 { --pg-color: #7ec8e3; }
+  .page-2 { --pg-color: #ffb347; }
+  .page-3 { --pg-color: #b19cd9; }
+  .page-4 { --pg-color: #ff6b9d; }
+
+  .page-number {
+    position: absolute; top: 18px; right: 22px; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--pg-color); color: white; display: flex; align-items: center; justify-content: center;
+    font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 18px;
+  }
+
+  .scene-illustration {
+    text-align: center; font-size: 80px; line-height: 1.3; margin-bottom: 18px;
+    padding: 20px; background: linear-gradient(160deg, rgba(126,200,227,0.12), rgba(126,200,227,0.03));
+    border-radius: 20px; letter-spacing: 14px;
+  }
+  .page-1 .scene-illustration { background: linear-gradient(160deg, rgba(126,200,227,0.15), rgba(126,200,227,0.03)); }
+  .page-2 .scene-illustration { background: linear-gradient(160deg, rgba(255,179,71,0.15), rgba(255,179,71,0.03)); }
+  .page-3 .scene-illustration { background: linear-gradient(160deg, rgba(177,156,217,0.15), rgba(177,156,217,0.03)); }
+  .page-4 .scene-illustration { background: linear-gradient(160deg, rgba(255,107,157,0.15), rgba(255,107,157,0.03)); }
+
+  .page-title {
+    font-family: 'Baloo 2', cursive; font-size: 26px; font-weight: 700; color: var(--pg-color);
+    margin-bottom: 14px; text-align: center;
+  }
+
+  .story-text { font-size: 17px; line-height: 1.85; color: #4a4a4a; }
+  .story-text p { margin-bottom: 14px; }
+  .story-text strong { color: #2a2a2a; font-family: 'Baloo 2', cursive; font-weight: 600; }
+  .story-text em { color: #d67d3e; font-style: normal; font-weight: 700; }
+
+  .speech-bubble {
+    background: #eef7ff; border: 3px dashed var(--pg-color); border-radius: 20px;
+    padding: 14px 20px; margin: 16px 0; font-family: 'Baloo 2', cursive; font-size: 17px;
+    color: #3a3a3a; position: relative;
+  }
+  .speech-bubble .who { font-size: 13px; color: var(--pg-color); font-weight: 700; margin-bottom: 4px; display: block; }
+
+  .divider-stars {
+    text-align: center; font-size: 24px; margin: 30px 0; letter-spacing: 20px; opacity: 0.6;
+  }
+
+  /* ─── Moral / ending page ─── */
+  .ending-box {
+    background: linear-gradient(160deg, #ffe4ec 0%, #fff5e1 100%);
+    border-radius: 28px; padding: 32px; text-align: center; margin-top: 10px;
+    border: 4px dashed #ff9a56;
+  }
+  .ending-emoji { font-size: 50px; margin-bottom: 14px; }
+  .ending-title { font-family: 'Baloo 2', cursive; font-size: 24px; font-weight: 800; color: #ff6b9d; margin-bottom: 14px; }
+  .ending-text { font-family: 'Baloo 2', cursive; font-size: 18px; color: #5a4a3a; line-height: 1.7; }
+
+  .the-end {
+    text-align: center; margin-top: 30px; font-family: 'Baloo 2', cursive;
+    font-size: 22px; font-weight: 800; color: #ff9a56; letter-spacing: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .title-main { font-size: 32px; }
+    .scene-illustration { font-size: 56px; letter-spacing: 8px; }
+    .story-page { padding: 26px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="storybook">
+
+  <!-- ЗАГЛАВНАЯ СТРАНИЦА -->
+  <div class="title-page">
+    <div class="title-emoji-row">🍄🧙‍♂️🧙‍♂️🍄</div>
+    <div class="title-main">Яромир и Ролан —<br>два храбрых гномика</div>
+    <div class="title-sub">✨ Волшебная сказка ✨</div>
+  </div>
+
+  <!-- СТРАНИЦА 1 -->
+  <div class="story-page page-1">
+    <div class="page-number">1</div>
+    <div class="scene-illustration">🌲🍄🌲🦋🌲</div>
+    <div class="page-title">Домик в лесу</div>
+    <div class="story-text">
+      <p>Глубоко в волшебном лесу, под большим красным мухомором в жёлтый горошек, жили два гномика-братика — <strong>Яромир</strong> и <strong>Ролан</strong>.</p>
+      <p>Яромир был постарше и очень храбрый — он первым бежал на помощь, если кому-то было нужно. А Ролан был помладше — зато самый добрый и любопытный гномик во всём лесу, он всегда замечал, если кто-то грустил.</p>
+      <p>Каждое утро братья надевали свои колпачки — у Яромира колпачок был синий, а у Ролана — оранжевый, как маленькое солнышко — и отправлялись гулять по лесу.</p>
+      <div class="speech-bubble">
+        <span class="who">Яромир:</span>
+        «Ролан, чувствуешь? Сегодня в лесу пахнет приключениями!»
+      </div>
+      <p>И братья, взявшись за руки, зашагали по тропинке навстречу новому дню. 🍃</p>
+    </div>
+  </div>
+
+  <!-- СТРАНИЦА 2 -->
+  <div class="story-page page-2">
+    <div class="page-number">2</div>
+    <div class="scene-illustration">🦔💧🌧️🍂</div>
+    <div class="page-title">Маленький ёжик в беде</div>
+    <div class="story-text">
+      <p>Вдруг братья услышали тихий плач. Они побежали на звук и увидели маленького ёжика по имени <strong>Колючка</strong> — он провалился лапкой в глубокую лужу после дождя и никак не мог выбраться!</p>
+      <div class="speech-bubble">
+        <span class="who">Колючка:</span>
+        «Ой-ой, помогите! Я застрял и не могу найти дорогу домой!»
+      </div>
+      <p>Ролан сразу подбежал и ласково погладил ёжика по колючей спинке, чтобы тот не боялся. А сильный Яромир аккуратно взялся за веточку, протянул её ёжику и <em>вытащил</em> его из лужи!</p>
+      <p>Но Колючка всё ещё не знал, куда идти — он потерялся. Тогда братья не растерялись: Ролан заметил на земле маленькие следы, а Яромир громко крикнул на весь лес: «Мама ёжика, ау!»</p>
+      <p>И правда — вскоре прибежала мама-ежиха, обрадовалась и крепко обняла своего сыночка. Она поблагодарила гномиков и подарила им самое красивое яблочко в лесу.</p>
+      <div class="speech-bubble">
+        <span class="who">Ролан:</span>
+        «Вот видишь, Яромир — вдвоём мы можем помочь кому угодно!»
+      </div>
+    </div>
+  </div>
+
+  <!-- СТРАНИЦА 3 -->
+  <div class="story-page page-3">
+    <div class="page-number">3</div>
+    <div class="scene-illustration">🐿️🌰🍂🌳</div>
+    <div class="page-title">Орешки для белочки</div>
+    <div class="story-text">
+      <p>Дальше по тропинке братья встретили белочку <strong>Рыжик</strong>, которая грустно сидела под дубом. Скоро должна была прийти зима, а все её орешки укатились с горки в разные стороны — Рыжик боялась, что не соберёт их вовремя!</p>
+      <div class="speech-bubble">
+        <span class="who">Рыжик:</span>
+        «Орешков так много, а лапки у меня маленькие… Я одна не справлюсь!»
+      </div>
+      <p>Тут-то и пригодилось то, что братья умели работать вместе! Ловкий Ролан забирался в самые узкие норки и щёлочки между корней, доставая закатившиеся орешки. А сильный Яромир нёс большой лист лопуха, как тележку, и собирал в него все орешки, которые находил Ролан.</p>
+      <p>Они трудились дружно и весело, распевая песенку, и совсем скоро — все орешки до одного лежали аккуратной горочкой у дупла белочки!</p>
+      <div class="speech-bubble">
+        <span class="who">Рыжик:</span>
+        «Спасибо вам, гномики! Одна голова хорошо, а вместе — ещё быстрее и веселее!»
+      </div>
+      <p>Белочка так обрадовалась, что подарила братьям пушистое перышко на удачу. 🪶</p>
+    </div>
+  </div>
+
+  <!-- СТРАНИЦА 4 -->
+  <div class="story-page page-4">
+    <div class="page-number">4</div>
+    <div class="scene-illustration">🦉🎉🌈🍄🎊</div>
+    <div class="page-title">Праздник в лесу</div>
+    <div class="story-text">
+      <p>Вечером, когда солнышко начало прятаться за деревьями, случилось кое-что удивительное. Все звери леса — ёжик Колючка с мамой, белочка Рыжик, весёлые птички и даже мудрая сова Филимоновна — собрались на полянке.</p>
+      <p>Оказывается, они решили устроить настоящий <strong>праздник благодарности</strong> в честь Яромира и Ролана — ведь маленькие гномики за один только день успели помочь стольким друзьям!</p>
+      <div class="speech-bubble">
+        <span class="who">Сова Филимоновна:</span>
+        «Дорогие гномики! Вы показали всему лесу, что когда помогаешь другим — и им, и тебе становится радостнее!»
+      </div>
+      <p>Зверята водили хоровод вокруг гномиков, дарили им ягоды и цветы, а Яромир и Ролан смеялись и обнимались — им было так тепло от того, что они смогли сделать этот день добрее.</p>
+      <p>Уставшие, но очень довольные, братья вернулись домой под свой мухомор, обнялись перед сном и прошептали друг другу:</p>
+      <div class="speech-bubble">
+        <span class="who">Яромир и Ролан (вместе):</span>
+        «Вдвоём мы можем всё! Спокойной ночи, братик!»
+      </div>
+    </div>
+
+    <div class="ending-box">
+      <div class="ending-emoji">🌟🤝🌟</div>
+      <div class="ending-title">Чему нас научили Яромир и Ролан</div>
+      <div class="ending-text">Когда мы дружим и помогаем друг другу — вместе мы можем сделать гораздо больше добра, чем поодиночке. А ещё — помогать другим совсем не трудно, если делать это с любовью!</div>
+    </div>
+
+    <div class="the-end">✦ Конец ✦</div>
+  </div>
+
+  <div class="divider-stars">🌙 ⭐ ✨ ⭐ 🌙</div>
+
+</div>
+
+</body>
+</html>

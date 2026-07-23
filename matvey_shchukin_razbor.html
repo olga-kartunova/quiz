@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Нумерологический разбор · Матвей · 24.04.2009</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --gold-pale: #f5e4a8;
+    --deep: #0b1512;
+    --card: rgba(20, 38, 34, 0.55);
+    --border: rgba(212, 168, 67, 0.18);
+    --text: #f0f2ee;
+    --text-sub: #c2cec8;
+    --text-muted: #7e948c;
+    --rose: #e8a0b4;
+    --rose-light: #f4c4d2;
+    --emerald: #3fae8a;
+    --emerald-light: #7ecfb0;
+    --lavender: #b8a8d8;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--text); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 50% at 5% 0%, #103a2e 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 95% 90%, #3a1a28 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 50% 50%, #0e1e1a 0%, transparent 70%),
+      linear-gradient(180deg, #0b1512 0%, #0d1815 100%);
+  }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(85px); z-index: -1; }
+  .orb-1 { width: 500px; height: 500px; background: #1a5a44; top: -150px; right: -100px; opacity: 0.2; }
+  .orb-2 { width: 350px; height: 350px; background: #5a1a34; bottom: 0; left: -80px; opacity: 0.16; }
+  .orb-3 { width: 220px; height: 220px; background: #d4a843; top: 40%; right: 5%; opacity: 0.05; }
+
+  canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 52px 22px 72px; }
+
+  .hero { text-align: center; padding-bottom: 44px; margin-bottom: 44px; position: relative; }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 180px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose), var(--gold), var(--emerald), transparent);
+  }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: 18px; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 300; letter-spacing: 2px; color: var(--text); margin-bottom: 6px; line-height: 1; }
+  .hero-full { font-size: 14px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px; }
+  .hero-date { font-size: 14px; color: var(--text-muted); letter-spacing: 2px; }
+  .hero-tag { display: inline-block; margin-top: 18px; padding: 8px 20px; border-radius: 24px; background: rgba(232,160,180,0.1); border: 1px solid rgba(232,160,180,0.28); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: var(--rose-light); }
+
+  .nums-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 52px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .num-tile {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 18px 8px 16px; text-align: center; backdrop-filter: blur(12px); position: relative; overflow: hidden;
+  }
+  .num-tile::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .num-tile.rose::before { background: linear-gradient(90deg, transparent, var(--rose), transparent); }
+  .num-tile.emerald::before { background: linear-gradient(90deg, transparent, var(--emerald-light), transparent); }
+
+  .num-big {
+    font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 7px;
+  }
+  .num-tile.rose .num-big { background: linear-gradient(135deg, var(--rose-light), var(--rose)); -webkit-background-clip: text; background-clip: text; }
+  .num-tile.emerald .num-big { background: linear-gradient(135deg, var(--emerald-light), var(--emerald)); -webkit-background-clip: text; background-clip: text; }
+  .num-caption { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-muted); line-height: 1.4; }
+
+  .section { margin-bottom: 44px; }
+  .sec-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .sec-icon {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(232,160,180,0.16), rgba(232,160,180,0.03));
+    border: 1px solid rgba(232,160,180,0.25);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .sec-icon.emerald-i { background: linear-gradient(135deg, rgba(63,174,138,0.18), rgba(63,174,138,0.03)); border-color: rgba(126,207,176,0.28); }
+  .sec-icon.gold-i { background: linear-gradient(135deg, rgba(212,168,67,0.14), rgba(212,168,67,0.03)); border-color: rgba(212,168,67,0.24); }
+
+  .sec-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--text); line-height: 1.2; }
+  .sec-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 26px; backdrop-filter: blur(12px); margin-bottom: 12px; }
+  .card p { font-size: 15px; line-height: 1.85; color: var(--text-sub); }
+  .card p + p { margin-top: 12px; }
+  .card strong { color: var(--text); font-weight: 600; }
+  .card em { font-style: italic; color: var(--gold-pale); }
+
+  .card-gold { border-left: 3px solid var(--gold); }
+  .card-rose { border-left: 3px solid var(--rose); }
+  .card-emerald { border-left: 3px solid var(--emerald-light); }
+
+  .card-hl { background: linear-gradient(135deg, rgba(232,160,180,0.1), rgba(20,38,34,0.5)); border-color: rgba(232,160,180,0.3); }
+
+  .genius-block {
+    background: linear-gradient(135deg, rgba(212,168,67,0.14), rgba(232,160,180,0.08), rgba(20,38,34,0.7));
+    border: 1px solid rgba(212,168,67,0.32); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; margin-bottom: 12px;
+  }
+  .genius-block::before { content: '✦'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 110px; color: rgba(212,168,67,0.08); line-height: 1; }
+  .genius-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-light); opacity: 0.9; margin-bottom: 14px; }
+  .genius-title { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 600; color: var(--gold-pale); margin-bottom: 16px; }
+  .genius-block p { font-size: 15px; line-height: 1.9; color: var(--text-sub); max-width: 540px; }
+  .genius-block strong { color: var(--text); }
+
+  .dot-list { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-top: 12px; }
+  .dot-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 15px; line-height: 1.75; color: var(--text-sub); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; background: var(--gold); }
+  .dot.r { background: var(--rose); }
+  .dot.e { background: var(--emerald-light); }
+
+  .mistake-box {
+    background: linear-gradient(135deg, rgba(232,160,180,0.09), rgba(20,38,34,0.5));
+    border: 1px solid rgba(232,160,180,0.28); border-radius: 22px; padding: 30px; margin-bottom: 14px;
+  }
+  .mistake-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: var(--rose-light); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .mistake-item { display: flex; gap: 14px; margin-bottom: 18px; }
+  .mistake-item:last-child { margin-bottom: 0; }
+  .mistake-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(232,160,180,0.15); border: 1px solid rgba(232,160,180,0.35); color: var(--rose-light); font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mistake-text { font-size: 14.5px; line-height: 1.75; color: var(--text-sub); }
+  .mistake-text strong { color: var(--text); }
+
+  .helps-box {
+    background: linear-gradient(135deg, rgba(63,174,138,0.1), rgba(20,38,34,0.5));
+    border: 1px solid rgba(63,174,138,0.3); border-radius: 22px; padding: 30px; margin-bottom: 14px;
+  }
+  .helps-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; color: var(--emerald-light); margin-bottom: 18px; }
+
+  .year-box { background: linear-gradient(135deg, rgba(184,168,216,0.1), rgba(20,38,34,0.5)); border: 1px solid rgba(184,168,216,0.26); border-radius: 20px; padding: 28px 28px 28px 32px; position: relative; overflow: hidden; margin-bottom: 12px; }
+  .year-wm { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 130px; font-weight: 300; color: rgba(184,168,216,0.1); line-height: 1; }
+  .year-box h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: var(--lavender); margin-bottom: 12px; }
+  .year-box p { font-size: 15px; line-height: 1.8; color: var(--text-sub); max-width: 480px; }
+
+  .heart-block { background: linear-gradient(135deg, rgba(212,168,67,0.07), rgba(232,160,180,0.09)); border: 1px solid rgba(212,168,67,0.22); border-radius: 22px; padding: 32px; position: relative; overflow: hidden; }
+  .heart-block::before, .heart-block::after { content: '✦'; position: absolute; color: rgba(212,168,67,0.1); font-size: 90px; line-height: 1; }
+  .heart-block::before { top: -25px; left: -10px; }
+  .heart-block::after { bottom: -25px; right: -10px; }
+  .heart-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: 18px; }
+  .heart-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; line-height: 1.8; color: var(--text); }
+  .heart-text p + p { margin-top: 16px; }
+
+  .final-quote { text-align: center; padding: 44px 20px 0; }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-style: italic; font-weight: 300; line-height: 1.8; color: var(--text); max-width: 520px; margin: 0 auto; }
+  .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 68px; line-height: 0.5; color: rgba(212,168,67,0.22); margin-bottom: 8px; }
+  .quote-author { margin-top: 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,67,0.2), transparent); margin: 44px 0; }
+
+  @media (max-width: 560px) {
+    .nums-strip { grid-template-columns: repeat(3, 1fr); max-width: 100%; }
+    .hero-name { font-size: 34px; }
+    .page { padding: 32px 16px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<canvas id="stars"></canvas>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Нумерологический разбор · Сюцай</div>
+    <div class="hero-name">Матвей</div>
+    <div class="hero-full">Щукин Матвей Александрович</div>
+    <div class="hero-date">24 · 04 · 2009</div>
+    <div class="hero-tag">Для мамы и бабушки — как понять и поддержать</div>
+  </div>
+
+  <div class="nums-strip">
+    <div class="num-tile rose">
+      <div class="num-big">6</div>
+      <div class="num-caption">Число<br>сознания</div>
+    </div>
+    <div class="num-tile">
+      <div class="num-big">2</div>
+      <div class="num-caption">Личный<br>год 2026</div>
+    </div>
+    <div class="num-tile emerald">
+      <div class="num-big">9→1</div>
+      <div class="num-caption">Июль→<br>Август</div>
+    </div>
+  </div>
+
+
+  <!-- ЧС 6 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">💗</div>
+      <div>
+        <div class="sec-title">Число сознания — 6 · Венера</div>
+        <div class="sec-sub">День рождения 24 · Подробный разбор</div>
+      </div>
+    </div>
+
+    <div class="card card-gold">
+      <p>Шестёрка — это планета Венера: красота, гармония, эстетика, глубокая потребность в отношениях. Но обычная шестёрка и шестёрка с раскладкой <strong>24</strong> — это не одно и то же.</p>
+    </div>
+  </div>
+
+  <!-- ЛИНИЯ ГЕНИАЛЬНОСТИ -->
+  <div class="genius-block">
+    <div class="genius-label">Особая подгруппа · Секретные материалы Сюцай</div>
+    <div class="genius-title">24 · «Линия гениальности, страдает в отношениях»</div>
+    <p>Это означает: у ребёнка есть по-настоящему одарённый, тонко устроенный внутренний мир — часто это проявляется как незаурядные способности (в творчестве, в анализе, в понимании вещей глубже сверстников). Но обратная сторона этого дара — <strong>трудности именно в отношениях с людьми.</strong> Не потому что он «плохой» или «сложный» специально, а потому что его внутренний мир работает на другой скорости и глубине, чем у большинства окружающих — и это создаёт постоянное трение.</p>
+  </div>
+
+  <!-- КАК ЭТО ВЫГЛЯДИТ -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon">🌗</div>
+      <div>
+        <div class="sec-title">Как это выглядит в детстве и подростковом возрасте</div>
+      </div>
+    </div>
+
+    <div class="card card-rose">
+      <ul class="dot-list">
+        <li><span class="dot r"></span><span>Очень остро реагирует на несправедливость — реакция непропорционально сильная для окружающих, но абсолютно логичная для него самого</span></li>
+        <li><span class="dot r"></span><span>Перфекционист по отношению к себе — внутренний критик работает жёстче любого внешнего</span></li>
+        <li><span class="dot r"></span><span>Тонко считывает атмосферу дома — конфликты и даже невысказанное напряжение чувствует физически</span></li>
+        <li><span class="dot r"></span><span>Может выглядеть капризным, хотя реагирует на реальный эстетический или эмоциональный дискомфорт вокруг</span></li>
+        <li><span class="dot r"></span><span>Нуждается в ощутимом, явном подтверждении любви — не «я же и так люблю», а через слова и внимание</span></li>
+        <li><span class="dot r"></span><span>Часто замыкается или дуется вместо прямого разговора — и ждёт, что его поймут без слов</span></li>
+        <li><span class="dot r"></span><span>При этом способен на глубокую, преданную привязанность, если чувствует, что его действительно понимают</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ОШИБКИ РОДИТЕЛЕЙ -->
+  <div class="section">
+    <div class="mistake-box">
+      <div class="mistake-title">⚠️ Частые ошибки родителей, воспитывающих шестёрку</div>
+
+      <div class="mistake-item">
+        <div class="mistake-num">1</div>
+        <div class="mistake-text"><strong>Критика вместо признания таланта.</strong> Родители видят только «сложное поведение» и не замечают одарённость за ним. Ребёнку-24 особенно важно, чтобы дар заметили — иначе энергия уходит в защиту, а не в развитие.</div>
+      </div>
+      <div class="mistake-item">
+        <div class="mistake-num">2</div>
+        <div class="mistake-text"><strong>Критика поверх самокритики.</strong> Шестёрка уже сама себя судит жёстче всех. Критика родителя сверху не «исправляет», а разрушает изнутри.</div>
+      </div>
+      <div class="mistake-item">
+        <div class="mistake-num">3</div>
+        <div class="mistake-text"><strong>Игнорирование атмосферы дома.</strong> «Он же не понимает, мы тихо поссорились» — шестёрка чувствует всё. Хроническое напряжение дома — одна из главных причин «сложного характера».</div>
+      </div>
+      <div class="mistake-item">
+        <div class="mistake-num">4</div>
+        <div class="mistake-text"><strong>Требование выразить чувства «нормально».</strong> Когда ребёнок дуется вместо прямого разговора, взрослые злятся — а ему нужно, чтобы настроение заметили и мягко расспросили, а не потребовали объясниться.</div>
+      </div>
+      <div class="mistake-item">
+        <div class="mistake-num">5</div>
+        <div class="mistake-text"><strong>Сравнение с другими детьми.</strong> Для линии гениальности особенно болезненно — ранит и без того хрупкое чувство собственной ценности.</div>
+      </div>
+      <div class="mistake-item">
+        <div class="mistake-num">6</div>
+        <div class="mistake-text"><strong>Ожидание лёгкости в общении.</strong> Лёгкость в отношениях — как раз то, что даётся труднее всего. Торопить это бесполезно и травматично.</div>
+      </div>
+    </div>
+
+    <div class="helps-box">
+      <div class="helps-title">✓ Что реально помогает</div>
+      <ul class="dot-list">
+        <li><span class="dot e"></span><span>Явно, вслух, регулярно говорить о любви и ценности — не разово, а постоянно</span></li>
+        <li><span class="dot e"></span><span>Создавать дома спокойную атмосферу без скрытых конфликтов — или честно проговаривать напряжение вместо притворства</span></li>
+        <li><span class="dot e"></span><span>Замечать и вслух называть его таланты — конкретно, что именно получается гениально</span></li>
+        <li><span class="dot e"></span><span>Не давить требованием сразу разговориться — дать время, мягко спросить позже</span></li>
+        <li><span class="dot e"></span><span>Помогать находить общий язык через совместные интересы, а не нотации об «как надо общаться»</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ЛИЧНЫЙ ГОД 2 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-icon emerald-i">🌙</div>
+      <div>
+        <div class="sec-title">Личный год 2026 — 2 · Луна</div>
+      </div>
+    </div>
+
+    <div class="year-box">
+      <div class="year-wm">2</div>
+      <h3>Год, который подсвечивает главную тему</h3>
+      <p>Это год, который прямо резонирует с его главной темой — отношениями. Луна усиливает эмоциональную чувствительность, потребность в близости и понимании, интуицию. Это может означать, что именно сейчас темы дружбы, доверия, эмоциональной связи с семьёй звучат для него особенно остро — не потому что стало «хуже», а потому что год буквально подсвечивает то, с чем ему и так труднее всего.</p>
+    </div>
+
+    <div class="card card-emerald">
+      <p><strong>Личный месяц июль:</strong> 2+7=9 · Марс · Энергия завершения, освобождения от старого — возможно, внутреннее напряжение, желание отпустить обиду или привычный паттерн.</p>
+      <p style="margin-top:10px;"><strong>Личный месяц август:</strong> 2+8=10→1 · Солнце · Энергия нового начала, инициативы, уверенности в себе.</p>
+    </div>
+
+    <div class="card card-gold">
+      <p>Июль может быть месяцем внутреннего напряжения — не время давить с требованиями «наладить отношения», лучше мягко поддержать. Август — куда более благоприятный момент для нового старта, особенно кстати перед началом учебного года.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ОБЩИЙ ВЫВОД -->
+  <div class="section">
+    <div class="heart-block">
+      <div class="heart-eyebrow">Послание от нумеролога</div>
+      <div class="heart-text">
+        <p>Матвей несёт в себе редкое сочетание — глубокий дар и тонкую, ранимую душу, которой трудно даётся то, что другим кажется простым. Это не «трудный характер» в привычном смысле — это чувствительность гения, которому нужно чуть больше терпения, признания и тепла, чем обычно.</p>
+        <p><strong>Чем больше он будет чувствовать, что его видят и ценят таким, какой он есть — тем мягче будет раскрываться его настоящая сила.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-quote">
+    <div class="quote-mark">"</div>
+    <div class="quote-text">Не пытайтесь сделать его проще. Помогите ему почувствовать, что его глубину видят и ценят.</div>
+    <div class="quote-author">Сюцай · Нумерологический разбор</div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const stars = Array.from({length: 160}, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 1.3 + 0.2,
+    a: Math.random() * Math.PI * 2,
+    s: Math.random() * 0.005 + 0.002,
+    type: Math.floor(Math.random() * 3)
+  }));
+  const colors = [
+    (a) => `rgba(212,168,67,${a})`,
+    (a) => `rgba(232,160,180,${a})`,
+    (a) => `rgba(63,174,138,${a})`
+  ];
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    stars.forEach(s => {
+      s.a += s.s;
+      const alpha = (Math.sin(s.a) + 1) / 2 * 0.5 + 0.07;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = colors[s.type](alpha);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

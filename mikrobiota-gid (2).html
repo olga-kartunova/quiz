@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>«Баланс микробиоты» — авторская программа Ольги Картуновой</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96a;
+    --deep: #080c14;
+    --card: rgba(18, 26, 38, 0.6);
+    --card-solid: #10161f;
+    --border: rgba(212, 168, 67, 0.18);
+    --text: #f0ede8;
+    --text-sub: #b0bcc8;
+    --text-muted: #728090;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--text); min-height: 100vh; }
+
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 50% at 10% 0%, #10203a 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 95% 90%, #16324e 0%, transparent 55%),
+      linear-gradient(180deg, #080c14 0%, #0a0e16 100%);
+  }
+  .orb { position: fixed; border-radius: 50%; filter: blur(90px); z-index: -1; }
+  .orb-1 { width: 460px; height: 460px; background: #16324e; top: -140px; right: -120px; opacity: 0.22; }
+  .orb-2 { width: 300px; height: 300px; background: #1a2438; bottom: 0; left: -100px; opacity: 0.2; }
+  .orb-3 { width: 220px; height: 220px; background: #d4a843; top: 45%; right: 5%; opacity: 0.05; }
+
+  .page { max-width: 700px; margin: 0 auto; padding: 0 0 70px; }
+
+  /* COVER */
+  .cover { text-align: center; padding: 64px 24px 50px; position: relative; }
+  .cover::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 200px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .eyebrow-author { font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-light); opacity: 0.9; margin-bottom: 8px; }
+  .eyebrow-solution { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 26px; }
+  .cover-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 22px; color: var(--text-sub); margin-bottom: 6px; }
+  .cover-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 46px; line-height: 1.15; margin-bottom: 20px; }
+  .cover-name b { background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .cover-sub { font-size: 14px; color: var(--text-sub); letter-spacing: 0.5px; max-width: 420px; margin: 0 auto; line-height: 1.7; }
+
+  .micro-illust { display: flex; justify-content: center; margin: 40px 0 6px; }
+
+  /* TOC */
+  .toc { padding: 34px 30px; background: var(--card); margin: 10px 20px 0; border-radius: 24px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
+  .toc-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--gold-light); margin-bottom: 18px; text-align: center; }
+  .toc-list { list-style: none; columns: 1; }
+  .toc-list li { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--text-sub); padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .toc-list li:last-child { border-bottom: none; }
+  .toc-list b { color: var(--gold-light); font-weight: 500; flex: 0 0 auto; }
+
+  /* CHAPTER */
+  .chapter { padding: 54px 26px 10px; position: relative; }
+  .chapter-eyebrow { font-size: 11.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.85; margin-bottom: 10px; text-align: center; }
+  .chapter-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: var(--text); text-align: center; margin-bottom: 28px; line-height: 1.25; }
+  .chapter-title em { font-style: italic; color: var(--gold-light); }
+
+  .quote-block {
+    background: var(--card); border-left: 3px solid var(--gold); border-radius: 4px 18px 18px 4px;
+    padding: 22px 24px; margin: 0 0 26px; font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 18px; line-height: 1.6; color: var(--text); backdrop-filter: blur(10px);
+  }
+
+  .prose { font-size: 14.5px; line-height: 1.8; color: var(--text-sub); margin-bottom: 18px; }
+  .prose b { color: var(--text); }
+  .prose-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--gold-light); margin: 26px 0 10px; }
+
+  /* SYMPTOM LIST */
+  .symptom-strip { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 20px 0 26px; }
+  .symptom-chip { font-size: 13px; color: var(--text-sub); background: var(--card); border: 1px solid var(--border); padding: 8px 16px; border-radius: 100px; }
+
+  .callout {
+    text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px;
+    color: var(--gold-light); max-width: 460px; margin: 10px auto 30px; line-height: 1.5;
+  }
+
+  /* ORGAN GRID */
+  .organ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+  .organ-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px 16px; backdrop-filter: blur(10px); }
+  .organ-icon { font-size: 26px; margin-bottom: 8px; }
+  .organ-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--gold-light); margin-bottom: 8px; }
+  .organ-text { font-size: 12.5px; color: var(--text-sub); line-height: 1.55; }
+  .organ-text b { color: var(--text); }
+
+  /* DISRUPTOR GRID */
+  .disruptor-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 10px; }
+  .disruptor-card { display: flex; gap: 14px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; backdrop-filter: blur(10px); }
+  .disruptor-icon { font-size: 20px; flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; background: rgba(212,168,67,0.08); display: flex; align-items: center; justify-content: center; }
+  .disruptor-name { font-family: 'Cormorant Garamond', serif; font-size: 16.5px; color: var(--gold-light); margin-bottom: 3px; }
+  .disruptor-text { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
+
+  /* STAGE HEAD */
+  .stage-head { display: flex; align-items: center; gap: 14px; background: rgba(212,168,67,0.08); border: 1px solid var(--border); color: var(--text); padding: 16px 22px; border-radius: 18px; margin-bottom: 24px; }
+  .stage-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: var(--gold-light); }
+  .stage-head-text { font-size: 13px; line-height: 1.5; color: var(--text-sub); }
+  .stage-head-text b { font-family: 'Cormorant Garamond', serif; font-size: 18px; display: block; font-weight: 600; color: var(--text); }
+
+  .product-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .product-tag { background: rgba(212,168,67,0.08); border: 1px solid var(--border); color: var(--gold-light); font-size: 12px; padding: 6px 14px; border-radius: 100px; }
+
+  .scheme-box { background: rgba(212,168,67,0.07); border: 1px dashed var(--border); border-radius: 16px; padding: 18px 20px; margin-bottom: 24px; }
+  .scheme-box b { color: var(--gold-light); }
+  .scheme-note { font-size: 13px; color: var(--text-sub); font-style: italic; line-height: 1.6; margin-top: 8px; }
+
+  .result-block { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px 24px; margin: 22px 0 8px; backdrop-filter: blur(10px); }
+  .result-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--gold-light); margin-bottom: 12px; }
+  .result-list { list-style: none; }
+  .result-list li { font-size: 13.5px; color: var(--text-sub); line-height: 1.6; padding-left: 20px; position: relative; margin-bottom: 8px; }
+  .result-list li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 11px; top: 4px; }
+
+  .compare-table, .summary-table { width: 100%; border-collapse: collapse; margin: 16px 0 26px; font-size: 13px; }
+  .compare-table th, .summary-table th { background: rgba(212,168,67,0.12); color: var(--gold-light); padding: 12px 14px; text-align: left; font-weight: 500; border: 1px solid var(--border); }
+  .compare-table td, .summary-table td { padding: 12px 14px; border: 1px solid var(--border); color: var(--text-sub); line-height: 1.5; vertical-align: top; }
+  .compare-table td b, .summary-table td b { color: var(--text); }
+
+  .axis-illust, .timeline-illust, .circle-illust { display: flex; justify-content: center; margin: 10px 0 26px; }
+
+  .stat-row { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; justify-content: center; }
+  .stat-tile { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; text-align: center; flex: 1; min-width: 110px; backdrop-filter: blur(10px); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; background: linear-gradient(135deg, var(--gold-light), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-label { font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; line-height: 1.4; }
+
+  /* AUTHOR BLOCK */
+  .author-block { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 30px 26px; margin: 0 0 10px; backdrop-filter: blur(10px); display: flex; gap: 20px; align-items: flex-start; }
+  .author-photo { flex: 0 0 auto; width: 84px; height: 84px; border-radius: 50%; background: rgba(212,168,67,0.1); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--gold-light); }
+  .author-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--gold-light); margin-bottom: 10px; }
+  .author-text { font-size: 13.5px; color: var(--text-sub); line-height: 1.7; }
+  .author-text b { color: var(--text); }
+
+  /* FAQ */
+  .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
+  .faq-a { font-size: 13.5px; color: var(--text-sub); line-height: 1.65; }
+
+  /* CHECKLIST */
+  .check-cols { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .check-block { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px 22px; backdrop-filter: blur(10px); }
+  .check-block-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 12px; }
+  .check-list { list-style: none; }
+  .check-list li { font-size: 13.5px; color: var(--text-sub); line-height: 1.6; padding-left: 22px; position: relative; margin-bottom: 8px; }
+  .check-list.do li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); }
+  .check-list.limit li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
+
+  .final-quote { text-align: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; color: var(--text); line-height: 1.6; max-width: 480px; margin: 10px auto 24px; padding: 0 20px; }
+  .final-cta { text-align: center; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 25px; color: var(--gold-light); margin: 0 auto 10px; line-height: 1.4; }
+
+  .disclaimer { text-align: center; padding: 40px 30px 0; }
+  .disclaimer-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 19px; color: var(--gold-light); line-height: 1.5; margin-bottom: 18px; }
+  .disclaimer-text { font-size: 13px; color: var(--text-sub); line-height: 1.7; max-width: 480px; margin: 0 auto; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="eyebrow-author">Авторская программа Ольги Картуновой</div>
+    <div class="eyebrow-solution">Комплексное решение · для здоровья кишечника</div>
+    <div class="cover-title">Персональный кейс</div>
+    <div class="cover-name">«Баланс <b>микробиоты</b>»</div>
+    <p class="cover-sub">Для комфортного пищеварения · внутреннего баланса · жизненной энергии</p>
+
+    <div class="micro-illust">
+      <svg width="220" height="220" viewBox="0 0 220 220" fill="none">
+        <circle cx="110" cy="110" r="95" stroke="#d4a843" stroke-width="1" opacity="0.25"/>
+        <circle cx="110" cy="110" r="70" stroke="#f0c96a" stroke-width="1" opacity="0.3"/>
+        <g opacity="0.95">
+          <circle cx="80" cy="70" r="6" fill="#d4a843"/>
+          <circle cx="140" cy="60" r="4" fill="#f0c96a"/>
+          <circle cx="150" cy="110" r="7" fill="#d4a843"/>
+          <circle cx="120" cy="150" r="5" fill="#f0c96a"/>
+          <circle cx="70" cy="140" r="6" fill="#d4a843"/>
+          <circle cx="60" cy="95" r="4" fill="#f0c96a"/>
+          <circle cx="110" cy="110" r="9" fill="#f0c96a"/>
+          <circle cx="95" cy="130" r="4" fill="#d4a843"/>
+          <circle cx="135" cy="90" r="5" fill="#f0c96a"/>
+          <circle cx="90" cy="90" r="3" fill="#d4a843"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Содержание</div>
+    <ul class="toc-list">
+      <li>Почему всё начинается именно с кишечника? <b>02</b></li>
+      <li>Мир внутри нас <b>03</b></li>
+      <li>Как кишечник влияет на весь организм <b>04</b></li>
+      <li>Что разрушает нашу микробиоту <b>06</b></li>
+      <li>Когда микробиота просит о помощи <b>07</b></li>
+      <li>Этап 1 · Подготовка и очищение <b>08</b></li>
+      <li>Этап 2 · Заселение полезной среды <b>10</b></li>
+      <li>Этап 3 · Биотюнинг и закрепление <b>13</b></li>
+      <li>Почему именно 3 месяца <b>15</b></li>
+      <li>Почему я сама прохожу эту программу <b>16</b></li>
+      <li>Программа целиком <b>17</b></li>
+      <li>Частые вопросы <b>18</b></li>
+      <li>Памятка на каждый день <b>20</b></li>
+      <li>Заключение <b>21</b></li>
+    </ul>
+  </div>
+
+  <!-- ПОЧЕМУ ВСЁ НАЧИНАЕТСЯ С КИШЕЧНИКА -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 02</div>
+    <div class="chapter-title">Почему всё начинается<br><em>именно с кишечника?</em></div>
+
+    <p class="prose">Узнаёте себя? Усталость, которая не проходит даже после отдыха. Плохой сон, хотя причин для тревоги вроде бы нет. Лишний вес, который не поддаётся ни диетам, ни спорту. Кожа, которая реагирует высыпаниями без видимой причины. Постоянная тяга к сладкому. Иммунитет, который сдаёт при первом же похолодании.</p>
+
+    <div class="symptom-strip">
+      <span class="symptom-chip">Усталость</span>
+      <span class="symptom-chip">Нет сил</span>
+      <span class="symptom-chip">Плохой сон</span>
+      <span class="symptom-chip">Лишний вес</span>
+      <span class="symptom-chip">Проблемы с кожей</span>
+      <span class="symptom-chip">Тяга к сладкому</span>
+      <span class="symptom-chip">Снижение иммунитета</span>
+    </div>
+
+    <p class="prose">Обычно с каждым из этих симптомов мы боремся отдельно. Крем от высыпаний. Кофе от усталости. Диета от веса. Витамины от простуд. И раз за разом — временный эффект, который снова откатывается назад.</p>
+
+    <p class="callout">Очень часто проблема находится совсем не там, где мы её ищем.</p>
+
+    <p class="prose">Все перечисленные симптомы — это не разрозненные случайности, а сигналы одной и той же системы. Системы, о которой редко думают, пока не начинаются сложности — микробиоты кишечника. И именно поэтому один системный подход способен дать то, что не смогли дать десятки разрозненных решений.</p>
+  </div>
+
+  <!-- ВВЕДЕНИЕ -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 03</div>
+    <div class="chapter-title">Мир внутри нас</div>
+
+    <div class="quote-block">Представьте, что внутри вас живёт огромный мегаполис из триллионов микроорганизмов. Они помогают переваривать пищу, участвуют в выработке важных веществ, влияют на иммунитет, настроение и уровень энергии. Когда этот внутренний мир находится в балансе — организм работает как слаженная команда. Когда баланс нарушается — появляются усталость, вздутие, проблемы с кожей, снижение энергии и другие неприятные сигналы.</div>
+
+    <div class="stat-row">
+      <div class="stat-tile"><div class="stat-num">2-3 кг</div><div class="stat-label">живых микроорганизмов внутри нас</div></div>
+      <div class="stat-tile"><div class="stat-num">90%</div><div class="stat-label">серотонина вырабатывается в кишечнике</div></div>
+      <div class="stat-tile"><div class="stat-num">70-80%</div><div class="stat-label">иммунных клеток расположены рядом с кишечником</div></div>
+    </div>
+
+    <p class="prose">Микробиота кишечника — это сообщество из триллионов бактерий и других микроорганизмов, которые живут внутри нас с рождения. Их разнообразие настолько велико, что учёные до сих пор изучают, как именно они взаимодействуют друг с другом и с нами.</p>
+
+    <p class="prose">Микробиоту нередко называют <b>«отдельным органом»</b> — не потому, что это физический орган в привычном смысле, а потому что она выполняет собственную, незаменимую работу: помогает переваривать пищу, синтезирует часть витаминов, обучает иммунную систему отличать «своё» от «чужого» и участвует в десятках процессов, о которых мы обычно даже не задумываемся.</p>
+
+    <p class="prose-title">Как кишечник связан с мозгом</p>
+    <p class="prose">Кишечник и мозг связаны напрямую — через блуждающий нерв и множество химических сигналов. Учёные называют это «осью кишечник–мозг». Простой пример: когда в доме беспорядок, сложно сосредоточиться на важной работе. Похожим образом — если в кишечнике не всё в порядке, мозгу труднее работать чётко и спокойно.</p>
+
+    <div class="axis-illust">
+      <svg width="280" height="130" viewBox="0 0 280 130" fill="none">
+        <path d="M60 30 C 120 10, 160 10, 220 30" stroke="#d4a843" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.6"/>
+        <path d="M60 100 C 120 120, 160 120, 220 100" stroke="#d4a843" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.6"/>
+        <circle cx="45" cy="65" r="38" fill="#10161f" stroke="#f0c96a" stroke-width="1.5"/>
+        <circle cx="235" cy="65" r="38" fill="#10161f" stroke="#f0c96a" stroke-width="1.5"/>
+        <text x="45" y="70" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="14" fill="#f0c96a" font-weight="700">Мозг</text>
+        <text x="235" y="70" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#f0c96a" font-weight="700">Кишечник</text>
+        <text x="140" y="20" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" letter-spacing="1" fill="#b0bcc8">СИГНАЛ</text>
+        <text x="140" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" letter-spacing="1" fill="#b0bcc8">ОТВЕТ</text>
+      </svg>
+    </div>
+
+    <p class="prose-title">Почему здоровье начинается именно изнутри</p>
+    <p class="prose">Если фундамент дома непрочный, можно бесконечно обновлять фасад — трещины будут появляться снова. То же самое с организмом: можно бороться с усталостью, высыпаниями на коже или лишним весом «снаружи», но пока не наведён порядок внутри — результат будет временным.</p>
+  </div>
+
+  <!-- КАК КИШЕЧНИК ВЛИЯЕТ НА ВЕСЬ ОРГАНИЗМ -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 04</div>
+    <div class="chapter-title">Как кишечник влияет<br>на весь организм</div>
+    <p class="prose" style="text-align:center;">Кишечник — это не изолированный отсек. Через кровь, нервную систему и обмен веществ он связан буквально со всем телом.</p>
+
+    <div class="organ-grid">
+      <div class="organ-card">
+        <div class="organ-icon">❤️</div>
+        <div class="organ-name">Сердце</div>
+        <div class="organ-text">Здоровая флора поддерживает нормальный обмен веществ, что косвенно облегчает работу сердечно-сосудистой системы. При дисбалансе иногда замечают повышенную утомляемость даже при небольших нагрузках.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">🧠</div>
+        <div class="organ-name">Мозг</div>
+        <div class="organ-text">Через ось «кишечник–мозг» состояние флоры отражается на ясности мышления и концентрации. При дисбалансе — туман в голове, сложности с фокусом.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">🛡</div>
+        <div class="organ-name">Иммунитет</div>
+        <div class="organ-text">Значительная часть иммунных клеток «обучается» именно рядом с кишечником. При дисбалансе — простуды цепляются одна за другой.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">😊</div>
+        <div class="organ-name">Кожа</div>
+        <div class="organ-text">Кишечник иногда называют «зеркалом кожи» — многое из того, что происходит внутри, отражается снаружи. При дисбалансе — высыпания без явной причины.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">⚖</div>
+        <div class="organ-name">Вес</div>
+        <div class="organ-text">Флора участвует в регуляции аппетита и тяги к сладкому. При дисбалансе — вес не поддаётся усилиям, несмотря на старания.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">💪</div>
+        <div class="organ-name">Суставы</div>
+        <div class="organ-text">Хроническое воспаление, которое часто начинается в кишечнике, может отражаться на ощущениях в суставах. При дисбалансе — дискомфорт без явной причины.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">😴</div>
+        <div class="organ-name">Сон</div>
+        <div class="organ-text">Вещества, влияющие на качество сна, во многом синтезируются с участием кишечной флоры. При дисбалансе — поверхностный, беспокойный сон.</div>
+      </div>
+      <div class="organ-card">
+        <div class="organ-icon">🙂</div>
+        <div class="organ-name">Настроение</div>
+        <div class="organ-text">Серотонин — «гормон хорошего настроения» — большей частью вырабатывается в кишечнике. При дисбалансе — раздражительность и апатия без видимой причины.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЧТО РАЗРУШАЕТ МИКРОБИОТУ -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 06</div>
+    <div class="chapter-title">Что разрушает<br>нашу микробиоту</div>
+
+    <div class="disruptor-grid">
+      <div class="disruptor-card"><div class="disruptor-icon">😰</div><div><div class="disruptor-name">Стресс</div><div class="disruptor-text">Гормоны стресса меняют саму среду в кишечнике — полезным бактериям становится сложнее в ней удерживаться.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🌙</div><div><div class="disruptor-name">Недосып</div><div class="disruptor-text">Сбивает внутренние ритмы организма, от которых зависит и работа кишечной флоры.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🍬</div><div><div class="disruptor-name">Избыток сахара</div><div class="disruptor-text">Питает в первую очередь патогенные микроорганизмы, а не полезные бактерии.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🥦</div><div><div class="disruptor-name">Недостаток клетчатки</div><div class="disruptor-text">Полезным бактериям буквально нечего есть — без клетчатки их численность снижается.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🍷</div><div><div class="disruptor-name">Алкоголь</div><div class="disruptor-text">Раздражает слизистую кишечника и напрямую нарушает баланс флоры.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🚬</div><div><div class="disruptor-name">Курение</div><div class="disruptor-text">Снижает общее разнообразие микрофлоры — а разнообразие является одним из главных признаков здоровья.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">💊</div><div><div class="disruptor-name">Частые антибиотики</div><div class="disruptor-text">Уничтожают не только вредные, но и полезные бактерии — иногда микрофлоре требуются месяцы на восстановление.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🛋</div><div><div class="disruptor-name">Малоподвижность</div><div class="disruptor-text">Замедляет моторику кишечника, а вместе с ней и естественные процессы очищения.</div></div></div>
+      <div class="disruptor-card"><div class="disruptor-icon">🍽</div><div><div class="disruptor-name">Хроническое переедание</div><div class="disruptor-text">Постоянная нагрузка не даёт пищеварительной системе времени на восстановление между приёмами пищи.</div></div></div>
+    </div>
+  </div>
+
+  <!-- КОГДА МИКРОБИОТА ПРОСИТ О ПОМОЩИ -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 07</div>
+    <div class="chapter-title">Когда микробиота<br>просит о помощи</div>
+    <p class="prose" style="text-align:center;">Организм редко молчит — он подаёт сигналы задолго до того, как проблема станет серьёзной:</p>
+    <div class="symptom-strip">
+      <span class="symptom-chip">Вздутие после еды</span>
+      <span class="symptom-chip">Тяжесть, которая не проходит</span>
+      <span class="symptom-chip">Нестабильный стул</span>
+      <span class="symptom-chip">Мало энергии даже после сна</span>
+      <span class="symptom-chip">Тянет на сладкое</span>
+      <span class="symptom-chip">Высыпания на коже</span>
+      <span class="symptom-chip">Частые простуды</span>
+      <span class="symptom-chip">Вес не поддаётся усилиям</span>
+    </div>
+  </div>
+
+  <!-- ЭТАП 1 -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 08 · Этап 1 · Месяц 1</div>
+    <div class="chapter-title">Подготовка и очищение</div>
+
+    <div class="stage-head">
+      <div class="stage-num">01</div>
+      <div class="stage-head-text"><b>Подготовка почвы</b>Продолжительность — 1 месяц</div>
+    </div>
+
+    <div class="product-tags">
+      <span class="product-tag">Детокс-комплекс</span>
+      <span class="product-tag">Коктейли</span>
+    </div>
+
+    <div class="quote-block">Если вы хотите посадить красивый сад, сначала нужно убрать сорняки и подготовить почву.</div>
+
+    <p class="prose">Восстанавливать микрофлору «поверх» неподготовленного кишечника — всё равно что сажать цветы в захламлённую землю: ростки не приживутся так, как могли бы. Поэтому первый месяц полностью посвящён подготовке.</p>
+
+    <p class="prose-title">Зачем он нужен и что происходит в организме</p>
+    <p class="prose">На этом этапе тело словно наводит порядок перед большой работой: снижается нагрузка на пищеварение, освобождается ресурс, который раньше уходил на переваривание тяжёлой пищи. Организм каждый день сам себя очищает — через кишечник, печень, почки, кожу. Но в современном ритме жизни эти процессы часто перегружены. Детокс-комплекс не «чистит вместо» организма, а мягко поддерживает то, что тело и так пытается делать самостоятельно.</p>
+
+    <p class="prose-title">Почему именно этот этап первый — и почему его нельзя пропустить</p>
+    <p class="prose">Если начать сразу с заселения полезных бактерий, минуя подготовку, — это как удобрять грядку, не убрав с неё сорняки: часть пользы уйдёт впустую. Именно поэтому переставлять этапы местами не имеет смысла — каждый следующий шаг рассчитан на то, что почва уже готова.</p>
+
+    <p class="prose-title">Роль полноценного белка</p>
+    <p class="prose">Белок — строительный материал для клеток организма, включая клетки кишечника. Без достаточного количества белка обновление тканей идёт медленнее, а значит и подготовительный этап растягивается.</p>
+
+    <p class="prose-title">Почему важно регулярное питание</p>
+    <p class="prose">Хаотичные приёмы пищи — то голодание, то переедание — сбивают ритм пищеварения. Организму важна предсказуемость: он работает эффективнее, когда «знает», в какое время ожидать следующий приём пищи.</p>
+
+    <p class="prose-title">Зачем нужны коктейли на этом этапе</p>
+    <p class="prose">Сбалансированный состав коктейля даёт чувство сытости без переедания — а ещё это простой способ не пропустить приём пищи в загруженный день, когда готовить полноценно попросту некогда.</p>
+
+    <div class="result-block">
+      <div class="result-title">Что обычно замечают люди на первом этапе</div>
+      <ul class="result-list">
+        <li>Больше лёгкости в теле</li>
+        <li>Улучшение пищеварения</li>
+        <li>Снижение тяги к вредным продуктам</li>
+        <li>Больше энергии в течение дня</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ЭТАП 2 -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 10 · Этап 2 · Месяц 2</div>
+    <div class="chapter-title">Заселение полезной среды</div>
+
+    <div class="stage-head">
+      <div class="stage-num">02</div>
+      <div class="stage-head-text"><b>Создание среды</b>Продолжительность — 1 месяц</div>
+    </div>
+
+    <div class="product-tags">
+      <span class="product-tag">Метабиотик</span>
+      <span class="product-tag">GreenBlend</span>
+      <span class="product-tag">Коктейли</span>
+      <span class="product-tag">Drain Effect</span>
+      <span class="product-tag">Soft Sorb</span>
+    </div>
+
+    <div class="scheme-box">
+      <b>Утренняя схема:</b> Drain Effect + Soft Sorb за 30 минут до завтрака.
+      <p class="scheme-note">Именно такую схему использует Ольга Картунова в своей ежедневной практике.</p>
+    </div>
+
+    <p class="prose-title">Что такое метабиотики</p>
+    <p class="prose">Пробиотики — это живые бактерии, которые нужно «поселить» в кишечнике: организму требуется время, чтобы они прижились, и далеко не все выживают на пути через желудок. Метабиотики устроены иначе — это уже готовые продукты жизнедеятельности полезных бактерий. Проще говоря: пробиотик — это как посадить семена и ждать урожая, а метабиотик — как получить уже готовые плоды.</p>
+
+    <table class="compare-table">
+      <tr><th>Пробиотики</th><th>Метабиотики</th></tr>
+      <tr><td>Живые бактерии, которым <b>нужно время</b>, чтобы прижиться</td><td><b>Готовые</b> продукты жизнедеятельности полезных бактерий</td></tr>
+      <tr><td>Часть погибает по пути через кислую среду желудка</td><td>Начинают работать <b>сразу</b> после попадания в ЖКТ</td></tr>
+      <tr><td>Результат зависит от приживаемости штамма</td><td>Действие не зависит от «приживания»</td></tr>
+    </table>
+
+    <p class="prose-title">Что происходит в организме и почему именно на этом этапе</p>
+    <p class="prose">К началу второго месяца кишечник уже прошёл подготовку — патогенной нагрузки меньше, а значит открывается своеобразное «окно возможностей»: метаболиты полезных бактерий начинают работать в среде, которая уже готова их принять. Такие вещества питают полезную флору и создают условия, в которых патогенным микроорганизмам сложнее закрепиться — именно поэтому метабиотик вводится не в первый месяц, а во второй, когда почва уже подготовлена.</p>
+
+    <p class="prose-title">Зачем нужен GreenBlend</p>
+    <p class="prose">Пищевые волокна — это «еда» для полезных бактерий: без них даже самые качественные бактерии не смогут закрепиться и полноценно работать. GreenBlend добавляет в рацион разнообразные растительные вещества — фитонутриенты, хлорофилл, — а чем разнообразнее «меню» для микробиоты, тем разнообразнее и устойчивее становится сама флора.</p>
+    <p class="prose">Какие процессы он поддерживает: помогает поддерживать благоприятную среду в кишечнике, работает в паре с метабиотиком — один создаёт «актив» полезных бактерий, другой их «кормит». Это мягкая, естественная поддержка пищеварения без стресса для организма.</p>
+
+    <p class="prose-title">Зачем продолжаются коктейли</p>
+    <p class="prose">Восстановление не заканчивается за один месяц — организму по-прежнему нужен качественный белок и полноценное питание, поэтому базовая поддержка коктейлями продолжается и на втором этапе, и на третьем: она не «шаг программы», а фон, на котором всё остальное работает лучше.</p>
+
+    <p class="prose-title">Роль Soft Sorb</p>
+    <p class="prose">Мягкая поддержка комфортного пищеварения — помогает бережно выводить то, что организму не нужно, не «вымывая» при этом полезные вещества. Работает в паре с Drain Effect именно утром, на голодный желудок — так, как описано в схеме выше.</p>
+
+    <p class="prose-title">Роль Drain Effect</p>
+    <p class="prose">Поддерживает водно-солевой баланс и естественные процессы очищения, работая с межклеточной жидкостью — то, что нередко остаётся «за кадром», когда речь идёт о кишечнике, но напрямую влияет на общее самочувствие и ощущение лёгкости в теле.</p>
+
+    <p class="prose-title">Почему нельзя поменять этапы 2 и 3 местами</p>
+    <p class="prose">Заселять полезную флору есть смысл только после того, как убрана лишняя нагрузка — и точно так же закреплять результат биотюнингом есть смысл только после того, как флора уже заселена. Каждый следующий шаг работает только потому, что предыдущий уже сделан.</p>
+
+    <div class="result-block">
+      <div class="result-title">Что происходит в организме на втором этапе</div>
+      <ul class="result-list">
+        <li>Формируется благоприятная среда для полезной флоры</li>
+        <li>Улучшается работа пищеварительной системы</li>
+        <li>Появляется больше энергии</li>
+        <li>Улучшается общее самочувствие</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ЭТАП 3 -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 13 · Этап 3 · Месяц 3</div>
+    <div class="chapter-title">Биотюнинг и закрепление</div>
+
+    <div class="stage-head">
+      <div class="stage-num">03</div>
+      <div class="stage-head-text"><b>Закрепление результата</b>Продолжительность — 1 месяц</div>
+    </div>
+
+    <div class="product-tags">
+      <span class="product-tag">Биотюнинг</span>
+      <span class="product-tag">Коктейли</span>
+      <span class="product-tag">Коллагеновые пептиды</span>
+    </div>
+
+    <p class="prose">После того как кишечник подготовлен, а благоприятная среда сформирована, наступает этап укрепления результата. Если остановиться раньше — есть риск, что со временем всё постепенно вернётся на прежний уровень. Третий этап — про то, чтобы изменения стали новой нормой, а не временным эффектом.</p>
+
+    <p class="prose-title">Что происходит в организме и почему именно сейчас</p>
+    <p class="prose">Биотюнинг работает лучше всего именно на уже «заселённой» флоре — вводить его раньше означало бы удобрять грядку, на которой ещё ничего не посажено. Организм не меняет привычные процессы за несколько недель — обновление тканей и формирование новых пищевых привычек происходит постепенно. Тело всегда выбирает путь, который не создаёт лишнего стресса: резкие изменения часто откатываются назад, а мягкие и постепенные — закрепляются надолго.</p>
+
+    <p class="prose-title">Почему микробиота любит стабильность</p>
+    <p class="prose">Хаотичные скачки — то жёсткая диета, то срыв — сбивают баланс сильнее, чем стабильный, пусть и не идеальный режим. Именно поэтому весь смысл третьего этапа — не «ещё что-то новое», а спокойное продолжение начатого.</p>
+
+    <p class="prose-title">Роль коллагеновых пептидов</p>
+    <p class="prose">Коллаген — это тоже белок, но с особым набором аминокислот, важных именно для соединительной ткани. А кишечная стенка — это тоже соединительная ткань, которой нужен «строительный материал» для восстановления. С возрастом естественная выработка коллагена в организме снижается, поэтому его дополнительный источник особенно ценен именно на этапе закрепления результата — он работает в паре с биотюнингом, поддерживая ткани, которые тот помогает восстанавливать.</p>
+
+    <div class="result-block">
+      <div class="result-title">Что обычно отмечают участники программы</div>
+      <ul class="result-list">
+        <li>Больше энергии</li>
+        <li>Улучшение качества жизни</li>
+        <li>Ощущение внутреннего комфорта</li>
+        <li>Более осознанное отношение к питанию</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ПОЧЕМУ 3 МЕСЯЦА -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 15</div>
+    <div class="chapter-title">Почему именно<br><em>3 месяца</em></div>
+
+    <div class="timeline-illust">
+      <svg width="300" height="70" viewBox="0 0 300 70" fill="none">
+        <line x1="20" y1="35" x2="280" y2="35" stroke="#d4a843" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="40" cy="35" r="7" fill="#10161f" stroke="#f0c96a" stroke-width="2"/>
+        <circle cx="150" cy="35" r="7" fill="#10161f" stroke="#f0c96a" stroke-width="2"/>
+        <circle cx="260" cy="35" r="7" fill="#10161f" stroke="#f0c96a" stroke-width="2"/>
+        <text x="40" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#b0bcc8">Месяц 1</text>
+        <text x="150" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#b0bcc8">Месяц 2</text>
+        <text x="260" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#b0bcc8">Месяц 3</text>
+        <text x="40" y="18" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="12" fill="#f0c96a">Очищение</text>
+        <text x="150" y="18" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="12" fill="#f0c96a">Заселение</text>
+        <text x="260" y="18" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="12" fill="#f0c96a">Закрепление</text>
+      </svg>
+    </div>
+
+    <p class="prose">Организм не работает по щелчку — он любит постепенные изменения. Клетки кишечного эпителия обновляются не мгновенно, привычки пищеварения формируются неделями, а не днями, а баланс микрофлоры, который нарушался месяцами и годами, не может восстановиться за несколько дней приёма одной баночки.</p>
+
+    <p class="prose">Новым привычкам — как в питании, так и на уровне микрофлоры — нужно время, чтобы стать «настройками по умолчанию», а не усилием воли. Именно поэтому у программы три последовательных месяца, а не один интенсивный курс: каждый месяц закладывает основу для следующего, и результат от этого получается устойчивым, а не временным.</p>
+
+    <p class="prose">Ждать мгновенного результата — то же самое, что ждать, что посаженное дерево даст плоды через неделю. Природные процессы просто не работают в такой логике — и тело, как часть природы, тоже.</p>
+  </div>
+
+  <!-- ИСТОРИЯ АВТОРА -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 16</div>
+    <div class="chapter-title">Почему я сама<br>прохожу эту программу</div>
+
+    <div class="author-block">
+      <div class="author-photo">👤</div>
+      <div>
+        <div class="author-title">Ольга Картунова</div>
+        <p class="author-text">Я никогда не рекомендую людям то, что не использую сама.</p>
+        <p class="author-text">Каждое утро за 30 минут до завтрака я принимаю <b>Drain Effect</b> и <b>Soft Sorb</b>. Это моя ежедневная привычка заботы о себе.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- СВОДНАЯ ТАБЛИЦА -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 17</div>
+    <div class="chapter-title">Программа целиком</div>
+    <table class="summary-table">
+      <tr><th>Этап</th><th>Фокус</th><th>Продукты</th></tr>
+      <tr><td><b>1 · Подготовка</b><br>1 месяц</td><td>Очищение, снижение нагрузки</td><td>Детокс-комплекс, коктейли</td></tr>
+      <tr><td><b>2 · Заселение</b><br>1 месяц</td><td>Питание и баланс флоры</td><td>Метабиотик, GreenBlend, Drain Effect, Soft Sorb, коктейли</td></tr>
+      <tr><td><b>3 · Закрепление</b><br>1 месяц</td><td>Долгосрочная стабильность</td><td>Биотюнинг, коллагеновые пептиды, коктейли</td></tr>
+    </table>
+  </div>
+
+  <!-- FAQ -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 18</div>
+    <div class="chapter-title">Частые вопросы</div>
+
+    <div class="faq-item">
+      <div class="faq-q">Можно ли начинать сразу со второго этапа?</div>
+      <div class="faq-a">Можно, но эффект будет слабее — без подготовки первого этапа полезной флоре сложнее закрепиться, как ростку в неподготовленной почве.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Почему нужны коктейли все три месяца?</div>
+      <div class="faq-a">Они не «шаг» программы, а фон: организму на протяжении всех трёх месяцев важно получать качественный белок и полноценное питание.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Можно ли пропускать этапы?</div>
+      <div class="faq-a">Каждый следующий этап рассчитан на то, что предыдущий уже сделан — пропуск снижает итоговый эффект всей программы.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Когда ждать первые изменения?</div>
+      <div class="faq-a">Многие замечают больше лёгкости и энергии уже в первый месяц — но устойчивый результат формируется именно к концу третьего.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Почему результаты у всех разные?</div>
+      <div class="faq-a">Исходное состояние микрофлоры, образ жизни, питание и уровень стресса у каждого свои — и программа работает вместе с этим, а не вместо этого.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Нужно ли соблюдать питьевой режим?</div>
+      <div class="faq-a">Да — вода участвует практически во всех процессах очищения и обмена веществ, о которых говорится в этом гайде.</div>
+    </div>
+  </div>
+
+  <!-- ПАМЯТКА -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 20</div>
+    <div class="chapter-title">Памятка на каждый день</div>
+
+    <div class="check-cols">
+      <div class="check-block">
+        <div class="check-block-title">Делать ежедневно</div>
+        <ul class="check-list do">
+          <li>Пить воду с утра, до еды</li>
+          <li>Соблюдать схему приёма продуктов программы</li>
+          <li>Включать в рацион клетчатку — овощи, зелень</li>
+          <li>Получать достаточно белка в каждый приём пищи</li>
+          <li>Спать 7-8 часов</li>
+        </ul>
+      </div>
+      <div class="check-block">
+        <div class="check-block-title">Желательно ограничить</div>
+        <ul class="check-list limit">
+          <li>Избыток сахара и сладкого</li>
+          <li>Алкоголь</li>
+          <li>Хаотичные перекусы «на бегу»</li>
+          <li>Малоподвижный образ жизни</li>
+        </ul>
+      </div>
+      <div class="check-block">
+        <div class="check-block-title">Привычки, которые помогают</div>
+        <ul class="check-list do">
+          <li>Регулярное время приёма пищи</li>
+          <li>Прогулки и лёгкое движение каждый день</li>
+          <li>Снижение уровня стресса</li>
+          <li>Питьевой режим в течение дня</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЗАКЛЮЧЕНИЕ -->
+  <div class="chapter">
+    <div class="chapter-eyebrow">Стр. 21</div>
+    <div class="chapter-title">Инвестиция<br>в качество жизни</div>
+    <p class="final-quote">Здоровье кишечника — это не краткосрочная акция и не волшебная таблетка. Это процесс создания среды, в которой организм может работать максимально эффективно.</p>
+    <p class="final-quote">Забота о микробиоте — это не курс на три месяца. Это начало нового отношения к своему организму.</p>
+    <p class="final-cta">Инвестиция в качество жизни<br>на долгие годы.</p>
+  </div>
+
+  <div class="disclaimer">
+    <div class="disclaimer-title">Гайд разработан для структуры Ольги и Геннадия Картуновых</div>
+    <p class="disclaimer-text">Материал носит информационный характер и составлен на основе открытых источников и официальных описаний продукции NL International. БАД. Не является лекарственным средством. Не заменяет консультацию специалиста.</p>
+  </div>
+
+</div>
+</body>
+</html>
